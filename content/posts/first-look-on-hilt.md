@@ -31,14 +31,16 @@ What changes the game with Hilt?
 
 If I would try to phrase it, I would say that it treats Android classes like they deserve to be treated, **as normal classes**. While in Dagger-Android, Activities, Fragments, WorkManager were classes, but also mysterious objects, which were very scary to work with.
 
-_Note: this post assumes the reader knows Dagger_
+{{< admonition >}}
+This post assumes the reader knows Dagger
+{{< /admonition >}}
 
 Quick start on Hilt
 ===================
 
 Let's just start with modules. Since it is built on top of Dagger, there are some things which remain. Let's suppose we have this example:
 
-```
+```kotlin
 @Module  
 object MyAppScopeDependenciesModule{  
   @Provides  
@@ -53,7 +55,7 @@ object MyAppScopeDependenciesModule{
 
 And let's create a component just for the sake of the example (App level scope):
 
-```
+```kotlin
 @Singleton  
 @Component(modules = [MyAppScopeDependenciesModule::class])  
 interface MyApplicationComponent{  
@@ -69,7 +71,7 @@ interface MyApplicationComponent{
 
 And let's hit the Build button and then let's start importing dependencies:
 
-```
+```kotlin
 class MyApplication : Application(){  
    
   @Inject lateinit var dep1: Dep1  
@@ -80,14 +82,13 @@ class MyApplication : Application(){
     DaggerMyApplicationComponent.factory().create(this)  
   }  
 }  
-
 ```
 
 The relation between scopes and modules was always mysterious by them who never cared to check what the Dagger's annotation processor generated. Therefore, I must say that this was pretty well spotted by those who built Hilt. In Dagger, scoped modules were connected with scoped components by a stand-alone annotation, which provided nearly 0 information if these two (or more modules) were related.
 
 Now, let's try to build the above example with hilt:
 
-```
+```kotlin
 @Module  
 @InstallIn(ApplicationComponent::class)  
 object MyAppScopeDependenciesModule{  
@@ -105,7 +106,7 @@ Before you hit Build button, that's all you need with Hilt.
 
 Hilt provides the component for you. No need there for creating a component or a scope. Think of components and scopes as they were merged together. And actually, this is why Hilt is a game changer. [Here](https://dagger.dev/hilt/component-hierarchy.svg)is the component hierarchy needed to be used in Android apps, coming from `dagger.hilt.android.components.*`. Basically, you know your dependencies life length, and now you know where to install it. One last step, let's perform Dependency Injection:
 
-```
+```kotlin
 @HiltAndroidApp  
 class MyApplication : Application(){  
    
@@ -120,7 +121,7 @@ class MyApplication : Application(){
 
 Also, if you want to perform DI in Activities, Fragments, Views, Services or Broadcast receivers, there is no need anymore for `AndroidInjection.inject(this)`. Instead just mark them with `@AndroidEntryPoint` at the top of the class:
 
-```
+```kotlin
 @AndroidEntryPoint  
 class MainActivity : AppCompatActivity() {  
   // either comming from an ActivityComponent or ApplicationComponent  
@@ -133,13 +134,15 @@ class MainActivity : AppCompatActivity() {
 }
 ```
 
-_Note: The injection happens in `onCreate()`_
+{{< admonition >}}
+The injection happens in `onCreate()`
+{{< /admonition >}}
 
 ### Is that the best it can do?
 
 Nope, Hilt has also finally solved the problem of `ViewModel`s instantiate process and in general, having runtime and build time dependencies in the constructor at once. Before Hilt, I used to install [AssistedInject](https://github.com/square/AssistedInject)to manage creating `saveStateHandle` properly and there is a [full tutorial](https://www.coroutinedispatcher.com/2019/08/how-to-produce-savedstatehandle-in-your.html) on how to do that. But let's also do something simple as a short presentation:
 
-```
+```kotlin
 class MyViewModel @AssistedInject constructor(  
   private val dep1: Dep1,  
   @Assisted private val saveStateHandle: SaveStateHandle  
@@ -154,7 +157,7 @@ class MyViewModel @AssistedInject constructor(
 
 And then install a module for it:
 
-```
+```kotlin
 @AssistedModule  
 @Module(includes = [AssistedInject_ViewModelModule::class])  
 abstract class ViewModelModule
@@ -162,7 +165,7 @@ abstract class ViewModelModule
 
 And then expose the ViewModel in the `AppComponent`:
 
-```
+```kotlin
 @Component(...)  
 interface AppComponent{  
   ...  
@@ -173,7 +176,7 @@ interface AppComponent{
 
 And after that I could have a ViewModel happily ever after in my Fragment:
 
-```
+```kotlin
 inline fun  Fragment.viewModelFactory(  
     crossinline provider: (SavedStateHandle) -> T  
 ) = viewModels {  
@@ -191,13 +194,15 @@ class HomeFragment : Fragment() {
  }
 ```
 
-_Note: For more details on this solution check the link provided above._
+{{< admonition >}}
+For more details on this solution check the link provided above.
+{{< /admonition >}}
 
 Having to do all this steps for just a ViewModel was painful, not to mention that `AssistedInject` still had a lot to do (Or I could use Koin, but that is not the topic at the moment).
 
 While with Hilt, it is pretty simple:
 
-```
+```kotlin
 class EditorViewModel @ViewModelInject constructor(  
     private val playgroundRepository: PlaygroundRepository,  
     @Assisted private val savedStateHandle: SavedStateHandle  
@@ -206,12 +211,14 @@ class EditorViewModel @ViewModelInject constructor(
 
 After that, nothing else is needed. Just import the ViewModel as you normally do:
 
-```
+```kotlin
 //inside Fragment  
 private val editorViewModel by viewModels()
 ```
 
-_Note: Please check Hilt's documentation for correct dependencies to import. The `ViewModel` and `WorkManager` solution come as separated dependencies. For more, check [here](https://developer.android.com/training/dependency-injection/hilt-jetpack)_
+{{< admonition >}}
+Please check Hilt's documentation for correct dependencies to import. The `ViewModel` and `WorkManager` solution come as separated dependencies. For more, check [here](https://developer.android.com/training/dependency-injection/hilt-jetpack)
+{{< /admonition >}}
 
 onDestroyView
 -------------

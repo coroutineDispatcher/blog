@@ -24,12 +24,9 @@ As many of us might know, Realm has already introduced [freezing objects](https:
 
 A lot of us might have faced this issue:
 
-```
 
-
+```plain
 Realm access from incorrect thread. Realm objects can only be accessed on the thread they were created.
-
-
 ```
 
 I believe the error speaks for itself.
@@ -40,7 +37,7 @@ When you call `Realm.getDefaultInstance()` you are not creating a new object eve
 
 Let's consider the following case:
 
-```
+```kotlin
 private lateinit var realm: Realm  
 ...  
 override var onCreate(){  
@@ -60,7 +57,7 @@ Every time we have to start a realm interaction, we have to call `Realm.getDefau
 
 Same would have happened if you were to read an `RealmObject` or a `RealmResults<T>`:
 
-```
+```kotlin
 private lateinit var realm: Realm  
 private var myObject: MyRealmObject? = null  
 ...  
@@ -81,7 +78,7 @@ suspend fun doSomething() = withContext(Dispatchers.IO){
 
 Since this would be a huge obstacle, especially to reactive programming, the Realm team is bringing a new actor in the game: The frozen Realm. Just a new object which can be used across threads, attached to the only instantiated Realm object.
 
-```
+```kotlin
 private lateinit var liveRealm: Realm  
 private lateinit var frozenRealm: Realm  
    
@@ -102,7 +99,7 @@ suspend fun doSomething() = withContext(Dispatchers.IO){
 
 You can do the above solution, or you can directly freeze the `RealmResults<T>`or directly freeze the object (must be a `RealmObject`). This would be even easier:
 
-```
+```kotlin
 private lateinit var realm: Realm  
 private var myObject: RealmResults? = null  
    
@@ -127,16 +124,15 @@ Are coroutines really necessary for this example?
 
 Not at all, but coroutines give a nice presentation of thread switch with `withContext` block. Realm has its own thread usage:
 
-```
+```kotlin
 val result = realm.where<MyRealmObject>().findAllAsync()  
-
 ```
 
 The `findAllAsync()` eliminate the necessity to have other kinds of thread pools. However, combining realm with `Flow` (particularly `callbackFlow`) would be one good choice if you want to go more reactive. Let us consider the following case: Select some data from the database and every time data changes, a new toast would appear.
 
 The imperative way:
 
-```
+```kotlin
 // In a ViewModel  
 fun getData(){  
   val result = realm.where<MyRealmObject>().findAllAsync()  
@@ -148,7 +144,7 @@ fun getData(){
 
 As an example is more than enough to eliminate usage of coroutines. But let's consider this following case: Fetch a list of objects locally, and make a POST request on the network after serializing it to JSON.
 
-```
+```kotlin
 suspend fun sendListToNetwork() = withContext(Dispatchers.IO){  
    val result = frozenRealm.where<MyRealmObject>().findAll()  
    // We are in another thread because of the Network Request and not because of Realm  
@@ -168,7 +164,7 @@ If the case would have been longer, we would have had a more difficult code to r
 
 Let's make a generic method for all Realm objects that are going to be selected as a list:
 
-```
+```kotlin
 inline fun  observeData(): Flow> = callbackFlow{  
    val result = frozenRealm.where<T>().findAllAsync()  
    result.addChangeListener{ mResult ->  
@@ -180,7 +176,7 @@ inline fun  observeData(): Flow> = callbackFlow{
 
 It's time to observe the magic of this new feature with combination to coroutines:
 
-```
+```kotlin
 // inside the ViewModel  
 suspend fun sendDataToNetwork(){  
   observeData().flowOn(Dispatchers.IO)  
