@@ -11,8 +11,6 @@ author: "Stavro Xhardha"
 
 [![](https://1.bp.blogspot.com/-Ilk8HkKHwto/XmAAerl4hxI/AAAAAAAASHA/HM--n5LPclUcnVSoOg1EukqJ4QVSm78pgCLcBGAsYHQ/s1600/johnny-brown-1k35_trK6qo-unsplash.jpg)](https://1.bp.blogspot.com/-Ilk8HkKHwto/XmAAerl4hxI/AAAAAAAASHA/HM--n5LPclUcnVSoOg1EukqJ4QVSm78pgCLcBGAsYHQ/s1600/johnny-brown-1k35_trK6qo-unsplash.jpg)
 
-  
-  
 
 Details matter especially when it comes to making users happy. We have all kinds of users, those who don't care how the app is designed (just do what he/she needs), those who care, and those who are developers themselves. I have met people who don't use a single app just because it has some strange animation, and they hate it.
 
@@ -22,7 +20,9 @@ I might be wrong, but some design details also define a company on how serious i
 
 It's just a screen, which stays not more than 2 seconds around before the first Activity of your app is being launched. There are plenty of ways to get rid of it (or just manipulate it), I personally prefer the easiest one.
 
-_Note: If you want to read more about this problem, [here](https://developer.android.com/topic/performance/vitals/launch-time) is the official documentation._
+{{< admonition >}}
+Note: If you want to read more about this problem, [here](https://developer.android.com/topic/performance/vitals/launch-time) is the official documentation.
+{{< /admonition >}}
 
 So, let's see how to fix this small detail. And I will take twitter app as an example for that. IMO, that's the best example you can give on how to solve it. Now I am not sure if twitter has the same way that I will introduce, but twitters solution is pretty decent, and I assume it's nearly the same as the code below.
 
@@ -30,7 +30,7 @@ So, let's see how to fix this small detail. And I will take twitter app as an ex
 
 First, just add an XML file in your drawable folder:
 
-```
+```xml
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" android:opacity="opaque">  
     <item android:drawable="@color/twitter_blue_background" />  
     <item>  
@@ -43,13 +43,13 @@ First, just add an XML file in your drawable folder:
 
 Next, all you would need is to call this implementation in your theme in the styles.xml file (make sure you place it in the current theme that is related on your AndroidManifest.xml):
 
-```
+```xml
 <item name="android:windowBackground">@drawable/splash_screen</item>
 ```
 
 So simple. And it's a nice experience also.
 
-Conclusion
+## Conclusion
 
 I've seen many confusing articles about solving this problem with a very long implementation. One of those for instance, just tries to keep the app idle after clicking the launcher icon (like making everything transparent) until the Activity starts.... I don't agree with that even though for some might work as well.  
 

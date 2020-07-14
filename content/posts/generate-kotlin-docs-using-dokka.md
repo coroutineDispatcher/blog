@@ -17,7 +17,7 @@ I personally used Dokka for a [small API](https://github.com/coroutineDispatcher
 
 Let's take a simple example:
 
-```
+```kotlin
 /** Reads a String from SharedPreferences  
 * @param [key] the key provided to find the stored value  
 * @return [String] the data of type String if found if not returns an empty String  
@@ -36,13 +36,13 @@ So, let's set up Dokka first.
 
 Go to `build.gradle` (project level) and add this line:
 
-```
+```kotlin
 classpath "org.jetbrains.dokka:dokka-gradle-plugin:0.9.18" //or later version
 ```
 
 Than, just apply the plugin in the `build.gradle` (level module):
 
-```
+```groovy
 apply plugin: 'org.jetbrains.dokka'  
 ...  
 android {  

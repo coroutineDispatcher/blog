@@ -37,21 +37,21 @@ I used this [codelab](https://codelabs.developers.google.com/codelabs/advanced-k
 
 Let's do it. Starting from the source of truth we would have this:
 
-```
+```kotlin
 @Query("SELECT * FROM plants ORDER BY name")  
 fun getPlants(): LiveData<List<Plant>>
 ```
 
 Which transforms into:
 
-```
+```kotlin
 @Query("SELECT * from plants ORDER BY name")  
 fun getPlantsFlow(): Flow<List<Plant>>
 ```
 
 Now, let's perform some operation with the result on our repository:
 
-```
+```kotlin
 val plants = liveData<List<Plant>> {  
     val plantsLiveData = plantDao.getPlants()  
     val customSortOrder = plantsListSortOrderCache.getOrAwait()  
@@ -63,7 +63,7 @@ val plants = liveData<List<Plant>> {
 
 This is a LiveData builder, which would transform into:
 
-```
+```kotlin
 private val customSortFlow = plantsListSortOrderCache::getOrAwait.asFlow()  
   val plantsFlow: Flow<List<Plant>>  
     get() = plantDao.getPlantsFlow().combine(customSortFlow) { plants, sortOrder ->  
@@ -77,7 +77,7 @@ Now, this is a little bit tricky. Notice the first block that has a LiveData bui
 
 If you come from RxJava the `combine()` is the equivalent of `zip()`. The `asFlow()` extension is a function which allows you to return everything you want into a Flow:
 
-```
+```kotlin
 public fun <T> (suspend () -> T).asFlow(): kotlinx.coroutines.flow.Flow<T> { /* compiled code */ }
 ```
 
@@ -85,19 +85,20 @@ But if we notice we have more operators: `flowOn()`, and `conflate()`. `flowOn()
 
 What's left now? Ah, the ViewModel:
 
-```
-val plants: LiveData<List<Plant>> = plantRepository.plants //the original has some other operations but for this case we don't care, just return a LiveData
+```kotlin
+val plants: LiveData<List<Plant>> = plantRepository.plants 
+//the original has some other operations but for this case we don't care, just return a LiveData
 ```
 
 Transforms to:
 
-```
+```kotlin
 val plantsUsingFlow: LiveData<List<Plant>> = plantRepository.plantsFlow.asLiveData()
 ```
 
 The missing part for me was the `.asLiveData()` extension. Yes there is an extension function which you can use for every Flow in order to observe LiveData on the Fragment:
 
-```
+```kotlin
 @JvmOverloads  
 fun <T> Flow<T>.asLiveData(  
   context: CoroutineContext = EmptyCoroutineContext,  
@@ -115,23 +116,30 @@ Extra material
 
 During the course you would face some other operations:
 
-```
+```kotlin
 .flatMapLatest{result -> process(result)}
-```Basically just returns a new Flow each time a method returns a value.
-
 ```
+
+Basically just returns a new Flow each time a method returns a value.
+
+```kotlin
 .onStart{doSomethingOnStart()}
-```Well the name speaks for itself. An operation which executes when the stream starts
-
 ```
+
+Well the name speaks for itself. An operation which executes when the stream starts
+
+```kotlin
 .onCompletion{doSomething()}
-```This is even easier, operation that executes when the stream ends
-
 ```
-.launchIn(viewModelScope)
-```The method that helps to define the coroutine scope for this flow (inside it you can find the `collect()` method) making this method the equivalent of `launch{collect()}`
+This is even easier, operation that executes when the stream ends
 
-Conclusion (what's the next step)
+```kotlin
+.launchIn(viewModelScope)
+```
+
+The method that helps to define the coroutine scope for this flow (inside it you can find the `collect()` method) making this method the equivalent of `launch{collect()}`
+
+## Conclusion (what's the next step)
 
 I would recommend hard work and reading the Flow API [over here](https://kotlinlang.org/docs/reference/coroutines/flow.html). Once you have the concept, it's just operations you need to learn how-to and why. Just think of the `Flow<T>` as a `AsyncStreamingList<T>` which has some nice operations about the data. Flows apply to functional programming style and also shorten a lot of boilerplate if you use them right.
 
