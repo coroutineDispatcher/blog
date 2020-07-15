@@ -17,7 +17,7 @@ The data source:
 
 I'm retrieving the data using a local database and Paging Library's `Datasource.Factory<Key, Value>`:
 
-```
+```kotlin
 @Dao  
 interface MyDao{  
     @RawQuery(observedEntities = [MyEntityRepresentation::class])  
@@ -30,11 +30,13 @@ Room queries at Runtime.
 
 My use case requires to generate a dynamic query each time the user performs a search. In other words, the query depends on the users "advance" search. Since we know that Room generates queries at compile time, we would need something different. In this case we annotate our method with `@RawQuery` and must place `observedEntities` as dependency of that annotation. The methods parameter is jut a class where you can place your query string later.
 
-_Note: The `DatasourceFactory` cannot be marked with suspend, the compilation would fail if you do so._
+{{< admonition >}}
+The `DatasourceFactory` cannot be marked with suspend, the compilation would fail if you do so.
+{{< /admonition >}}
 
 So, the query should look something like this:
 
-```
+```kotlin "fixed=true"
 fun instantiateSearch(  
         field1: String,  
         field2: String,  
@@ -60,7 +62,9 @@ fun instantiateSearch(
     }
 ```
 
-_Note, the search query is performed in a `BottomSheetFragment` so it's easy to send the query as an `Event` to the `PagingFragment`_.
+{{< admonition >}}
+The search query is performed in a `BottomSheetFragment` so it's easy to send the query as an `Event` to the `PagingFragment`.
+{{< /admonition >}}
 
 I'm also not dealing with how to send an event through a `SharedViewModel`, but you can check [this](https://medium.com/androiddevelopers/livedata-with-snackbar-navigation-and-other-events-the-singleliveevent-case-ac2622673150) link, or [this](https://www.coroutinedispatcher.com/2019/12/conditional-navigation-and-single-event.html) blog post of mine. But to get the picture, pretend my query is the ball below and players are Fragments or a ViewModel:
 
@@ -68,7 +72,7 @@ I'm also not dealing with how to send an event through a `SharedViewModel`, but 
 
 After that all we have to do is pass the query. And here is where our problem with Paging Library starts. So let's say that we have a configuration like this:
 
-```
+```kotlin
 class HomeViewModel @Inject constructor( //in real project is using @AssistedInject, no matter for this case  
     private val myDao: MyDao,  
 ) : ViewModel() {  
@@ -94,7 +98,7 @@ This is not such a sophisticated solution because your user would end up seeing 
 
 And now let's show the right thing to do it. First, the source should be only the one I describe in the `Dao`. Now let's refactor:
 
-```
+```kotlin
 //inside ViewModel  
 var data: LiveData<PagedList<MyEntityRepresentation>>  
 private val listConfig = PagedList.Config.Builder()  
@@ -106,7 +110,7 @@ private var finalSelectionQuery = "" //we need this
 
 And now we can do something like this:
 
-```
+```kotlin
  init {  
         data = LivePagedListBuilder(  
             myDao.selectAllMeetingCondition(  
@@ -119,7 +123,7 @@ And now we can do something like this:
 
 Now, let's setup our `PagedFragment` so it can be updated depending on the query:
 
-```
+```kotlin
 override fun onViewCreated(view: View, savedInstanceState: Bundle?) {  
         super.onViewCreated(view, savedInstanceState)  
         initialiseComponents(view)  
@@ -130,7 +134,7 @@ override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
 Inside the `observeDataChanges()` is just our data from ViewModel LiveData observation:
 
-```
+```kotlin
 homeViewModel.cards.observe(this, Observer {  
             if (it.isEmpty()) {  
                //show empty result view  
@@ -142,7 +146,7 @@ homeViewModel.cards.observe(this, Observer {
 
 Why have we refactored this method? Because once the new String has been formed, the `PagedFragment` will get notified, will remove it's subscription, perform the query and re-evaluate data LiveData once again:
 
-```
+```kotlin
 sharedViewModel.searchObjectLiveData.observe(viewLifecycleOwner, Observer {  
             it.getContentIfNotHandled()?.let { searchQuery ->  
                 /*I admit that I have to find a better name but it's doing two things, removing the LiveDataObserver  
@@ -155,7 +159,7 @@ sharedViewModel.searchObjectLiveData.observe(viewLifecycleOwner, Observer {
 
 Our last step is to write the `resetAndPerformSearch()` method:
 
-```
+```kotlin
 fun resetAndPerformSearch(query: String, lifecycleOwner: LifecycleOwner) {  
         data.removeObservers(lifecycleOwner) //the fragment is not observing anymore  
         data = LivePagedListBuilder(  

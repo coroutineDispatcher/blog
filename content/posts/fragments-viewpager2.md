@@ -19,15 +19,16 @@ The [ViewPager2](https://developer.android.com/jetpack/androidx/releases/viewpag
   
 So, let's suppose that we have 2 Fragments: HomeFragment and SchoolFragment. In the Activity/Fragment xml file, which is going to hold these two sliding by switching with each-other, place the ViewPager2 tag:  
   
-```
+```xml
 <androidx.viewpager2.widget.ViewPager2  
     xmlns:android="http://schemas.android.com/apk/res/android"  
     android:id="@+id/my_view_pager"  
     android:layout_width="match_parent"  
     android:layout_height="match_parent" >"
-```Now, let's set up code in the MainActivity (in my case this is the name of the Activity):  
-  
 ```
+Now, let's set up code in the MainActivity (in my case this is the name of the Activity):  
+  
+```kotlin
 class MainActivity : AppCompatActivity() {  
   
     private lateinit var viewPager: ViewPager2  
@@ -65,13 +66,15 @@ class MainActivity : AppCompatActivity() {
         }  
     }  
 }
-```Some things to spot here though.  
+```
+
+Some things to spot here though.  
   
 1- Notice that you have the FragmentStateAdapter instead of FragmentStatePagerAdapter.  
   
 2- To associate TabLayout with the ViewPager there is no more tabLayout.setupWithViewPager(). Instead you should import _com.google.android.material:material:1.1.0-beta01_ or later version of the dependency. And than you can do:  
   
-```
+```kotlin
 TabLayoutMediator(tabLayout, viewPager) { tab, position ->  
             when (position) {  
                 0 -> tab.text = "Home"  
@@ -84,5 +87,5 @@ And that's it, now you have your shiny new ViewPager2 set up with Fragments.
 Helpful resources:  
 [Slide between Fragments using Viewpager2.](https://developer.android.com/training/animation/screen-slide-2#kotlin)  
 [Turning the Page: Migrating to ViewPager2 (Android Dev Summit '19).](https://youtu.be/lAP6cz1HSzA)  
-  
-@import url('https://cdn.rawgit.com/lonekorean/gist-syntax-themes/848d6580/stylesheets/monokai.css'); @import url('https://fonts.googleapis.com/css?family=Open+Sans'); body { margin: 20px; font: 16px 'Open Sans', sans-serif; } Stavro Xhardha
+
+Stavro Xhardha

@@ -51,4 +51,4 @@ To know how I end up in details to this solution about my ViewModel (and why I a
   
 Now, doesn't that seem to much work for every feature just for the ViewModel? I require from you to be patient as we are covering this in the next part. The problem is simple: We still haven't solve the feature independence problem, we just set up dagger and made a built without errors. If you notice, :core\_module is installed in all features (except one), which means that a feature which doesn't need a dependency still knows everything about it. Therefore, the next step will be to fix that problem.  
   
-@import url('https://cdn.rawgit.com/lonekorean/gist-syntax-themes/848d6580/stylesheets/monokai.css'); @import url('https://fonts.googleapis.com/css?family=Open+Sans'); body { margin: 20px; font: 16px 'Open Sans', sans-serif; } Stavro Xhardha
+Stavro Xhardha

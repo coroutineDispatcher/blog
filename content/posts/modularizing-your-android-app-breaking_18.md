@@ -65,5 +65,5 @@ The same logic as the database configuration appeals to the retrofit modularizat
   
 **Conclusion**  
 There you go, now your modules are totally independent from each-other and our multi module app is 90% ready. The last part will be covering some short topics about my background-things (AlarmManager, WorkManager) and mostly resources, layouts and values.  
-  
-@import url('https://cdn.rawgit.com/lonekorean/gist-syntax-themes/848d6580/stylesheets/monokai.css'); @import url('https://fonts.googleapis.com/css?family=Open+Sans'); body { margin: 20px; font: 16px 'Open Sans', sans-serif; } Stavro Xhardha
+
+ Stavro Xhardha

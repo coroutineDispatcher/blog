@@ -14,8 +14,6 @@ This week, I've been playing with service locators in Android. I made [this](htt
   
 The app is pretty simple, just retrieves some data from a Cat API, saves them to a local Room persistence and then renders them to the screen:  
   
-hljs.initHighlightingOnLoad();
-
 [![](https://1.bp.blogspot.com/-QU4jCWTjQCo/XeI9eqyD9qI/AAAAAAAAQjI/IKjH3T1I3VcrOen2PeMKVhXtsWhPc8K_wCLcBGAsYHQ/s1600/ServiceLocator%2BDiagram.jpg)](https://1.bp.blogspot.com/-QU4jCWTjQCo/XeI9eqyD9qI/AAAAAAAAQjI/IKjH3T1I3VcrOen2PeMKVhXtsWhPc8K_wCLcBGAsYHQ/s1600/ServiceLocator%2BDiagram.jpg)
 
   
@@ -29,10 +27,10 @@ The screen renders just a the list of cats retrieved by the database after the d
   
 I'm comparing these  tools in verbosity, simplicity and time to set up.  
   
-**[Koin](https://insert-koin.io/).**  
+## [Koin](https://insert-koin.io/) 
 Koin as a service locator is the easiest to get in with. The docs are pretty simple and it provides a lot of features, making it the perfect tool for Android in particular. However, it has some things I don't really like. Something I like to call the _pre-declaration of the constructor_. Notice this code here:  
   
-```
+```kotlin
 val myModule = module{  
       ...  
       single {  
@@ -51,7 +49,9 @@ val myModule = module{
         }  
       ...  
     }
-```These lines are what I love and what I hate about Koin. First of all, I really love that it provides it's own feature about the ViewModel factory. But it has some perks, IMO:  
+```
+
+These lines are what I love and what I hate about Koin. First of all, I really love that it provides it's own feature about the ViewModel factory. But it has some perks, IMO:  
   
 1- First of all when it comes to naming, if you think about it, one keyword is single (so it's a scope), and the other is a factory (doesn't give a message about the scope, but it's a factory), and the other is a viewmodel (definitely not a scope). This makes it a little bit chaotic, mixing the concept of scopes with factory patterns.  
   
@@ -59,7 +59,7 @@ val myModule = module{
   
 _I'm not handling the part of field injection, because it looks the same in all DI tools. The constructor injection in Android is a little bit more tricky than the other parts._  
   
-**[KodeIn](https://kodein.org/Kodein-DI/)**  
+## [KodeIn](https://kodein.org/Kodein-DI/) 
   
 The same thing applies to KodeIn when it comes to speed of set up. It's fantastic. Furthermore, the lazy initialisation of dependencies looks really great to me.  
   
@@ -76,7 +76,7 @@ Otherwise, you would need to keep your ViewModelFactory pattern, and KodeIn hasn
 Must note that this is only an idea and it's totally immature, but I find compile time safer than runtime. Therefore, annotations are perfectly solving a case of DI in the JVM world. If we forget Dagger for a moment, the next best example would be Spring framework with its' @Autowire injection keyword.  
 Anyways, there could be library which could be a mix between Dagger and other service locators. I still imagine something like this:  
   
-```
+```kotlin
 @Holder  
 class MyApplication: Application(){  
    
@@ -112,10 +112,12 @@ class Dependency2(){
 class MyViewModel(d1: D1, d2: D2) : ViewModel(){  
     
 }
-```This is far from explained or implemented, and I am still learning about code generation, but a Dagger without components would be awesome as a service locator (hopefully this is not Dagger1, because I've never seen it 😅) .  
+```
+
+This is far from explained or implemented, and I am still learning about code generation, but a Dagger without components would be awesome as a service locator (hopefully this is not Dagger1, because I've never seen it 😅) .  
   
 **Conclusion:**  
-Using KodeIn or Koin in your codebase is pretty reasonable thing to do, if it solves your problem. But this article was more about to state that _they are not as simple as developer state_ they are. Furthermore, I still think that Dagger takes a little more time to implement (and hopefully that's the hardest thing in Dagger, trust me) , but the generation of boilerplate comes from the framework and giving less work to the developer. @import url('https://cdn.rawgit.com/lonekorean/gist-syntax-themes/848d6580/stylesheets/monokai.css'); @import url('https://fonts.googleapis.com/css?family=Open+Sans'); body { margin: 20px; font: 16px 'Open Sans', sans-serif; }  
+Using KodeIn or Koin in your codebase is pretty reasonable thing to do, if it solves your problem. But this article was more about to state that _they are not as simple as developer state_ they are. Furthermore, I still think that Dagger takes a little more time to implement (and hopefully that's the hardest thing in Dagger, trust me) , but the generation of boilerplate comes from the framework and giving less work to the developer.
   
 If you want to know more about service locators, dependency injection and IoC in particular, please refer [here](https://martinfowler.com/articles/injection.html).  
   
