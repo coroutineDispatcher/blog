@@ -12,7 +12,6 @@ tags:
     Android Development,
   ]
 author: "Stavro Xhardha"
-hiddenFromSearch: false
 ---
 
 [![](https://1.bp.blogspot.com/-ur3CRpODGmw/XXVKC9GW7YI/AAAAAAAAPKY/KzYcwcteoqERxQCXTRY0aNi2fQCFumyzACLcBGAs/s1600/elliott-engelmann-DjlKxYFJlTc-unsplash.jpg)](https://1.bp.blogspot.com/-ur3CRpODGmw/XXVKC9GW7YI/AAAAAAAAPKY/KzYcwcteoqERxQCXTRY0aNi2fQCFumyzACLcBGAs/s1600/elliott-engelmann-DjlKxYFJlTc-unsplash.jpg)
