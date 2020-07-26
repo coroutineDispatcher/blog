@@ -1,0 +1,24 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Kotlin Delegation - Tag - Coroutinedispatchers&#39; blog</title>
+        <link>https://coroutinedispatcher.github.io/coroutinedispatcher/tags/kotlin-delegation/</link>
+        <description>Kotlin Delegation - Tag - Coroutinedispatchers&#39; blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>stavro96@gmail.com (Stavro Xhardha)</managingEditor>
+            <webMaster>stavro96@gmail.com (Stavro Xhardha)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 16 Dec 2019 09:53:00 &#43;0100</lastBuildDate><atom:link href="https://coroutinedispatcher.github.io/coroutinedispatcher/tags/kotlin-delegation/" rel="self" type="application/rss+xml" /><item>
+    <title>Setting up Gradle with Kotlin DSL, a simple guide</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/setting-up-gradle-with-kotlin-dsl/</link>
+    <pubDate>Mon, 16 Dec 2019 09:53:00 &#43;0100</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/setting-up-gradle-with-kotlin-dsl/</guid>
+    <description><![CDATA[Kotlin is a very a pretty nice adoptive language and user friendly. It really replaced Java from my everyday programming. However, it was not enough. We all know that groovy runs on JVM. So, why do I even need a new language just for my builds? Can&rsquo;t it be Java? So Java is the basic language for the JVM, Kotlin runs on JVM, Groovy runs on JVM and my build system has a separated language from my business logic system.]]></description>
+</item><item>
+    <title>How to produce the SavedStateHandle in your ViewModel using AssistedInject</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/how-to-produce-savedstatehandle-in-your/</link>
+    <pubDate>Tue, 27 Aug 2019 10:31:00 &#43;0200</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/how-to-produce-savedstatehandle-in-your/</guid>
+    <description><![CDATA[One of my previous article Dagger Multibinding Saved My Time &ldquo;claimed&rdquo; to have found the right practice for providing ViewModels without producing a ViewModel Factory for each ViewModel. Apparently, I was wrong. There are 2 main problems with that approach:
+1 - I might forget to add a ViewModel in the Map graph.
+2 - With the new SavedStateHandle which stays uniqely in each ViewModel I can&rsquo;t use a generic ViewModel Factory.]]></description>
+</item></channel>
+</rss>

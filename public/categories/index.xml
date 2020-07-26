@@ -1,0 +1,8 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Categories - Category - Coroutinedispatchers&#39; blog</title>
+        <link>https://coroutinedispatcher.github.io/coroutinedispatcher/categories/</link>
+        <description>Categories - Category - Coroutinedispatchers&#39; blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>stavro96@gmail.com (Stavro Xhardha)</managingEditor>
+            <webMaster>stavro96@gmail.com (Stavro Xhardha)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><atom:link href="https://coroutinedispatcher.github.io/coroutinedispatcher/categories/" rel="self" type="application/rss+xml" /></channel>
+</rss>

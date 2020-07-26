@@ -1,0 +1,47 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Room Persistence - Tag - Coroutinedispatchers&#39; blog</title>
+        <link>https://coroutinedispatcher.github.io/coroutinedispatcher/tags/room-persistence/</link>
+        <description>Room Persistence - Tag - Coroutinedispatchers&#39; blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>stavro96@gmail.com (Stavro Xhardha)</managingEditor>
+            <webMaster>stavro96@gmail.com (Stavro Xhardha)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 13 Jan 2020 09:00:00 &#43;0100</lastBuildDate><atom:link href="https://coroutinedispatcher.github.io/coroutinedispatcher/tags/room-persistence/" rel="self" type="application/rss+xml" /><item>
+    <title>Searchable Fragments with the Paging Library</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/searchable-fragments-with-paging-library/</link>
+    <pubDate>Mon, 13 Jan 2020 09:00:00 &#43;0100</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/searchable-fragments-with-paging-library/</guid>
+    <description><![CDATA[This post is inspired by @EpicPandaForce answer in StackOverflow. I faced the same problem which I didn&rsquo;t know how to solve: How to perform search when you are using a Paging Library (or how the hell to refresh after I reperform Rooms query)?
+Let&rsquo;s suppose we have this scenario: I have a list of data, which are shown in the Fragment by LiveData observation, which are retrieved by the ViewModel through LiveDataPagedListBuilder().]]></description>
+</item><item>
+    <title>Prepopulate Room with data.</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/prepopulate-room-with-data/</link>
+    <pubDate>Mon, 06 Jan 2020 09:04:00 &#43;0100</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/prepopulate-room-with-data/</guid>
+    <description><![CDATA[There are times, when we just need the data when the app starts, and all the functionality is just a matter of work. Or we just need the app to be independent from the network and we have the data. A simple dog-race database or cat-race database doesn&rsquo;t actually need online interaction at all (if there are not too many data of course). So, Room comes with a nice solution about this.]]></description>
+</item><item>
+    <title>Room and coroutines testing</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/room-and-coroutines-testing/</link>
+    <pubDate>Mon, 14 Oct 2019 10:00:00 &#43;0200</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/room-and-coroutines-testing/</guid>
+    <description><![CDATA[My last article covered some simple example about Room and RxJava instrumentation testing code. Coroutines also have great support in unit testing even though todays topic has nothing to do with it. What I mean is that we are not going to cover runBlockingTest this time. Android doesn&rsquo;t support that (correct me if I&rsquo;m wrong please) yet. However, I could schedule a topic about that because it really makes me excited.]]></description>
+</item><item>
+    <title>Room and RxJava testing</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/room-and-rxjava-testing/</link>
+    <pubDate>Mon, 07 Oct 2019 09:30:00 &#43;0200</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/room-and-rxjava-testing/</guid>
+    <description><![CDATA[When it comes to testing the data layer, we should always have time for that. It&rsquo;s very important. You lose data, you lose users. Since I really found testing + Room pretty amusing, I thought I should share it with you.
+Room has already a great support for RxJava or Coroutines. I have used both ways to access the data layer and I was really satisfied with both. So I decided to make a 2-series blog posts with testing in Room with RxJava and testing Room with coroutines.]]></description>
+</item><item>
+    <title>Solving Room &#34;cannot find setter for field&#34; error in build time</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/solving-room-cannot-find-setter-for/</link>
+    <pubDate>Tue, 20 Aug 2019 13:55:00 &#43;0200</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/solving-room-cannot-find-setter-for/</guid>
+    <description><![CDATA[Room persistence library is one of the easiest one to set up. However, when using data classes for your Room entities, you might face some small problem, which on the first look doesn&rsquo;t really make any sense.
+Let&rsquo;s try to compile this class:
+@Entity(tableName = &#34;users&#34;) data class User( @PrimaryKey @ColumnInfo(name = &#34;id&#34;) val number: Int, @ColumnInfo(name = &#34;user_name&#34;) val userName: String, @ColumnInfo(name = &#34;user_status&#34;) val userStatus: String, @Ignore val englishNameMeaning: UserGrade ) The problem:]]></description>
+</item></channel>
+</rss>

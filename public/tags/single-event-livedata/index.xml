@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Single Event LiveData - Tag - Coroutinedispatchers&#39; blog</title>
+        <link>https://coroutinedispatcher.github.io/coroutinedispatcher/tags/single-event-livedata/</link>
+        <description>Single Event LiveData - Tag - Coroutinedispatchers&#39; blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>stavro96@gmail.com (Stavro Xhardha)</managingEditor>
+            <webMaster>stavro96@gmail.com (Stavro Xhardha)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 13 Jan 2020 09:00:00 &#43;0100</lastBuildDate><atom:link href="https://coroutinedispatcher.github.io/coroutinedispatcher/tags/single-event-livedata/" rel="self" type="application/rss+xml" /><item>
+    <title>Searchable Fragments with the Paging Library</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/searchable-fragments-with-paging-library/</link>
+    <pubDate>Mon, 13 Jan 2020 09:00:00 &#43;0100</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/searchable-fragments-with-paging-library/</guid>
+    <description><![CDATA[This post is inspired by @EpicPandaForce answer in StackOverflow. I faced the same problem which I didn&rsquo;t know how to solve: How to perform search when you are using a Paging Library (or how the hell to refresh after I reperform Rooms query)?
+Let&rsquo;s suppose we have this scenario: I have a list of data, which are shown in the Fragment by LiveData observation, which are retrieved by the ViewModel through LiveDataPagedListBuilder().]]></description>
+</item></channel>
+</rss>

@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Android Architecture Components. - Tag - Coroutinedispatchers&#39; blog</title>
+        <link>https://coroutinedispatcher.github.io/coroutinedispatcher/tags/android-architecture-components./</link>
+        <description>Android Architecture Components. - Tag - Coroutinedispatchers&#39; blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>stavro96@gmail.com (Stavro Xhardha)</managingEditor>
+            <webMaster>stavro96@gmail.com (Stavro Xhardha)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 23 May 2020 18:41:00 &#43;0200</lastBuildDate><atom:link href="https://coroutinedispatcher.github.io/coroutinedispatcher/tags/android-architecture-components./" rel="self" type="application/rss+xml" /><item>
+    <title>Room and RxJava testing</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/room-and-rxjava-testing/</link>
+    <pubDate>Mon, 07 Oct 2019 09:30:00 &#43;0200</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/room-and-rxjava-testing/</guid>
+    <description><![CDATA[When it comes to testing the data layer, we should always have time for that. It&rsquo;s very important. You lose data, you lose users. Since I really found testing + Room pretty amusing, I thought I should share it with you.
+Room has already a great support for RxJava or Coroutines. I have used both ways to access the data layer and I was really satisfied with both. So I decided to make a 2-series blog posts with testing in Room with RxJava and testing Room with coroutines.]]></description>
+</item></channel>
+</rss>

@@ -1,0 +1,18 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Web development - Tag - Coroutinedispatchers&#39; blog</title>
+        <link>https://coroutinedispatcher.github.io/coroutinedispatcher/tags/web-development/</link>
+        <description>Web development - Tag - Coroutinedispatchers&#39; blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>stavro96@gmail.com (Stavro Xhardha)</managingEditor>
+            <webMaster>stavro96@gmail.com (Stavro Xhardha)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 23 Jul 2019 15:46:00 &#43;0200</lastBuildDate><atom:link href="https://coroutinedispatcher.github.io/coroutinedispatcher/tags/web-development/" rel="self" type="application/rss+xml" /><item>
+    <title>Getting hands dirty with KotlinJs</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/getting-hands-dirty-with-kotlinjs/</link>
+    <pubDate>Tue, 23 Jul 2019 15:46:00 &#43;0200</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/getting-hands-dirty-with-kotlinjs/</guid>
+    <description><![CDATA[Although web development hasn&rsquo;t been my thing since I started programming, I was really attracted the way Kotlin does solve things. So I did give a try to KotlinJS.
+**This is how to set up a KotlinJs page in less than an hour. **
+Note: Chose to use the simplest set up without gradle or maven. You are free to chose what you like.
+First of all, you start with a new project in your IntelliJ and choose Kotlin -&gt; Javascript.]]></description>
+</item></channel>
+</rss>

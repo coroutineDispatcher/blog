@@ -1,0 +1,18 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Koin - Tag - Coroutinedispatchers&#39; blog</title>
+        <link>https://coroutinedispatcher.github.io/coroutinedispatcher/tags/koin/</link>
+        <description>Koin - Tag - Coroutinedispatchers&#39; blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>stavro96@gmail.com (Stavro Xhardha)</managingEditor>
+            <webMaster>stavro96@gmail.com (Stavro Xhardha)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 02 Dec 2019 09:06:00 &#43;0100</lastBuildDate><atom:link href="https://coroutinedispatcher.github.io/coroutinedispatcher/tags/koin/" rel="self" type="application/rss+xml" /><item>
+    <title>Are service locators in Android actually simple?</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/are-service-locators-in-android/</link>
+    <pubDate>Mon, 02 Dec 2019 09:06:00 &#43;0100</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/are-service-locators-in-android/</guid>
+    <description><![CDATA[This week, I&rsquo;ve been playing with service locators in Android. I made this repo with 3 different branches. One of them is using Dagger as a DI tool, the other branches are implementation with KodeIn and Koin.
+The app is pretty simple, just retrieves some data from a Cat API, saves them to a local Room persistence and then renders them to the screen:
+
+The screen renders just a the list of cats retrieved by the database after the data are fetched from a remote API.]]></description>
+</item></channel>
+</rss>

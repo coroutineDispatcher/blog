@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Migration - Tag - Coroutinedispatchers&#39; blog</title>
+        <link>https://coroutinedispatcher.github.io/coroutinedispatcher/tags/migration/</link>
+        <description>Migration - Tag - Coroutinedispatchers&#39; blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>stavro96@gmail.com (Stavro Xhardha)</managingEditor>
+            <webMaster>stavro96@gmail.com (Stavro Xhardha)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 16 Dec 2019 09:53:00 &#43;0100</lastBuildDate><atom:link href="https://coroutinedispatcher.github.io/coroutinedispatcher/tags/migration/" rel="self" type="application/rss+xml" /><item>
+    <title>Setting up Gradle with Kotlin DSL, a simple guide</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/setting-up-gradle-with-kotlin-dsl/</link>
+    <pubDate>Mon, 16 Dec 2019 09:53:00 &#43;0100</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/setting-up-gradle-with-kotlin-dsl/</guid>
+    <description><![CDATA[Kotlin is a very a pretty nice adoptive language and user friendly. It really replaced Java from my everyday programming. However, it was not enough. We all know that groovy runs on JVM. So, why do I even need a new language just for my builds? Can&rsquo;t it be Java? So Java is the basic language for the JVM, Kotlin runs on JVM, Groovy runs on JVM and my build system has a separated language from my business logic system.]]></description>
+</item></channel>
+</rss>

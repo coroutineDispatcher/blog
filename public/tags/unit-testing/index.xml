@@ -1,0 +1,24 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Unit testing - Tag - Coroutinedispatchers&#39; blog</title>
+        <link>https://coroutinedispatcher.github.io/coroutinedispatcher/tags/unit-testing/</link>
+        <description>Unit testing - Tag - Coroutinedispatchers&#39; blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>stavro96@gmail.com (Stavro Xhardha)</managingEditor>
+            <webMaster>stavro96@gmail.com (Stavro Xhardha)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 21 Oct 2019 15:19:00 &#43;0200</lastBuildDate><atom:link href="https://coroutinedispatcher.github.io/coroutinedispatcher/tags/unit-testing/" rel="self" type="application/rss+xml" /><item>
+    <title>Unit testing with coroutines</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/unit-testing-with-coroutines/</link>
+    <pubDate>Mon, 21 Oct 2019 15:19:00 &#43;0200</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/unit-testing-with-coroutines/</guid>
+    <description><![CDATA[The coroutines API has already brought some innovation in the Android and Kotlin world. I always loved the idea of keeping it as simple as we all can. There is a saying around here that &ldquo;Whoever talks to much, makes too much mistakes&rdquo; and I see this a little bit related to Java&rsquo;s verbosity and also in the world of concurrency. It&rsquo;s said over and over again that concurrency is not simple and I couldn&rsquo;t agree more: You have to care about context, jobs running in parallel, cancelation, returning values etc.]]></description>
+</item><item>
+    <title>What I learned from unit testing</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/what-i-learned-from-unit-testing/</link>
+    <pubDate>Thu, 20 Jun 2019 12:38:00 &#43;0200</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/what-i-learned-from-unit-testing/</guid>
+    <description><![CDATA[Testing, testing testing. I was getting inside the &ldquo;Fear of getting behind&rdquo; every time I heard that word. So I decided to react quickly. I knew nothing about testing and this is my experience getting my hands dirty with it. Please feel free to correct anywhere I&rsquo;m wrong. This is a reason why I&rsquo;m writing blogs.
+So what the hell is testing?
+Testing is just a piece of code where you invoke your written production code and check its&rsquo; behavior.]]></description>
+</item></channel>
+</rss>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Publish your library to JitPack  - Coroutinedispatchers&#39; blog</title><meta name="Description" content="About LoveIt Theme"><meta property="og:title" content="Publish your library to JitPack " />
+<meta property="og:description" content="Once getting inside the open source concept, the idea and desire to publish a library is inevitable. What you need is an idea, or perhaps make a better version of an existing library, or just you need to use some module inside your company for several projects.
+With the JitPack, you won&rsquo;t be suffering at all. So how do you do it? For the sake of this tutorial, I&rsquo;m just gonna make a logging library." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://coroutinedispatcher.github.io/coroutinedispatcher/posts/publish-your-library-to-jitpack/" />
+<meta property="article:published_time" content="2019-09-17T10:16:00+02:00" />
+<meta property="article:modified_time" content="2019-09-17T10:16:00+02:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Publish your library to JitPack "/>
+<meta name="twitter:description" content="Once getting inside the open source concept, the idea and desire to publish a library is inevitable. What you need is an idea, or perhaps make a better version of an existing library, or just you need to use some module inside your company for several projects.
+With the JitPack, you won&rsquo;t be suffering at all. So how do you do it? For the sake of this tutorial, I&rsquo;m just gonna make a logging library."/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://coroutinedispatcher.github.io/coroutinedispatcher/posts/publish-your-library-to-jitpack/" /><link rel="prev" href="https://coroutinedispatcher.github.io/coroutinedispatcher/posts/some-quick-notes-on-dark-mode/" /><link rel="next" href="https://coroutinedispatcher.github.io/coroutinedispatcher/posts/an-early-look-at-dagger-reflect/" /><link rel="stylesheet" href="/coroutinedispatcher/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/coroutinedispatcher/css/style.min.css"><link rel="stylesheet" href="/coroutinedispatcher/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/coroutinedispatcher/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Publish your library to JitPack ",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/coroutinedispatcher.github.io\/coroutinedispatcher\/posts\/publish-your-library-to-jitpack\/"
+        },"genre": "posts","keywords": "Android Module, Java, Kotlin Module, Github, Git, Java Library, Kotlin, Android, JitPack, Java Module, Kotlin Library, Android Library","wordcount":  458 ,
+        "url": "https:\/\/coroutinedispatcher.github.io\/coroutinedispatcher\/posts\/publish-your-library-to-jitpack\/","datePublished": "2019-09-17T10:16:00+02:00","dateModified": "2019-09-17T10:16:00+02:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Stavro Xhardha"},"author": {
+                "@type": "Person",
+                "name": "Stavro Xhardha"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="" header-mobile=""><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/coroutinedispatcher/" title="Coroutinedispatchers&#39; blog">Coroutinedispatchers&#39; blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/coroutinedispatcher/"> Home </a><a class="menu-item" href="/coroutinedispatcher/posts/"> Posts </a><a class="menu-item" href="/coroutinedispatcher/about/"> About </a><a class="menu-item" href="https://speakerdeck.com/stavro96" rel="noopener noreffer" target="_blank"> Presentation Slides </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/coroutinedispatcher/" title="Coroutinedispatchers&#39; blog">Coroutinedispatchers&#39; blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/coroutinedispatcher/" title="">Home</a><a class="menu-item" href="/coroutinedispatcher/posts/" title="">Posts</a><a class="menu-item" href="/coroutinedispatcher/about/" title="">About</a><a class="menu-item" href="https://speakerdeck.com/stavro96" title="" rel="noopener noreffer" target="_blank">Presentation Slides</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Publish your library to JitPack </h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/about/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Stavro Xhardha</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2019-09-17">2019-09-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;458 words&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"><p><a href="https://1.bp.blogspot.com/-sg_QzKGtis0/XYCUittBU1I/AAAAAAAAPRU/Gknu578O8Ksje57qv030Dqb0PFFYoQn6gCLcBGAsYHQ/s1600/kira-auf-der-heide-fV4-DdSdcpI-unsplash.jpg" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        src="/coroutinedispatcher/svg/loading.min.svg"
+        data-src="https://1.bp.blogspot.com/-sg_QzKGtis0/XYCUittBU1I/AAAAAAAAPRU/Gknu578O8Ksje57qv030Dqb0PFFYoQn6gCLcBGAsYHQ/s1600/kira-auf-der-heide-fV4-DdSdcpI-unsplash.jpg"
+        data-srcset="https://1.bp.blogspot.com/-sg_QzKGtis0/XYCUittBU1I/AAAAAAAAPRU/Gknu578O8Ksje57qv030Dqb0PFFYoQn6gCLcBGAsYHQ/s1600/kira-auf-der-heide-fV4-DdSdcpI-unsplash.jpg, https://1.bp.blogspot.com/-sg_QzKGtis0/XYCUittBU1I/AAAAAAAAPRU/Gknu578O8Ksje57qv030Dqb0PFFYoQn6gCLcBGAsYHQ/s1600/kira-auf-der-heide-fV4-DdSdcpI-unsplash.jpg 1.5x, https://1.bp.blogspot.com/-sg_QzKGtis0/XYCUittBU1I/AAAAAAAAPRU/Gknu578O8Ksje57qv030Dqb0PFFYoQn6gCLcBGAsYHQ/s1600/kira-auf-der-heide-fV4-DdSdcpI-unsplash.jpg 2x"
+        data-sizes="auto"
+        alt="https://1.bp.blogspot.com/-sg_QzKGtis0/XYCUittBU1I/AAAAAAAAPRU/Gknu578O8Ksje57qv030Dqb0PFFYoQn6gCLcBGAsYHQ/s1600/kira-auf-der-heide-fV4-DdSdcpI-unsplash.jpg"
+        title="https://1.bp.blogspot.com/-sg_QzKGtis0/XYCUittBU1I/AAAAAAAAPRU/Gknu578O8Ksje57qv030Dqb0PFFYoQn6gCLcBGAsYHQ/s1600/kira-auf-der-heide-fV4-DdSdcpI-unsplash.jpg" /></a></p>
+<p>Once getting inside the open source concept, the idea and desire to publish a library is inevitable. What you need is an idea, or perhaps make a better version of an existing library, or just you need to use some module inside your company for several projects.</p>
+<p>With the JitPack, you won&rsquo;t be suffering at all. So how do you do it? For the sake of this tutorial, I&rsquo;m just gonna make a logging library.</p>
+<p><em>Note: This article assumes you already know how to use git.</em></p>
+<p>Once you have your IDE opened, create a new project. Since I am using Android Studio, I&rsquo;m gonna choose an Android app but you can do the same (I guess, never done it) with on Java/Kotlin projects and IntelliJ. Nothing new here. So let&rsquo;s jump further. Once the project is created, create a new module:</p>
+<p><a href="https://1.bp.blogspot.com/-G7AiUvhpie8/XYCLw53I-VI/AAAAAAAAPPs/5h8UjqmgeKY7XJWX5HaPXEtqsmepEB_9QCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.30.33.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        src="/coroutinedispatcher/svg/loading.min.svg"
+        data-src="https://1.bp.blogspot.com/-G7AiUvhpie8/XYCLw53I-VI/AAAAAAAAPPs/5h8UjqmgeKY7XJWX5HaPXEtqsmepEB_9QCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.30.33.png"
+        data-srcset="https://1.bp.blogspot.com/-G7AiUvhpie8/XYCLw53I-VI/AAAAAAAAPPs/5h8UjqmgeKY7XJWX5HaPXEtqsmepEB_9QCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.30.33.png, https://1.bp.blogspot.com/-G7AiUvhpie8/XYCLw53I-VI/AAAAAAAAPPs/5h8UjqmgeKY7XJWX5HaPXEtqsmepEB_9QCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.30.33.png 1.5x, https://1.bp.blogspot.com/-G7AiUvhpie8/XYCLw53I-VI/AAAAAAAAPPs/5h8UjqmgeKY7XJWX5HaPXEtqsmepEB_9QCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.30.33.png 2x"
+        data-sizes="auto"
+        alt="https://1.bp.blogspot.com/-G7AiUvhpie8/XYCLw53I-VI/AAAAAAAAPPs/5h8UjqmgeKY7XJWX5HaPXEtqsmepEB_9QCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.30.33.png"
+        title="https://1.bp.blogspot.com/-G7AiUvhpie8/XYCLw53I-VI/AAAAAAAAPPs/5h8UjqmgeKY7XJWX5HaPXEtqsmepEB_9QCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.30.33.png" /></a></p>
+<p>After that, you can choose whatever you need, but for this article I&rsquo;m gonna stick to Android library. </p>
+<p><a href="https://1.bp.blogspot.com/-RxhUhlU38tY/XYCMONFG7xI/AAAAAAAAPP0/T_1IjnEg7oQ26K3wX98pZ26t_tyQwIhpwCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.32.25.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        src="/coroutinedispatcher/svg/loading.min.svg"
+        data-src="https://1.bp.blogspot.com/-RxhUhlU38tY/XYCMONFG7xI/AAAAAAAAPP0/T_1IjnEg7oQ26K3wX98pZ26t_tyQwIhpwCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.32.25.png"
+        data-srcset="https://1.bp.blogspot.com/-RxhUhlU38tY/XYCMONFG7xI/AAAAAAAAPP0/T_1IjnEg7oQ26K3wX98pZ26t_tyQwIhpwCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.32.25.png, https://1.bp.blogspot.com/-RxhUhlU38tY/XYCMONFG7xI/AAAAAAAAPP0/T_1IjnEg7oQ26K3wX98pZ26t_tyQwIhpwCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.32.25.png 1.5x, https://1.bp.blogspot.com/-RxhUhlU38tY/XYCMONFG7xI/AAAAAAAAPP0/T_1IjnEg7oQ26K3wX98pZ26t_tyQwIhpwCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.32.25.png 2x"
+        data-sizes="auto"
+        alt="https://1.bp.blogspot.com/-RxhUhlU38tY/XYCMONFG7xI/AAAAAAAAPP0/T_1IjnEg7oQ26K3wX98pZ26t_tyQwIhpwCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.32.25.png"
+        title="https://1.bp.blogspot.com/-RxhUhlU38tY/XYCMONFG7xI/AAAAAAAAPP0/T_1IjnEg7oQ26K3wX98pZ26t_tyQwIhpwCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.32.25.png" /></a></p>
+<p>Give it a name, and the library is ready to be coded. If you notice, in your project, the module will be added:</p>
+<p><a href="https://1.bp.blogspot.com/-oi19wbcvdMc/XYCM3xbCklI/AAAAAAAAPP8/Tq20K-cElcEl65wsDalAADymYxs_pHmfgCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.34.10.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        src="/coroutinedispatcher/svg/loading.min.svg"
+        data-src="https://1.bp.blogspot.com/-oi19wbcvdMc/XYCM3xbCklI/AAAAAAAAPP8/Tq20K-cElcEl65wsDalAADymYxs_pHmfgCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.34.10.png"
+        data-srcset="https://1.bp.blogspot.com/-oi19wbcvdMc/XYCM3xbCklI/AAAAAAAAPP8/Tq20K-cElcEl65wsDalAADymYxs_pHmfgCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.34.10.png, https://1.bp.blogspot.com/-oi19wbcvdMc/XYCM3xbCklI/AAAAAAAAPP8/Tq20K-cElcEl65wsDalAADymYxs_pHmfgCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.34.10.png 1.5x, https://1.bp.blogspot.com/-oi19wbcvdMc/XYCM3xbCklI/AAAAAAAAPP8/Tq20K-cElcEl65wsDalAADymYxs_pHmfgCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.34.10.png 2x"
+        data-sizes="auto"
+        alt="https://1.bp.blogspot.com/-oi19wbcvdMc/XYCM3xbCklI/AAAAAAAAPP8/Tq20K-cElcEl65wsDalAADymYxs_pHmfgCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.34.10.png"
+        title="https://1.bp.blogspot.com/-oi19wbcvdMc/XYCM3xbCklI/AAAAAAAAPP8/Tq20K-cElcEl65wsDalAADymYxs_pHmfgCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.34.10.png" /></a></p>
+<p>Now, let&rsquo;s code. I&rsquo;m going to create an awesome method that logs something in the console, wow. Since I&rsquo;m using Kotlin, I won&rsquo;t be needing a new class, but if you use Java, create a new class.</p>
+<p><a href="https://1.bp.blogspot.com/-IlttyplAD-A/XYCNrNWIRKI/AAAAAAAAPQE/9tQLJ7cbxkkNNF8b0jRMqeaHW9cYhZrKwCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.38.42.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        src="/coroutinedispatcher/svg/loading.min.svg"
+        data-src="https://1.bp.blogspot.com/-IlttyplAD-A/XYCNrNWIRKI/AAAAAAAAPQE/9tQLJ7cbxkkNNF8b0jRMqeaHW9cYhZrKwCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.38.42.png"
+        data-srcset="https://1.bp.blogspot.com/-IlttyplAD-A/XYCNrNWIRKI/AAAAAAAAPQE/9tQLJ7cbxkkNNF8b0jRMqeaHW9cYhZrKwCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.38.42.png, https://1.bp.blogspot.com/-IlttyplAD-A/XYCNrNWIRKI/AAAAAAAAPQE/9tQLJ7cbxkkNNF8b0jRMqeaHW9cYhZrKwCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.38.42.png 1.5x, https://1.bp.blogspot.com/-IlttyplAD-A/XYCNrNWIRKI/AAAAAAAAPQE/9tQLJ7cbxkkNNF8b0jRMqeaHW9cYhZrKwCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.38.42.png 2x"
+        data-sizes="auto"
+        alt="https://1.bp.blogspot.com/-IlttyplAD-A/XYCNrNWIRKI/AAAAAAAAPQE/9tQLJ7cbxkkNNF8b0jRMqeaHW9cYhZrKwCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.38.42.png"
+        title="https://1.bp.blogspot.com/-IlttyplAD-A/XYCNrNWIRKI/AAAAAAAAPQE/9tQLJ7cbxkkNNF8b0jRMqeaHW9cYhZrKwCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.38.42.png" /></a></p>
+<p><em>For local usage, you don&rsquo;t need to publish to JitPack, but I am skipping this part here.</em></p>
+<p>Git time</p>
+<p>First of all, create a new repository. Don&rsquo;t forget to add an open source license.</p>
+<p><a href="https://1.bp.blogspot.com/-a2aMr0xM17Q/XYCP35XuXLI/AAAAAAAAPQY/LhClLDkaBm0uX6qU4gebaDDM7oqDNHmIQCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.48.34.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        src="/coroutinedispatcher/svg/loading.min.svg"
+        data-src="https://1.bp.blogspot.com/-a2aMr0xM17Q/XYCP35XuXLI/AAAAAAAAPQY/LhClLDkaBm0uX6qU4gebaDDM7oqDNHmIQCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.48.34.png"
+        data-srcset="https://1.bp.blogspot.com/-a2aMr0xM17Q/XYCP35XuXLI/AAAAAAAAPQY/LhClLDkaBm0uX6qU4gebaDDM7oqDNHmIQCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.48.34.png, https://1.bp.blogspot.com/-a2aMr0xM17Q/XYCP35XuXLI/AAAAAAAAPQY/LhClLDkaBm0uX6qU4gebaDDM7oqDNHmIQCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.48.34.png 1.5x, https://1.bp.blogspot.com/-a2aMr0xM17Q/XYCP35XuXLI/AAAAAAAAPQY/LhClLDkaBm0uX6qU4gebaDDM7oqDNHmIQCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.48.34.png 2x"
+        data-sizes="auto"
+        alt="https://1.bp.blogspot.com/-a2aMr0xM17Q/XYCP35XuXLI/AAAAAAAAPQY/LhClLDkaBm0uX6qU4gebaDDM7oqDNHmIQCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.48.34.png"
+        title="https://1.bp.blogspot.com/-a2aMr0xM17Q/XYCP35XuXLI/AAAAAAAAPQY/LhClLDkaBm0uX6qU4gebaDDM7oqDNHmIQCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.48.34.png" /></a></p>
+<p>Now, just normally add your project to via console or git client that you might be using. Please note that if you create a license and a README file, you are going to have to git pull first and then push your project into the repo</p>
+<p>Time to publish:<br>
+Once your project is super ready for production, go to releases (normally you would have 0 for the moment):</p>
+<p><a href="https://1.bp.blogspot.com/-6CVx8GnzdSw/XYCRxST5OVI/AAAAAAAAPQk/gvbiIbEDSRAUkynKIzWKGatm1hpmkc81QCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.56.21.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        src="/coroutinedispatcher/svg/loading.min.svg"
+        data-src="https://1.bp.blogspot.com/-6CVx8GnzdSw/XYCRxST5OVI/AAAAAAAAPQk/gvbiIbEDSRAUkynKIzWKGatm1hpmkc81QCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.56.21.png"
+        data-srcset="https://1.bp.blogspot.com/-6CVx8GnzdSw/XYCRxST5OVI/AAAAAAAAPQk/gvbiIbEDSRAUkynKIzWKGatm1hpmkc81QCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.56.21.png, https://1.bp.blogspot.com/-6CVx8GnzdSw/XYCRxST5OVI/AAAAAAAAPQk/gvbiIbEDSRAUkynKIzWKGatm1hpmkc81QCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.56.21.png 1.5x, https://1.bp.blogspot.com/-6CVx8GnzdSw/XYCRxST5OVI/AAAAAAAAPQk/gvbiIbEDSRAUkynKIzWKGatm1hpmkc81QCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.56.21.png 2x"
+        data-sizes="auto"
+        alt="https://1.bp.blogspot.com/-6CVx8GnzdSw/XYCRxST5OVI/AAAAAAAAPQk/gvbiIbEDSRAUkynKIzWKGatm1hpmkc81QCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.56.21.png"
+        title="https://1.bp.blogspot.com/-6CVx8GnzdSw/XYCRxST5OVI/AAAAAAAAPQk/gvbiIbEDSRAUkynKIzWKGatm1hpmkc81QCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.56.21.png" /></a></p>
+<p>Well, give the release a name, a version and some description.</p>
+<p><a href="https://1.bp.blogspot.com/-5mfI0xU5mb0/XYCSOAJ1OdI/AAAAAAAAPQs/ELkTqMBT8scWr4yd4_u_cXg1F3gt2jR6QCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.58.30.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        src="/coroutinedispatcher/svg/loading.min.svg"
+        data-src="https://1.bp.blogspot.com/-5mfI0xU5mb0/XYCSOAJ1OdI/AAAAAAAAPQs/ELkTqMBT8scWr4yd4_u_cXg1F3gt2jR6QCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.58.30.png"
+        data-srcset="https://1.bp.blogspot.com/-5mfI0xU5mb0/XYCSOAJ1OdI/AAAAAAAAPQs/ELkTqMBT8scWr4yd4_u_cXg1F3gt2jR6QCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.58.30.png, https://1.bp.blogspot.com/-5mfI0xU5mb0/XYCSOAJ1OdI/AAAAAAAAPQs/ELkTqMBT8scWr4yd4_u_cXg1F3gt2jR6QCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.58.30.png 1.5x, https://1.bp.blogspot.com/-5mfI0xU5mb0/XYCSOAJ1OdI/AAAAAAAAPQs/ELkTqMBT8scWr4yd4_u_cXg1F3gt2jR6QCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.58.30.png 2x"
+        data-sizes="auto"
+        alt="https://1.bp.blogspot.com/-5mfI0xU5mb0/XYCSOAJ1OdI/AAAAAAAAPQs/ELkTqMBT8scWr4yd4_u_cXg1F3gt2jR6QCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.58.30.png"
+        title="https://1.bp.blogspot.com/-5mfI0xU5mb0/XYCSOAJ1OdI/AAAAAAAAPQs/ELkTqMBT8scWr4yd4_u_cXg1F3gt2jR6QCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B09.58.30.png" /></a></p>
+<p>If you have reached something like the below photo, your library is ready for JitPack:</p>
+<p><a href="https://1.bp.blogspot.com/-yNr-QA3mdG4/XYCSviyGWSI/AAAAAAAAPQ0/JG2lqMSEqLox043gw4d0YV7pDMArFrzEQCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B10.00.24.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        src="/coroutinedispatcher/svg/loading.min.svg"
+        data-src="https://1.bp.blogspot.com/-yNr-QA3mdG4/XYCSviyGWSI/AAAAAAAAPQ0/JG2lqMSEqLox043gw4d0YV7pDMArFrzEQCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B10.00.24.png"
+        data-srcset="https://1.bp.blogspot.com/-yNr-QA3mdG4/XYCSviyGWSI/AAAAAAAAPQ0/JG2lqMSEqLox043gw4d0YV7pDMArFrzEQCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B10.00.24.png, https://1.bp.blogspot.com/-yNr-QA3mdG4/XYCSviyGWSI/AAAAAAAAPQ0/JG2lqMSEqLox043gw4d0YV7pDMArFrzEQCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B10.00.24.png 1.5x, https://1.bp.blogspot.com/-yNr-QA3mdG4/XYCSviyGWSI/AAAAAAAAPQ0/JG2lqMSEqLox043gw4d0YV7pDMArFrzEQCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B10.00.24.png 2x"
+        data-sizes="auto"
+        alt="https://1.bp.blogspot.com/-yNr-QA3mdG4/XYCSviyGWSI/AAAAAAAAPQ0/JG2lqMSEqLox043gw4d0YV7pDMArFrzEQCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B10.00.24.png"
+        title="https://1.bp.blogspot.com/-yNr-QA3mdG4/XYCSviyGWSI/AAAAAAAAPQ0/JG2lqMSEqLox043gw4d0YV7pDMArFrzEQCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B10.00.24.png" /></a></p>
+<p>So, let&rsquo;s jump to JitPack. Just add the repo url and let JitPack handle generation for you.</p>
+<p><a href="https://1.bp.blogspot.com/-3wjBqroWh0c/XYCTVuI-kkI/AAAAAAAAPQ8/yn6c7yAIH5gahyxixrKzjl4F_6n2oCF-ACLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B10.02.25.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        src="/coroutinedispatcher/svg/loading.min.svg"
+        data-src="https://1.bp.blogspot.com/-3wjBqroWh0c/XYCTVuI-kkI/AAAAAAAAPQ8/yn6c7yAIH5gahyxixrKzjl4F_6n2oCF-ACLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B10.02.25.png"
+        data-srcset="https://1.bp.blogspot.com/-3wjBqroWh0c/XYCTVuI-kkI/AAAAAAAAPQ8/yn6c7yAIH5gahyxixrKzjl4F_6n2oCF-ACLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B10.02.25.png, https://1.bp.blogspot.com/-3wjBqroWh0c/XYCTVuI-kkI/AAAAAAAAPQ8/yn6c7yAIH5gahyxixrKzjl4F_6n2oCF-ACLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B10.02.25.png 1.5x, https://1.bp.blogspot.com/-3wjBqroWh0c/XYCTVuI-kkI/AAAAAAAAPQ8/yn6c7yAIH5gahyxixrKzjl4F_6n2oCF-ACLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B10.02.25.png 2x"
+        data-sizes="auto"
+        alt="https://1.bp.blogspot.com/-3wjBqroWh0c/XYCTVuI-kkI/AAAAAAAAPQ8/yn6c7yAIH5gahyxixrKzjl4F_6n2oCF-ACLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B10.02.25.png"
+        title="https://1.bp.blogspot.com/-3wjBqroWh0c/XYCTVuI-kkI/AAAAAAAAPQ8/yn6c7yAIH5gahyxixrKzjl4F_6n2oCF-ACLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B10.02.25.png" /></a></p>
+<p>Once a version is found by JitPack, it will generate the code to be imported from you or other people who will use this library:</p>
+<p><a href="https://1.bp.blogspot.com/-tGCniNRWX2Y/XYCT0PqxGtI/AAAAAAAAPRE/DywxkBx9_qUvegQO8fpQBvW1StmJO1afgCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B10.05.13.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        src="/coroutinedispatcher/svg/loading.min.svg"
+        data-src="https://1.bp.blogspot.com/-tGCniNRWX2Y/XYCT0PqxGtI/AAAAAAAAPRE/DywxkBx9_qUvegQO8fpQBvW1StmJO1afgCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B10.05.13.png"
+        data-srcset="https://1.bp.blogspot.com/-tGCniNRWX2Y/XYCT0PqxGtI/AAAAAAAAPRE/DywxkBx9_qUvegQO8fpQBvW1StmJO1afgCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B10.05.13.png, https://1.bp.blogspot.com/-tGCniNRWX2Y/XYCT0PqxGtI/AAAAAAAAPRE/DywxkBx9_qUvegQO8fpQBvW1StmJO1afgCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B10.05.13.png 1.5x, https://1.bp.blogspot.com/-tGCniNRWX2Y/XYCT0PqxGtI/AAAAAAAAPRE/DywxkBx9_qUvegQO8fpQBvW1StmJO1afgCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B10.05.13.png 2x"
+        data-sizes="auto"
+        alt="https://1.bp.blogspot.com/-tGCniNRWX2Y/XYCT0PqxGtI/AAAAAAAAPRE/DywxkBx9_qUvegQO8fpQBvW1StmJO1afgCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B10.05.13.png"
+        title="https://1.bp.blogspot.com/-tGCniNRWX2Y/XYCT0PqxGtI/AAAAAAAAPRE/DywxkBx9_qUvegQO8fpQBvW1StmJO1afgCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B10.05.13.png" /></a></p>
+<p>That&rsquo;s it. If you follow those steps, you are ready to use the library. And indeed you are:</p>
+<p><a href="https://1.bp.blogspot.com/-X4wlu7AXoWI/XYCUDnYc29I/AAAAAAAAPRI/4VaY-DrZMq82Z0FFOXRkHzRB2AZ9Qr_lwCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B10.06.19.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        src="/coroutinedispatcher/svg/loading.min.svg"
+        data-src="https://1.bp.blogspot.com/-X4wlu7AXoWI/XYCUDnYc29I/AAAAAAAAPRI/4VaY-DrZMq82Z0FFOXRkHzRB2AZ9Qr_lwCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B10.06.19.png"
+        data-srcset="https://1.bp.blogspot.com/-X4wlu7AXoWI/XYCUDnYc29I/AAAAAAAAPRI/4VaY-DrZMq82Z0FFOXRkHzRB2AZ9Qr_lwCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B10.06.19.png, https://1.bp.blogspot.com/-X4wlu7AXoWI/XYCUDnYc29I/AAAAAAAAPRI/4VaY-DrZMq82Z0FFOXRkHzRB2AZ9Qr_lwCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B10.06.19.png 1.5x, https://1.bp.blogspot.com/-X4wlu7AXoWI/XYCUDnYc29I/AAAAAAAAPRI/4VaY-DrZMq82Z0FFOXRkHzRB2AZ9Qr_lwCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B10.06.19.png 2x"
+        data-sizes="auto"
+        alt="https://1.bp.blogspot.com/-X4wlu7AXoWI/XYCUDnYc29I/AAAAAAAAPRI/4VaY-DrZMq82Z0FFOXRkHzRB2AZ9Qr_lwCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B10.06.19.png"
+        title="https://1.bp.blogspot.com/-X4wlu7AXoWI/XYCUDnYc29I/AAAAAAAAPRI/4VaY-DrZMq82Z0FFOXRkHzRB2AZ9Qr_lwCLcBGAsYHQ/s1600/Screenshot%2B2019-09-17%2Bat%2B10.06.19.png" /></a></p>
+<p>Choosing an Android library for cases like this, might be redundant. That&rsquo;s because doing so, the IDE will also create Android Packages along with Java or Kotlin packages. Instead you should stick to Java/Kotlin libraries.</p>
+<p>@import url(&lsquo;<a href="https://cdn.rawgit.com/lonekorean/gist-syntax-themes/848d6580/stylesheets/monokai.css');">https://cdn.rawgit.com/lonekorean/gist-syntax-themes/848d6580/stylesheets/monokai.css');</a> @import url(&lsquo;<a href="https://fonts.googleapis.com/css?family=Open+Sans');">https://fonts.googleapis.com/css?family=Open+Sans');</a> body { margin: 20px; font: 16px &lsquo;Open Sans&rsquo;, sans-serif; } Good luck!</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2019-09-17</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/coroutinedispatcher/tags/android-module/">Android Module</a>,&nbsp;<a href="/coroutinedispatcher/tags/java/">Java</a>,&nbsp;<a href="/coroutinedispatcher/tags/kotlin-module/">Kotlin Module</a>,&nbsp;<a href="/coroutinedispatcher/tags/github/">Github</a>,&nbsp;<a href="/coroutinedispatcher/tags/git/">Git</a>,&nbsp;<a href="/coroutinedispatcher/tags/java-library/">Java Library</a>,&nbsp;<a href="/coroutinedispatcher/tags/kotlin/">Kotlin</a>,&nbsp;<a href="/coroutinedispatcher/tags/android/">Android</a>,&nbsp;<a href="/coroutinedispatcher/tags/jitpack/">JitPack</a>,&nbsp;<a href="/coroutinedispatcher/tags/java-module/">Java Module</a>,&nbsp;<a href="/coroutinedispatcher/tags/kotlin-library/">Kotlin Library</a>,&nbsp;<a href="/coroutinedispatcher/tags/android-library/">Android Library</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/coroutinedispatcher/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/coroutinedispatcher/posts/some-quick-notes-on-dark-mode/" class="prev" rel="prev" title="Some quick notes on Dark Mode"><i class="fas fa-angle-left fa-fw"></i>Some quick notes on Dark Mode</a>
+            <a href="/coroutinedispatcher/posts/an-early-look-at-dagger-reflect/" class="next" rel="next" title="An early look at Dagger Reflect">An early look at Dagger Reflect<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.73.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/about/" target="_blank">Stavro Xhardha</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><script type="text/javascript" src="/coroutinedispatcher/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/coroutinedispatcher/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/coroutinedispatcher/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/coroutinedispatcher/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/coroutinedispatcher/lib/clipboard/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":100},"comment":{},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.en","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"algolia"}};</script><script type="text/javascript" src="/coroutinedispatcher/js/theme.min.js"></script></body>
+</html>

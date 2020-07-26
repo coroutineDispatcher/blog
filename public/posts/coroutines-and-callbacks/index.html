@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Coroutines and callbacks - Coroutinedispatchers&#39; blog</title><meta name="Description" content="About LoveIt Theme"><meta property="og:title" content="Coroutines and callbacks" />
+<meta property="og:description" content="Callbacks in Java are probably the most basic way to perform executions/send actions between classes. If you have chosen to use coroutines in a project, you want to keep the same style everywhere. But what if some of the libraries you use, are still using callbacks?
+No worries, Kotlin coroutines are easily integrated with callbacks. It&rsquo;s just a small workaround to make.
+Let&rsquo;s think of a very simple use case:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://coroutinedispatcher.github.io/coroutinedispatcher/posts/coroutines-and-callbacks/" />
+<meta property="article:published_time" content="2020-04-05T14:30:00+02:00" />
+<meta property="article:modified_time" content="2020-04-05T14:30:00+02:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Coroutines and callbacks"/>
+<meta name="twitter:description" content="Callbacks in Java are probably the most basic way to perform executions/send actions between classes. If you have chosen to use coroutines in a project, you want to keep the same style everywhere. But what if some of the libraries you use, are still using callbacks?
+No worries, Kotlin coroutines are easily integrated with callbacks. It&rsquo;s just a small workaround to make.
+Let&rsquo;s think of a very simple use case:"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://coroutinedispatcher.github.io/coroutinedispatcher/posts/coroutines-and-callbacks/" /><link rel="prev" href="https://coroutinedispatcher.github.io/coroutinedispatcher/posts/my-first-remote-experience/" /><link rel="next" href="https://coroutinedispatcher.github.io/coroutinedispatcher/posts/why-livedata-is-best-solution-yet-for-ui/" /><link rel="stylesheet" href="/coroutinedispatcher/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/coroutinedispatcher/css/style.min.css"><link rel="stylesheet" href="/coroutinedispatcher/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/coroutinedispatcher/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Coroutines and callbacks",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/coroutinedispatcher.github.io\/coroutinedispatcher\/posts\/coroutines-and-callbacks\/"
+        },"genre": "posts","keywords": "Kotlin Flows, Kotlin Coroutines, Kotlin, Callbacks, Android, Kotlin programming","wordcount":  548 ,
+        "url": "https:\/\/coroutinedispatcher.github.io\/coroutinedispatcher\/posts\/coroutines-and-callbacks\/","datePublished": "2020-04-05T14:30:00+02:00","dateModified": "2020-04-05T14:30:00+02:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Stavro Xhardha"},"author": {
+                "@type": "Person",
+                "name": "Stavro Xhardha"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="" header-mobile=""><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/coroutinedispatcher/" title="Coroutinedispatchers&#39; blog">Coroutinedispatchers&#39; blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/coroutinedispatcher/"> Home </a><a class="menu-item" href="/coroutinedispatcher/posts/"> Posts </a><a class="menu-item" href="/coroutinedispatcher/about/"> About </a><a class="menu-item" href="https://speakerdeck.com/stavro96" rel="noopener noreffer" target="_blank"> Presentation Slides </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/coroutinedispatcher/" title="Coroutinedispatchers&#39; blog">Coroutinedispatchers&#39; blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/coroutinedispatcher/" title="">Home</a><a class="menu-item" href="/coroutinedispatcher/posts/" title="">Posts</a><a class="menu-item" href="/coroutinedispatcher/about/" title="">About</a><a class="menu-item" href="https://speakerdeck.com/stavro96" title="" rel="noopener noreffer" target="_blank">Presentation Slides</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Coroutines and callbacks</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/about/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Stavro Xhardha</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-04-05">2020-04-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;548 words&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"><p><a href="https://1.bp.blogspot.com/-oV3vT5DfVoY/Xoj33jep13I/AAAAAAAASlM/ji0Y4DvO82sdZKqLrhyDNcTedwNseXXTwCLcBGAsYHQ/s1600/pavan-trikutam-71CjSSB83Wo-unsplash.jpg" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        src="/coroutinedispatcher/svg/loading.min.svg"
+        data-src="https://1.bp.blogspot.com/-oV3vT5DfVoY/Xoj33jep13I/AAAAAAAASlM/ji0Y4DvO82sdZKqLrhyDNcTedwNseXXTwCLcBGAsYHQ/s1600/pavan-trikutam-71CjSSB83Wo-unsplash.jpg"
+        data-srcset="https://1.bp.blogspot.com/-oV3vT5DfVoY/Xoj33jep13I/AAAAAAAASlM/ji0Y4DvO82sdZKqLrhyDNcTedwNseXXTwCLcBGAsYHQ/s1600/pavan-trikutam-71CjSSB83Wo-unsplash.jpg, https://1.bp.blogspot.com/-oV3vT5DfVoY/Xoj33jep13I/AAAAAAAASlM/ji0Y4DvO82sdZKqLrhyDNcTedwNseXXTwCLcBGAsYHQ/s1600/pavan-trikutam-71CjSSB83Wo-unsplash.jpg 1.5x, https://1.bp.blogspot.com/-oV3vT5DfVoY/Xoj33jep13I/AAAAAAAASlM/ji0Y4DvO82sdZKqLrhyDNcTedwNseXXTwCLcBGAsYHQ/s1600/pavan-trikutam-71CjSSB83Wo-unsplash.jpg 2x"
+        data-sizes="auto"
+        alt="https://1.bp.blogspot.com/-oV3vT5DfVoY/Xoj33jep13I/AAAAAAAASlM/ji0Y4DvO82sdZKqLrhyDNcTedwNseXXTwCLcBGAsYHQ/s1600/pavan-trikutam-71CjSSB83Wo-unsplash.jpg"
+        title="https://1.bp.blogspot.com/-oV3vT5DfVoY/Xoj33jep13I/AAAAAAAASlM/ji0Y4DvO82sdZKqLrhyDNcTedwNseXXTwCLcBGAsYHQ/s1600/pavan-trikutam-71CjSSB83Wo-unsplash.jpg" /></a></p>
+<p>Callbacks in Java are probably the most basic way to perform executions/send actions between classes. If you have chosen to use coroutines in a project, you want to keep the same style everywhere. But what if some of the libraries you use, are still using callbacks?</p>
+<p>No worries, Kotlin coroutines are easily integrated with callbacks. It&rsquo;s just a small workaround to make.</p>
+<p>Let&rsquo;s think of a very simple use case:</p>
+<div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="k">interface</span> <span class="nc">MyAwesomeInterface</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="p">{</span>  
+    <span class="k">fun</span> <span class="nf">executeAsync</span><span class="p">(</span><span class="n">callback</span><span class="p">:</span> <span class="p">(</span><span class="n">T</span><span class="p">?,</span> <span class="n">Throwable</span><span class="p">?)</span> <span class="p">-&gt;</span> <span class="n">Unit</span><span class="p">)</span>  
+<span class="p">}</span>  
+
+</code></pre></div><p>In this case, what can be done, is to wrap it in a suspendCoroutine. So, le&rsquo;ts build an extension function for it:</p>
+<div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="k">suspend</span> <span class="k">fun</span> &lt;T&gt; <span class="nf">MyAwesomeInterface</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;.</span><span class="n">execute</span><span class="p">():</span> <span class="n">T</span> <span class="p">=</span>  
+    <span class="n">suspendCoroutine</span> <span class="p">{</span> <span class="n">continuation</span> <span class="p">-&gt;</span> <span class="c1">//notice the continuation that you get  
+</span><span class="c1"></span>        <span class="n">executeAsync</span> <span class="p">{</span> <span class="n">value</span><span class="p">,</span> <span class="n">exception</span> <span class="p">-&gt;</span>  
+            <span class="k">if</span><span class="p">(</span><span class="n">exception</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>  
+                <span class="n">continuation</span><span class="p">.</span><span class="n">resumeWithException</span><span class="p">(</span><span class="n">exception</span><span class="p">)</span>  
+            <span class="k">else</span>  
+                <span class="n">continuation</span><span class="p">.</span><span class="n">resume</span><span class="p">(</span><span class="n">value</span> <span class="k">as</span> <span class="n">T</span><span class="p">)</span>  
+        <span class="p">}</span>  
+    <span class="p">}</span>
+</code></pre></div><p>The continuation that you get from the suspendCoroutine is nothing else than just a representation of the value returned by your own interface implementation.</p>
+<p>But what if our MyAwesomeInterface has a cancel operation? Consider the example below:</p>
+<div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="k">interface</span> <span class="nc">MyAwesomeInterface</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="p">{</span>  
+    <span class="k">fun</span> <span class="nf">executeAsync</span><span class="p">(</span><span class="n">callback</span><span class="p">:</span> <span class="p">(</span><span class="n">T</span><span class="p">?,</span> <span class="n">Throwable</span><span class="p">?)</span> <span class="p">-&gt;</span> <span class="n">Unit</span><span class="p">)</span>  
+    <span class="k">fun</span> <span class="nf">cancel</span><span class="p">()</span>  
+<span class="p">}</span>
+</code></pre></div><p>In this case, what comes in handy is the suspendCancellableCoroutine. It is nearly the same as the suspendCoroutine but it offers a new aditional operation:</p>
+<div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="k">suspend</span> <span class="k">fun</span> &lt;T&gt; <span class="nf">MyAwesomeInterface</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;.</span><span class="n">execute</span><span class="p">():</span> <span class="n">T</span> <span class="p">=</span>  
+    <span class="n">suspendCancellableCoroutine</span> <span class="p">{</span> <span class="n">continuation</span> <span class="p">-&gt;</span>  
+        <span class="n">executeAsync</span> <span class="p">{</span> <span class="n">value</span><span class="p">,</span> <span class="n">exception</span> <span class="p">-&gt;</span>  
+            <span class="k">if</span><span class="p">(</span><span class="n">exception</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>  
+                <span class="n">continuation</span><span class="p">.</span><span class="n">resumeWithException</span><span class="p">(</span><span class="n">exception</span><span class="p">)</span>  
+            <span class="k">else</span>  
+                <span class="n">continuation</span><span class="p">.</span><span class="n">resume</span><span class="p">(</span><span class="n">value</span> <span class="k">as</span> <span class="n">T</span><span class="p">)</span>  
+        <span class="p">}</span>  
+       <span class="n">continuation</span><span class="p">.</span><span class="n">invokeOnCancellation</span> <span class="p">{</span> <span class="n">cancel</span><span class="p">()</span> <span class="p">}</span>  
+    <span class="p">}</span>
+</code></pre></div><div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw"></i>Note<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">These implementations are single-shot operation.</div>
+        </div>
+    </div>
+<p>But what if you would have to observe an asynchronous stream of values through callbacks? This can be achieved with the help of the Flow API. If you still haven&rsquo;t check it up, the <a href="https://kotlinlang.org/docs/reference/coroutines/flow.html" target="_blank" rel="noopener noreffer">docs</a> are pretty nice, or you can just go quickly though <a href="https://www.coroutinedispatcher.com/2020/01/what-i-learned-from-kotlin-flow-api.html" target="_blank" rel="noopener noreffer">this</a> article (even though it&rsquo;s mostly for Android developers).</p>
+<p>In this case, the callbackFlow comes to save the day:</p>
+<div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"> <span class="k">fun</span> &lt;T : Any&gt; <span class="nf">MyAwesomeInterface</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;.</span><span class="n">execute</span><span class="p">():</span> <span class="n">Flow</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="p">=</span>  
+   <span class="n">callbackFlow</span> <span class="p">{</span>  
+       <span class="n">executeAsync</span> <span class="p">{</span> <span class="n">value</span><span class="p">,</span> <span class="n">exception</span> <span class="p">-&gt;</span>  
+            <span class="k">when</span> <span class="p">{</span>  
+                <span class="n">exception</span> <span class="p">!=</span> <span class="k">null</span> <span class="p">-&gt;</span> <span class="n">close</span><span class="p">(</span><span class="n">exception</span><span class="p">)</span>  
+                <span class="n">value</span> <span class="p">==</span> <span class="k">null</span> <span class="p">-&gt;</span> <span class="n">close</span><span class="p">()</span>  
+                <span class="k">else</span><span class="p">-&gt;</span> <span class="n">offer</span><span class="p">(</span><span class="n">value</span> <span class="k">as</span> <span class="n">T</span><span class="p">)</span>  
+            <span class="p">}</span>  
+        <span class="p">}</span>  
+        <span class="n">awaitClose</span><span class="p">{</span> <span class="n">cancel</span><span class="p">()</span> <span class="p">}</span>  
+    <span class="p">}</span>
+</code></pre></div><p>There are some important things to note here:<br>
+ - Our execute() extension function is no longer a suspend function<br>
+ - The close() is used to notify for a failure/success<br>
+ - The offer() is called each time a new data has arrived.</p>
+<div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw"></i>Note<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">Not calling the awaitClose() would take you directly to ClosedSendChannelException if the method is executed n+1 times._</div>
+        </div>
+    </div>
+<p><strong>But my interface doesn&rsquo;t have a cancel() method.</strong></p>
+<p>Than just unregister the listener. The cancel() method is there also to represent  the context of removing it.</p>
+<p><strong>A few notes about backpressure.</strong></p>
+<p>In cases when the operation happens too fast and the coroutine cannot handle it, the best thing is to replace the offer() method with sendBlocking().</p>
+<p>In the opposite case, when the values should not arrive too fast, just put a .buffer(Channel.UNLIMITED) after the callbackFlow:</p>
+<div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"> <span class="k">fun</span> &lt;T : Any&gt; <span class="nf">MyAwesomeInterface</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;.</span><span class="n">execute</span><span class="p">():</span> <span class="n">Flow</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="p">=</span>  
+   <span class="n">callbackFlow</span> <span class="p">{</span>  
+       <span class="n">executeAsync</span> <span class="p">{</span> <span class="cm">/* same thing here */</span><span class="p">}</span>  
+        <span class="n">awaitClose</span><span class="p">{</span> <span class="n">cancel</span><span class="p">()</span> <span class="p">}</span>  
+    <span class="p">}.</span><span class="n">buffer</span><span class="p">(</span><span class="n">Channel</span><span class="p">.</span><span class="n">UNLIMITED</span><span class="p">)</span>
+</code></pre></div><p>Don&rsquo;t forget that this case, comes with a memory cost.</p>
+<p><strong>Conclusion:</strong></p>
+<p>Actually, these feature of callbacks are awesome and pretty safe in my opinion. They open a wide area of possibilities to improve your libraries, create a new one, or even shorten some parts of code from your current project.</p>
+<p>Stavro Xhardha</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2020-04-05</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/coroutinedispatcher/tags/kotlin-flows/">Kotlin Flows</a>,&nbsp;<a href="/coroutinedispatcher/tags/kotlin-coroutines/">Kotlin Coroutines</a>,&nbsp;<a href="/coroutinedispatcher/tags/kotlin/">Kotlin</a>,&nbsp;<a href="/coroutinedispatcher/tags/callbacks/">Callbacks</a>,&nbsp;<a href="/coroutinedispatcher/tags/android/">Android</a>,&nbsp;<a href="/coroutinedispatcher/tags/kotlin-programming/">Kotlin programming</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/coroutinedispatcher/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/coroutinedispatcher/posts/my-first-remote-experience/" class="prev" rel="prev" title="My first remote experience"><i class="fas fa-angle-left fa-fw"></i>My first remote experience</a>
+            <a href="/coroutinedispatcher/posts/why-livedata-is-best-solution-yet-for-ui/" class="next" rel="next" title="Why LiveData is the best solution (yet) for UI">Why LiveData is the best solution (yet) for UI<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.73.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/about/" target="_blank">Stavro Xhardha</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><script type="text/javascript" src="/coroutinedispatcher/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/coroutinedispatcher/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/coroutinedispatcher/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/coroutinedispatcher/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/coroutinedispatcher/lib/clipboard/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":100},"comment":{},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.en","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"algolia"}};</script><script type="text/javascript" src="/coroutinedispatcher/js/theme.min.js"></script></body>
+</html>

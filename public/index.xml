@@ -1,0 +1,95 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Coroutinedispatchers&#39; blog</title>
+        <link>https://coroutinedispatcher.github.io/coroutinedispatcher/</link>
+        <description>About LoveIt Theme</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>stavro96@gmail.com (Stavro Xhardha)</managingEditor>
+            <webMaster>stavro96@gmail.com (Stavro Xhardha)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 11 Jun 2020 21:04:00 &#43;0200</lastBuildDate>
+            <atom:link href="https://coroutinedispatcher.github.io/coroutinedispatcher/index.xml" rel="self" type="application/rss+xml" />
+        <item>
+    <title>First look on Hilt</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/first-look-on-hilt/</link>
+    <pubDate>Thu, 11 Jun 2020 21:04:00 &#43;0200</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/first-look-on-hilt/</guid>
+    <description><![CDATA[onCreate A new Dependency Injection library called Hilt was presented from the Google team. It was designed on top of Dagger library and provides a simpler, less boilerplate API to handle dependencies in an Android application. As first try, it was a real game changer. Therefore, we will make a short introduction to it, and then discuss about some opinions.
+Why was it build? First of all, Dagger was a little hard to start with, especially for beginners.]]></description>
+</item><item>
+    <title>Realm 7, the frozen throne</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/realm-7-frozen-throne/</link>
+    <pubDate>Sat, 30 May 2020 19:52:00 &#43;0200</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/realm-7-frozen-throne/</guid>
+    <description><![CDATA[onCreate As many of us might know, Realm has already introduced freezing objects. Personally, I have been waiting for long time for such feature. So, what actual problem does this solve?
+A lot of us might have faced this issue:
+Realm access from incorrect thread. Realm objects can only be accessed on the thread they were created. I believe the error speaks for itself.
+Realm &lt; 7.0: When you call Realm.]]></description>
+</item><item>
+    <title>Why LiveData is the best solution (yet) for UI</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/why-livedata-is-best-solution-yet-for-ui/</link>
+    <pubDate>Sat, 23 May 2020 18:41:00 &#43;0200</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/why-livedata-is-best-solution-yet-for-ui/</guid>
+    <description><![CDATA[Why LiveData is the best solution (yet) for UI
+As far as I am concerned, there are many developers who don&rsquo;t like LiveData. However, for the UI part, there is no better API to achieve MVVM (or even MVI,or stateful MVVM). Furthermore, makes the UI control very easy.
+There might have been some small misconceptions regarding the usage of it, but, if you use LiveData for the purpose it was created, I think that&rsquo;s far better than any other API (for the moment).]]></description>
+</item><item>
+    <title>Coroutines and callbacks</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/coroutines-and-callbacks/</link>
+    <pubDate>Sun, 05 Apr 2020 14:30:00 &#43;0200</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/coroutines-and-callbacks/</guid>
+    <description><![CDATA[Callbacks in Java are probably the most basic way to perform executions/send actions between classes. If you have chosen to use coroutines in a project, you want to keep the same style everywhere. But what if some of the libraries you use, are still using callbacks?
+No worries, Kotlin coroutines are easily integrated with callbacks. It&rsquo;s just a small workaround to make.
+Let&rsquo;s think of a very simple use case:]]></description>
+</item><item>
+    <title>My first remote experience</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/my-first-remote-experience/</link>
+    <pubDate>Fri, 20 Mar 2020 21:41:00 &#43;0100</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/my-first-remote-experience/</guid>
+    <description><![CDATA[typealias Coroutine = Quarantine I hope you get the joke&hellip;.
+Well, it has been a very rough year for me, &ldquo;motion-ally&rdquo; and emotionally. I moved to Germany just when all these corona fear started. Luckily I got time to get introduced to the team and the project and got ready to start fresh . And then, since the situation with the epidemic wasn&rsquo;t getting any better, the company decided to switch to home office.]]></description>
+</item><item>
+    <title>Getting rid of the white screen on the app start up</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/getting-rid-of-white-screen-on-app/</link>
+    <pubDate>Wed, 04 Mar 2020 21:58:00 &#43;0100</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/getting-rid-of-white-screen-on-app/</guid>
+    <description><![CDATA[Details matter especially when it comes to making users happy. We have all kinds of users, those who don&rsquo;t care how the app is designed (just do what he/she needs), those who care, and those who are developers themselves. I have met people who don&rsquo;t use a single app just because it has some strange animation, and they hate it.
+For me, it&rsquo;s a little from both. I Like seeing a minimalist design (like Airbnb Android app, which is one of my favorites, for instance), but it is also important to fulfill your needs also.]]></description>
+</item><item>
+    <title>Generate Kotlin Docs using Dokka</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/generate-kotlin-docs-using-dokka/</link>
+    <pubDate>Mon, 17 Feb 2020 15:48:00 &#43;0100</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/generate-kotlin-docs-using-dokka/</guid>
+    <description><![CDATA[Have you ever generated Kotlin docs (Kdocs) for your library/project? I have. There is a tool for this called Dokka and you can find it here. It&rsquo;s not too hard to set up.
+I personally used Dokka for a small API i wrote for SharedPreferences. Anyways, the steps are pretty basic. One thing you must be careful though, is to know the syntax of the Kdocs pretty well (usually, if you know how to generate Javadoc, Kotlin docs don&rsquo;t have much difference).]]></description>
+</item><item>
+    <title>What I learned from Kotlin Flow API</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/what-i-learned-from-kotlin-flow-api/</link>
+    <pubDate>Fri, 24 Jan 2020 13:54:00 &#43;0100</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/what-i-learned-from-kotlin-flow-api/</guid>
+    <description><![CDATA[I used to check the docs and just read a lot about flows but didn&rsquo;t implement anything until yesterday. However, the API tasted really cool (even though some operations are still in Experimental state).
+Prerequisites: If you don&rsquo;t know RxJava it&rsquo;s fine. But a RxJava recognizer would read this faster.
+Cold vs Hot streams
+Well, I really struggled with this concept because it is a little bit tricky. The main difference between cold and hot happened to be pretty simple: Hot streams produce when you don&rsquo;t care while in cold streams, if you don&rsquo;t collect() (or RxJava-s equivalent subscribe()) the stream won&rsquo;t be activated at all.]]></description>
+</item><item>
+    <title>Searchable Fragments with the Paging Library</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/searchable-fragments-with-paging-library/</link>
+    <pubDate>Mon, 13 Jan 2020 09:00:00 &#43;0100</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/searchable-fragments-with-paging-library/</guid>
+    <description><![CDATA[This post is inspired by @EpicPandaForce answer in StackOverflow. I faced the same problem which I didn&rsquo;t know how to solve: How to perform search when you are using a Paging Library (or how the hell to refresh after I reperform Rooms query)?
+Let&rsquo;s suppose we have this scenario: I have a list of data, which are shown in the Fragment by LiveData observation, which are retrieved by the ViewModel through LiveDataPagedListBuilder().]]></description>
+</item><item>
+    <title>Prepopulate Room with data.</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/prepopulate-room-with-data/</link>
+    <pubDate>Mon, 06 Jan 2020 09:04:00 &#43;0100</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/prepopulate-room-with-data/</guid>
+    <description><![CDATA[There are times, when we just need the data when the app starts, and all the functionality is just a matter of work. Or we just need the app to be independent from the network and we have the data. A simple dog-race database or cat-race database doesn&rsquo;t actually need online interaction at all (if there are not too many data of course). So, Room comes with a nice solution about this.]]></description>
+</item></channel>
+</rss>

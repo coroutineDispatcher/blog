@@ -1,0 +1,46 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Kotlin Flows - Tag - Coroutinedispatchers&#39; blog</title>
+        <link>https://coroutinedispatcher.github.io/coroutinedispatcher/tags/kotlin-flows/</link>
+        <description>Kotlin Flows - Tag - Coroutinedispatchers&#39; blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>stavro96@gmail.com (Stavro Xhardha)</managingEditor>
+            <webMaster>stavro96@gmail.com (Stavro Xhardha)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 30 May 2020 19:52:00 &#43;0200</lastBuildDate><atom:link href="https://coroutinedispatcher.github.io/coroutinedispatcher/tags/kotlin-flows/" rel="self" type="application/rss+xml" /><item>
+    <title>Realm 7, the frozen throne</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/realm-7-frozen-throne/</link>
+    <pubDate>Sat, 30 May 2020 19:52:00 &#43;0200</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/realm-7-frozen-throne/</guid>
+    <description><![CDATA[onCreate As many of us might know, Realm has already introduced freezing objects. Personally, I have been waiting for long time for such feature. So, what actual problem does this solve?
+A lot of us might have faced this issue:
+Realm access from incorrect thread. Realm objects can only be accessed on the thread they were created. I believe the error speaks for itself.
+Realm &lt; 7.0: When you call Realm.]]></description>
+</item><item>
+    <title>Why LiveData is the best solution (yet) for UI</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/why-livedata-is-best-solution-yet-for-ui/</link>
+    <pubDate>Sat, 23 May 2020 18:41:00 &#43;0200</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/why-livedata-is-best-solution-yet-for-ui/</guid>
+    <description><![CDATA[Why LiveData is the best solution (yet) for UI
+As far as I am concerned, there are many developers who don&rsquo;t like LiveData. However, for the UI part, there is no better API to achieve MVVM (or even MVI,or stateful MVVM). Furthermore, makes the UI control very easy.
+There might have been some small misconceptions regarding the usage of it, but, if you use LiveData for the purpose it was created, I think that&rsquo;s far better than any other API (for the moment).]]></description>
+</item><item>
+    <title>Coroutines and callbacks</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/coroutines-and-callbacks/</link>
+    <pubDate>Sun, 05 Apr 2020 14:30:00 &#43;0200</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/coroutines-and-callbacks/</guid>
+    <description><![CDATA[Callbacks in Java are probably the most basic way to perform executions/send actions between classes. If you have chosen to use coroutines in a project, you want to keep the same style everywhere. But what if some of the libraries you use, are still using callbacks?
+No worries, Kotlin coroutines are easily integrated with callbacks. It&rsquo;s just a small workaround to make.
+Let&rsquo;s think of a very simple use case:]]></description>
+</item><item>
+    <title>What I learned from Kotlin Flow API</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/what-i-learned-from-kotlin-flow-api/</link>
+    <pubDate>Fri, 24 Jan 2020 13:54:00 &#43;0100</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/what-i-learned-from-kotlin-flow-api/</guid>
+    <description><![CDATA[I used to check the docs and just read a lot about flows but didn&rsquo;t implement anything until yesterday. However, the API tasted really cool (even though some operations are still in Experimental state).
+Prerequisites: If you don&rsquo;t know RxJava it&rsquo;s fine. But a RxJava recognizer would read this faster.
+Cold vs Hot streams
+Well, I really struggled with this concept because it is a little bit tricky. The main difference between cold and hot happened to be pretty simple: Hot streams produce when you don&rsquo;t care while in cold streams, if you don&rsquo;t collect() (or RxJava-s equivalent subscribe()) the stream won&rsquo;t be activated at all.]]></description>
+</item></channel>
+</rss>

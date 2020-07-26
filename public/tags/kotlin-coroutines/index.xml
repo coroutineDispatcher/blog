@@ -1,0 +1,58 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Kotlin Coroutines - Tag - Coroutinedispatchers&#39; blog</title>
+        <link>https://coroutinedispatcher.github.io/coroutinedispatcher/tags/kotlin-coroutines/</link>
+        <description>Kotlin Coroutines - Tag - Coroutinedispatchers&#39; blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>stavro96@gmail.com (Stavro Xhardha)</managingEditor>
+            <webMaster>stavro96@gmail.com (Stavro Xhardha)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 30 May 2020 19:52:00 &#43;0200</lastBuildDate><atom:link href="https://coroutinedispatcher.github.io/coroutinedispatcher/tags/kotlin-coroutines/" rel="self" type="application/rss+xml" /><item>
+    <title>Realm 7, the frozen throne</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/realm-7-frozen-throne/</link>
+    <pubDate>Sat, 30 May 2020 19:52:00 &#43;0200</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/realm-7-frozen-throne/</guid>
+    <description><![CDATA[onCreate As many of us might know, Realm has already introduced freezing objects. Personally, I have been waiting for long time for such feature. So, what actual problem does this solve?
+A lot of us might have faced this issue:
+Realm access from incorrect thread. Realm objects can only be accessed on the thread they were created. I believe the error speaks for itself.
+Realm &lt; 7.0: When you call Realm.]]></description>
+</item><item>
+    <title>Why LiveData is the best solution (yet) for UI</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/why-livedata-is-best-solution-yet-for-ui/</link>
+    <pubDate>Sat, 23 May 2020 18:41:00 &#43;0200</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/why-livedata-is-best-solution-yet-for-ui/</guid>
+    <description><![CDATA[Why LiveData is the best solution (yet) for UI
+As far as I am concerned, there are many developers who don&rsquo;t like LiveData. However, for the UI part, there is no better API to achieve MVVM (or even MVI,or stateful MVVM). Furthermore, makes the UI control very easy.
+There might have been some small misconceptions regarding the usage of it, but, if you use LiveData for the purpose it was created, I think that&rsquo;s far better than any other API (for the moment).]]></description>
+</item><item>
+    <title>Coroutines and callbacks</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/coroutines-and-callbacks/</link>
+    <pubDate>Sun, 05 Apr 2020 14:30:00 &#43;0200</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/coroutines-and-callbacks/</guid>
+    <description><![CDATA[Callbacks in Java are probably the most basic way to perform executions/send actions between classes. If you have chosen to use coroutines in a project, you want to keep the same style everywhere. But what if some of the libraries you use, are still using callbacks?
+No worries, Kotlin coroutines are easily integrated with callbacks. It&rsquo;s just a small workaround to make.
+Let&rsquo;s think of a very simple use case:]]></description>
+</item><item>
+    <title>Unit testing with coroutines</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/unit-testing-with-coroutines/</link>
+    <pubDate>Mon, 21 Oct 2019 15:19:00 &#43;0200</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/unit-testing-with-coroutines/</guid>
+    <description><![CDATA[The coroutines API has already brought some innovation in the Android and Kotlin world. I always loved the idea of keeping it as simple as we all can. There is a saying around here that &ldquo;Whoever talks to much, makes too much mistakes&rdquo; and I see this a little bit related to Java&rsquo;s verbosity and also in the world of concurrency. It&rsquo;s said over and over again that concurrency is not simple and I couldn&rsquo;t agree more: You have to care about context, jobs running in parallel, cancelation, returning values etc.]]></description>
+</item><item>
+    <title>Room and coroutines testing</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/room-and-coroutines-testing/</link>
+    <pubDate>Mon, 14 Oct 2019 10:00:00 &#43;0200</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/room-and-coroutines-testing/</guid>
+    <description><![CDATA[My last article covered some simple example about Room and RxJava instrumentation testing code. Coroutines also have great support in unit testing even though todays topic has nothing to do with it. What I mean is that we are not going to cover runBlockingTest this time. Android doesn&rsquo;t support that (correct me if I&rsquo;m wrong please) yet. However, I could schedule a topic about that because it really makes me excited.]]></description>
+</item><item>
+    <title>Manage network states with the Paging library</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/manage-network-states-with-paging/</link>
+    <pubDate>Wed, 31 Jul 2019 16:22:00 &#43;0200</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/manage-network-states-with-paging/</guid>
+    <description><![CDATA[With Room implementation, the Paging Library is not such a big deal. However it needs some small configurations when it comes to using it for API-calls.
+One thing to keep in mind, is the initial state, which basically is a different task, which might fail with an Exception. And the same logic is followed by the continues state after the first data are loaded. When using coroutines, we might wanna have an extra problem: managing the CoroutineScope inside a DataSource.]]></description>
+</item></channel>
+</rss>

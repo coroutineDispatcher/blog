@@ -1,0 +1,48 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Java - Tag - Coroutinedispatchers&#39; blog</title>
+        <link>https://coroutinedispatcher.github.io/coroutinedispatcher/tags/java/</link>
+        <description>Java - Tag - Coroutinedispatchers&#39; blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>stavro96@gmail.com (Stavro Xhardha)</managingEditor>
+            <webMaster>stavro96@gmail.com (Stavro Xhardha)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 06 Jan 2020 09:04:00 &#43;0100</lastBuildDate><atom:link href="https://coroutinedispatcher.github.io/coroutinedispatcher/tags/java/" rel="self" type="application/rss+xml" /><item>
+    <title>Prepopulate Room with data.</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/prepopulate-room-with-data/</link>
+    <pubDate>Mon, 06 Jan 2020 09:04:00 &#43;0100</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/prepopulate-room-with-data/</guid>
+    <description><![CDATA[There are times, when we just need the data when the app starts, and all the functionality is just a matter of work. Or we just need the app to be independent from the network and we have the data. A simple dog-race database or cat-race database doesn&rsquo;t actually need online interaction at all (if there are not too many data of course). So, Room comes with a nice solution about this.]]></description>
+</item><item>
+    <title>From Gson to Moshi, what I learned</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/from-gson-to-moshi-what-i-learned/</link>
+    <pubDate>Mon, 28 Oct 2019 10:11:00 &#43;0100</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/from-gson-to-moshi-what-i-learned/</guid>
+    <description><![CDATA[There is no doubt that people are getting away from GSON and I agree with those reasons too. The only advantage GSON has over other parsing libraries is that it takes a really short amount of time to set up. Furthermore, the most important thing is that Moshi is embracing Kotlin support.
+First let&rsquo;s implement the dependency:
+implementation(&#34;com.squareup.moshi:moshi:1.8.0&#34;) It&rsquo;s not a struggle to migrate to Moshi. It&rsquo;s really Gson look-a-like.]]></description>
+</item><item>
+    <title>An early look at Dagger Reflect</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/an-early-look-at-dagger-reflect/</link>
+    <pubDate>Mon, 30 Sep 2019 10:00:00 &#43;0200</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/an-early-look-at-dagger-reflect/</guid>
+    <description><![CDATA[When it comes to solving the Dependency Inversion principle, there is no better way then using annotations in the JVM world. However, generating code in compile time has some costs. For example the build time. And I believe this is the only thing dagger can&rsquo;t do well alone.
+This is not a bye bye dagger post. This is mostly, obtaining the most out of Dagger.
+To solve this problem, Dagger-Reflect was written.]]></description>
+</item><item>
+    <title>Publish your library to JitPack </title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/publish-your-library-to-jitpack/</link>
+    <pubDate>Tue, 17 Sep 2019 10:16:00 &#43;0200</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/publish-your-library-to-jitpack/</guid>
+    <description><![CDATA[Once getting inside the open source concept, the idea and desire to publish a library is inevitable. What you need is an idea, or perhaps make a better version of an existing library, or just you need to use some module inside your company for several projects.
+With the JitPack, you won&rsquo;t be suffering at all. So how do you do it? For the sake of this tutorial, I&rsquo;m just gonna make a logging library.]]></description>
+</item><item>
+    <title>Let&#39;s get beyond null safety</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/lets-get-beyond-null-safet/</link>
+    <pubDate>Thu, 15 Aug 2019 15:25:00 &#43;0200</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/lets-get-beyond-null-safet/</guid>
+    <description><![CDATA[_Inspired by myself and perhaps some other people, who coded Java style in Kotlin. I have seen tones of articles which (mostly) highlight Kotlins null safety and nothing more. So that&rsquo;s it? If it was only for that I swear I would be still using Java with some null checks. Therefore, this article suggest what to use best in Kotlin as well as droping some everyday Java habits. _]]></description>
+</item></channel>
+</rss>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>How to produce the SavedStateHandle in your ViewModel using AssistedInject - Coroutinedispatchers&#39; blog</title><meta name="Description" content="About LoveIt Theme"><meta property="og:title" content="How to produce the SavedStateHandle in your ViewModel using AssistedInject" />
+<meta property="og:description" content="One of my previous article Dagger Multibinding Saved My Time &ldquo;claimed&rdquo; to have found the right practice for providing ViewModels without producing a ViewModel Factory for each ViewModel. Apparently, I was wrong. There are 2 main problems with that approach:
+1 - I might forget to add a ViewModel in the Map graph.
+2 - With the new SavedStateHandle which stays uniqely in each ViewModel I can&rsquo;t use a generic ViewModel Factory." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://coroutinedispatcher.github.io/coroutinedispatcher/posts/how-to-produce-savedstatehandle-in-your/" />
+<meta property="article:published_time" content="2019-08-27T10:31:00+02:00" />
+<meta property="article:modified_time" content="2019-08-27T10:31:00+02:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="How to produce the SavedStateHandle in your ViewModel using AssistedInject"/>
+<meta name="twitter:description" content="One of my previous article Dagger Multibinding Saved My Time &ldquo;claimed&rdquo; to have found the right practice for providing ViewModels without producing a ViewModel Factory for each ViewModel. Apparently, I was wrong. There are 2 main problems with that approach:
+1 - I might forget to add a ViewModel in the Map graph.
+2 - With the new SavedStateHandle which stays uniqely in each ViewModel I can&rsquo;t use a generic ViewModel Factory."/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://coroutinedispatcher.github.io/coroutinedispatcher/posts/how-to-produce-savedstatehandle-in-your/" /><link rel="prev" href="https://coroutinedispatcher.github.io/coroutinedispatcher/posts/solving-room-cannot-find-setter-for/" /><link rel="next" href="https://coroutinedispatcher.github.io/coroutinedispatcher/posts/some-quick-notes-on-dark-mode/" /><link rel="stylesheet" href="/coroutinedispatcher/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/coroutinedispatcher/css/style.min.css"><link rel="stylesheet" href="/coroutinedispatcher/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/coroutinedispatcher/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "How to produce the SavedStateHandle in your ViewModel using AssistedInject",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/coroutinedispatcher.github.io\/coroutinedispatcher\/posts\/how-to-produce-savedstatehandle-in-your\/"
+        },"genre": "posts","keywords": "Dagger 2, SavedStateHandle, ViewModel Factory, ViewModel, AssistedInject, Kotlin Delegation, Kotlin","wordcount":  670 ,
+        "url": "https:\/\/coroutinedispatcher.github.io\/coroutinedispatcher\/posts\/how-to-produce-savedstatehandle-in-your\/","datePublished": "2019-08-27T10:31:00+02:00","dateModified": "2019-08-27T10:31:00+02:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Stavro Xhardha"},"author": {
+                "@type": "Person",
+                "name": "Stavro Xhardha"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="" header-mobile=""><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/coroutinedispatcher/" title="Coroutinedispatchers&#39; blog">Coroutinedispatchers&#39; blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/coroutinedispatcher/"> Home </a><a class="menu-item" href="/coroutinedispatcher/posts/"> Posts </a><a class="menu-item" href="/coroutinedispatcher/about/"> About </a><a class="menu-item" href="https://speakerdeck.com/stavro96" rel="noopener noreffer" target="_blank"> Presentation Slides </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/coroutinedispatcher/" title="Coroutinedispatchers&#39; blog">Coroutinedispatchers&#39; blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/coroutinedispatcher/" title="">Home</a><a class="menu-item" href="/coroutinedispatcher/posts/" title="">Posts</a><a class="menu-item" href="/coroutinedispatcher/about/" title="">About</a><a class="menu-item" href="https://speakerdeck.com/stavro96" title="" rel="noopener noreffer" target="_blank">Presentation Slides</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">How to produce the SavedStateHandle in your ViewModel using AssistedInject</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/about/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Stavro Xhardha</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2019-08-27">2019-08-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;670 words&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"><p><a href="https://1.bp.blogspot.com/-MtcO8qu_Ato/XWTqNfbpINI/AAAAAAAAPAk/-cKfHokXF-A_Sg2jwDZwHWrsg9gqZGTzgCLcBGAs/s1600/karsten-wurth-karsten-wuerth-0w-uTa0Xz7w-unsplash.jpg" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        src="/coroutinedispatcher/svg/loading.min.svg"
+        data-src="https://1.bp.blogspot.com/-MtcO8qu_Ato/XWTqNfbpINI/AAAAAAAAPAk/-cKfHokXF-A_Sg2jwDZwHWrsg9gqZGTzgCLcBGAs/s1600/karsten-wurth-karsten-wuerth-0w-uTa0Xz7w-unsplash.jpg"
+        data-srcset="https://1.bp.blogspot.com/-MtcO8qu_Ato/XWTqNfbpINI/AAAAAAAAPAk/-cKfHokXF-A_Sg2jwDZwHWrsg9gqZGTzgCLcBGAs/s1600/karsten-wurth-karsten-wuerth-0w-uTa0Xz7w-unsplash.jpg, https://1.bp.blogspot.com/-MtcO8qu_Ato/XWTqNfbpINI/AAAAAAAAPAk/-cKfHokXF-A_Sg2jwDZwHWrsg9gqZGTzgCLcBGAs/s1600/karsten-wurth-karsten-wuerth-0w-uTa0Xz7w-unsplash.jpg 1.5x, https://1.bp.blogspot.com/-MtcO8qu_Ato/XWTqNfbpINI/AAAAAAAAPAk/-cKfHokXF-A_Sg2jwDZwHWrsg9gqZGTzgCLcBGAs/s1600/karsten-wurth-karsten-wuerth-0w-uTa0Xz7w-unsplash.jpg 2x"
+        data-sizes="auto"
+        alt="https://1.bp.blogspot.com/-MtcO8qu_Ato/XWTqNfbpINI/AAAAAAAAPAk/-cKfHokXF-A_Sg2jwDZwHWrsg9gqZGTzgCLcBGAs/s1600/karsten-wurth-karsten-wuerth-0w-uTa0Xz7w-unsplash.jpg"
+        title="https://1.bp.blogspot.com/-MtcO8qu_Ato/XWTqNfbpINI/AAAAAAAAPAk/-cKfHokXF-A_Sg2jwDZwHWrsg9gqZGTzgCLcBGAs/s1600/karsten-wurth-karsten-wuerth-0w-uTa0Xz7w-unsplash.jpg" /></a></p>
+<p>One of my previous article <a href="https://coroutinedispatcher.blogspot.com/2019/08/dagger-multibindings-saved-my-time.html" target="_blank" rel="noopener noreffer">Dagger Multibinding Saved My Time</a> &ldquo;claimed&rdquo; to have found the right practice for providing ViewModels without producing a ViewModel Factory for each ViewModel. Apparently, <a href="https://www.reddit.com/r/androiddev/comments/cnktpg/dagger_multibindings_saved_my_time/" target="_blank" rel="noopener noreffer">I was wrong</a>.  There are 2 main problems with that approach:</p>
+<p>1 - I might forget to add a ViewModel in the Map graph.<br>
+2 - With the new SavedStateHandle which stays uniqely in each ViewModel I can&rsquo;t use a generic ViewModel Factory.  (you can check the implementation in the article provided above).</p>
+<p>So,  what does <a href="https://github.com/square/AssistedInject" target="_blank" rel="noopener noreffer">AssistedInject</a> do to help solve this case?</p>
+<p>Check this example below:</p>
+<div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="k">class</span> <span class="nc">HomeViewModel</span> <span class="n">@Inject</span> <span class="k">constructor</span><span class="p">(</span>
+    <span class="k">private</span> <span class="k">val</span> <span class="py">homeRepository</span><span class="p">:</span> <span class="n">HomeRepository</span><span class="p">,</span>
+    <span class="k">val</span> <span class="py">savedStateHandle</span><span class="p">:</span> <span class="n">SavedStateHandle</span>
+<span class="p">)</span> <span class="p">:</span> <span class="n">ViewModel</span><span class="p">()</span> <span class="p">{</span>
+<span class="p">}</span>
+</code></pre></div><p>Dagger doesn&rsquo;t know how to create  a SavedStateHandle. And since the SavedStateHandle cannot be used as a Singleton, we want a different state for each of our fragments. In order to achieve this, let&rsquo;s allow the AssistedInject library create a unique Factory for us. It might require a little more work on configurations, but after the set up, it&rsquo;s just kindergarten game for you.</p>
+<p>Instead of  annotating constructor with @Inject , we annotate it with <code>@AssistedInject</code>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="k">class</span> <span class="nc">HomeViewModel</span> <span class="n">@AssistedInject</span> <span class="k">constructor</span><span class="p">(</span>
+    <span class="k">private</span> <span class="k">val</span> <span class="py">homeRepository</span><span class="p">:</span> <span class="n">HomeRepository</span><span class="p">,</span>
+    <span class="c1">//Telling dagger that we will provide this later on our own.
+</span><span class="c1"></span>    <span class="n">@Assisted</span> <span class="k">val</span> <span class="py">savedStateHandle</span><span class="p">:</span> <span class="n">SavedStateHandle</span>
+<span class="p">)</span> <span class="p">:</span> <span class="n">ViewModel</span><span class="p">()</span> <span class="p">{</span>
+<span class="p">}</span>
+</code></pre></div><p>The constructor parameters which cannot be evaluated by Dagger, should be marked with @Assisted. Now, we should create the Factory. With AssistedInject it&rsquo;s pretty easy. You just define an interface and annotate it with the @AssistedInject.Factory annotation and it is going to have a method with parameters that Dagger doesn&rsquo;t know how to create, and will return the current ViewModel:</p>
+<div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="k">class</span> <span class="nc">HomeViewModel</span> <span class="n">@AssistedInject</span> <span class="k">constructor</span><span class="p">(</span>
+    <span class="k">private</span> <span class="k">val</span> <span class="py">homeRepository</span><span class="p">:</span> <span class="n">HomeRepository</span><span class="p">,</span>
+    <span class="n">@Assisted</span> <span class="k">val</span> <span class="py">savedStateHandle</span><span class="p">:</span> <span class="n">SavedStateHandle</span>
+<span class="p">)</span> <span class="p">:</span> <span class="n">ViewModel</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="n">@AssistedInject</span><span class="p">.</span><span class="n">Factory</span>
+    <span class="k">interface</span> <span class="nc">Factory</span> <span class="p">{</span>
+        <span class="k">fun</span> <span class="nf">create</span><span class="p">(</span><span class="n">savedStateHandle</span><span class="p">:</span> <span class="n">SavedStateHandle</span><span class="p">):</span> <span class="n">HomeViewModel</span>
+    <span class="p">}</span>
+ <span class="p">}</span>
+</code></pre></div><p>Perhaps someone would ask why not having different scopes for each ViewModel in order to provide that unknown parameter uniquely in each ViewModel? In that case, you will have a component for each fragment, a module and you should not forget to perform DI in all creation state of each fragment. So the short answer is: Don&rsquo;t do it.</p>
+<p>One more step. We need to somehow connect the strings here. How does Dagger provide dependencies that don&rsquo;t know how to create? It will ask the component if there is any of the modules providing the dependencies. But there isn&rsquo;t any module, or is there 👀 ? Yes, the AssistedInject has another small step to conclude:</p>
+<div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="n">@AssistedModule</span> <span class="c1">//annotate a Module with this annotation (btw you can also use other modules, even non-abstract ones)
+</span><span class="c1"></span><span class="k">abstract</span> <span class="k">class</span> <span class="nc">ViewModelModule</span>
+
+<span class="c1">//hit build
+</span><span class="c1">//this will generate for us: AssistedInject_ViewModelModule.
+</span><span class="c1">//just include it to any module, in our case, ViewModelModule:
+</span><span class="c1"></span>
+<span class="n">@AssistedModule</span>
+<span class="n">@Module</span><span class="p">(</span><span class="n">includes</span> <span class="p">=</span> <span class="p">[</span><span class="n">AssistedInject_ViewModelModule</span><span class="o">::</span><span class="k">class</span><span class="p">])</span>
+<span class="k">abstract</span> <span class="k">class</span> <span class="nc">ViewModelModule</span>
+</code></pre></div><p>In this way, the our ViewModel Factories will be auto generated. We just have to call them from the Singleton component:</p>
+<div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="n">@ApplicationScope</span>
+<span class="n">@Component</span><span class="p">(</span>
+    <span class="n">modules</span> <span class="p">=</span> <span class="p">[...,</span> <span class="n">ViewModelModule</span><span class="o">::</span><span class="k">class</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="k">interface</span> <span class="nc">MyOnlyComponent</span> <span class="p">{</span>
+
+    <span class="k">val</span> <span class="py">galleryViewModelFactory</span><span class="p">:</span> <span class="n">GalleryViewModel</span><span class="p">.</span><span class="n">Factory</span>
+
+    <span class="k">val</span> <span class="py">compassViewModelFactory</span><span class="p">:</span> <span class="n">CompassViewModel</span><span class="p">.</span><span class="n">Factory</span>
+
+    <span class="k">val</span> <span class="py">homeViewModelFactory</span><span class="p">:</span> <span class="n">HomeViewModel</span><span class="p">.</span><span class="n">Factory</span>
+
+    <span class="k">val</span> <span class="py">namesViewModelFactory</span><span class="p">:</span> <span class="n">NamesViewModel</span><span class="p">.</span><span class="n">Factory</span>
+
+    <span class="k">val</span> <span class="py">settingsViewModelFactory</span><span class="p">:</span> <span class="n">SettingsViewModel</span><span class="p">.</span><span class="n">Factory</span>
+
+    <span class="k">val</span> <span class="py">setupViewModelFactory</span><span class="p">:</span> <span class="n">SetupViewModel</span><span class="p">.</span><span class="n">Factory</span>
+
+    <span class="c1">//other dependencies and perhaps other factories
+</span><span class="c1"></span>    <span class="p">}</span>
+</code></pre></div><p>That&rsquo;s it.</p>
+<p>Since the SavedStateViewModel Factory is now the default ViewModel Factory, to provide a SavedStateHandle, we can&rsquo;t extend our ViewModelProvider.Factory. Instead, we need to extend our AbstractSavedStateViewModelFactory:</p>
+<div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="k">inline</span> <span class="k">fun</span> &lt;reified T : ViewModel&gt; <span class="nf">Fragment</span><span class="p">.</span><span class="n">viewModel</span><span class="p">(</span>
+    <span class="k">crossinline</span> <span class="n">provider</span><span class="p">:</span> <span class="p">(</span><span class="n">SavedStateHandle</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">T</span>
+<span class="p">)</span> <span class="p">=</span> <span class="n">viewModels</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="p">{</span>
+    <span class="k">object</span> <span class="err">: </span><span class="nc">AbstractSavedStateViewModelFactory</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">fragment</span><span class="p">.</span><span class="n">arguments</span> <span class="o">?:</span> <span class="n">Bundle</span><span class="p">())</span> <span class="p">{</span>
+        <span class="k">override</span> <span class="k">fun</span> &lt;T : ViewModel?&gt; <span class="nf">create</span><span class="p">(</span><span class="n">key</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">modelClass</span><span class="p">:</span> <span class="n">Class</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;,</span> <span class="n">handle</span><span class="p">:</span> <span class="n">SavedStateHandle</span><span class="p">):</span> <span class="n">T</span> <span class="p">=</span>
+            <span class="n">provider</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span> <span class="k">as</span> <span class="n">T</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>And with the help of Kotlins&rsquo; delegation, we achieve something like this in our fragment:</p>
+<div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="k">class</span> <span class="nc">HomeFragment</span> <span class="p">:</span> <span class="n">BaseFragment</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="c1">//the component is comming from an abstract class but basically is just  Application.getAppScopeComponent()
+</span><span class="c1"></span>    <span class="k">private</span> <span class="k">val</span> <span class="py">homeViewModel</span> <span class="k">by</span> <span class="n">viewModel</span> <span class="p">{</span> <span class="n">component</span><span class="p">.</span><span class="n">homeViewModelFactory</span><span class="p">.</span><span class="n">create</span><span class="p">(</span><span class="n">it</span><span class="p">)</span> <span class="p">}</span>
+
+    <span class="k">override</span> <span class="k">fun</span> <span class="nf">onCreateView</span><span class="p">(</span>
+        <span class="n">inflater</span><span class="p">:</span> <span class="n">LayoutInflater</span><span class="p">,</span> <span class="n">container</span><span class="p">:</span> <span class="n">ViewGroup</span><span class="p">?,</span>
+        <span class="n">savedInstanceState</span><span class="p">:</span> <span class="n">Bundle</span><span class="p">?</span>
+    <span class="p">):</span> <span class="n">View</span><span class="p">?</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">inflater</span><span class="p">.</span><span class="n">inflate</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="n">layout</span><span class="p">.</span><span class="n">fragment_home</span><span class="p">,</span> <span class="n">container</span><span class="p">,</span> <span class="k">false</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="c1">//other implementation here
+</span><span class="c1"></span> <span class="p">}</span>
+</code></pre></div><p>And that&rsquo;s it.</p>
+<p>Credits:<br>
+<a href="https://twitter.com/Zhuinden/status/1159442420855164929" target="_blank" rel="noopener noreffer">Zhuinden</a><br>
+<a href="https://www.youtube.com/watch?v=9fn5s8_CYJI" target="_blank" rel="noopener noreffer">It&rsquo;s complicated, but it doesn&rsquo;t have to be: a Dagger journey by Fred Porciúncula, Blinkist EN</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2019-08-27</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/coroutinedispatcher/tags/dagger-2/">Dagger 2</a>,&nbsp;<a href="/coroutinedispatcher/tags/savedstatehandle/">SavedStateHandle</a>,&nbsp;<a href="/coroutinedispatcher/tags/viewmodel-factory/">ViewModel Factory</a>,&nbsp;<a href="/coroutinedispatcher/tags/viewmodel/">ViewModel</a>,&nbsp;<a href="/coroutinedispatcher/tags/assistedinject/">AssistedInject</a>,&nbsp;<a href="/coroutinedispatcher/tags/kotlin-delegation/">Kotlin Delegation</a>,&nbsp;<a href="/coroutinedispatcher/tags/kotlin/">Kotlin</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/coroutinedispatcher/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/coroutinedispatcher/posts/solving-room-cannot-find-setter-for/" class="prev" rel="prev" title="Solving Room &#34;cannot find setter for field&#34; error in build time"><i class="fas fa-angle-left fa-fw"></i>Solving Room &#34;cannot find setter for field&#34; error in build time</a>
+            <a href="/coroutinedispatcher/posts/some-quick-notes-on-dark-mode/" class="next" rel="next" title="Some quick notes on Dark Mode">Some quick notes on Dark Mode<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.73.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/about/" target="_blank">Stavro Xhardha</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><script type="text/javascript" src="/coroutinedispatcher/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/coroutinedispatcher/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/coroutinedispatcher/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/coroutinedispatcher/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/coroutinedispatcher/lib/clipboard/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":100},"comment":{},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.en","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"algolia"}};</script><script type="text/javascript" src="/coroutinedispatcher/js/theme.min.js"></script></body>
+</html>

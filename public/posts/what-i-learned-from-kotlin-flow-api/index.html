@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>What I learned from Kotlin Flow API - Coroutinedispatchers&#39; blog</title><meta name="Description" content="About LoveIt Theme"><meta property="og:title" content="What I learned from Kotlin Flow API" />
+<meta property="og:description" content="I used to check the docs and just read a lot about flows but didn&rsquo;t implement anything until yesterday. However, the API tasted really cool (even though some operations are still in Experimental state).
+Prerequisites: If you don&rsquo;t know RxJava it&rsquo;s fine. But a RxJava recognizer would read this faster.
+Cold vs Hot streams
+Well, I really struggled with this concept because it is a little bit tricky. The main difference between cold and hot happened to be pretty simple: Hot streams produce when you don&rsquo;t care while in cold streams, if you don&rsquo;t collect() (or RxJava-s equivalent subscribe()) the stream won&rsquo;t be activated at all." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://coroutinedispatcher.github.io/coroutinedispatcher/posts/what-i-learned-from-kotlin-flow-api/" />
+<meta property="article:published_time" content="2020-01-24T13:54:00+01:00" />
+<meta property="article:modified_time" content="2020-01-24T13:54:00+01:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="What I learned from Kotlin Flow API"/>
+<meta name="twitter:description" content="I used to check the docs and just read a lot about flows but didn&rsquo;t implement anything until yesterday. However, the API tasted really cool (even though some operations are still in Experimental state).
+Prerequisites: If you don&rsquo;t know RxJava it&rsquo;s fine. But a RxJava recognizer would read this faster.
+Cold vs Hot streams
+Well, I really struggled with this concept because it is a little bit tricky. The main difference between cold and hot happened to be pretty simple: Hot streams produce when you don&rsquo;t care while in cold streams, if you don&rsquo;t collect() (or RxJava-s equivalent subscribe()) the stream won&rsquo;t be activated at all."/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://coroutinedispatcher.github.io/coroutinedispatcher/posts/what-i-learned-from-kotlin-flow-api/" /><link rel="prev" href="https://coroutinedispatcher.github.io/coroutinedispatcher/posts/searchable-fragments-with-paging-library/" /><link rel="next" href="https://coroutinedispatcher.github.io/coroutinedispatcher/posts/generate-kotlin-docs-using-dokka/" /><link rel="stylesheet" href="/coroutinedispatcher/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/coroutinedispatcher/css/style.min.css"><link rel="stylesheet" href="/coroutinedispatcher/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/coroutinedispatcher/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "What I learned from Kotlin Flow API",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/coroutinedispatcher.github.io\/coroutinedispatcher\/posts\/what-i-learned-from-kotlin-flow-api\/"
+        },"genre": "posts","keywords": "Observables, Coroutines, Android Architecture Components, Kotlin Flows, LiveData, Asynchronous, Kotlin, Android","wordcount":  1043 ,
+        "url": "https:\/\/coroutinedispatcher.github.io\/coroutinedispatcher\/posts\/what-i-learned-from-kotlin-flow-api\/","datePublished": "2020-01-24T13:54:00+01:00","dateModified": "2020-01-24T13:54:00+01:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Stavro Xhardha"},"author": {
+                "@type": "Person",
+                "name": "Stavro Xhardha"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="" header-mobile=""><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/coroutinedispatcher/" title="Coroutinedispatchers&#39; blog">Coroutinedispatchers&#39; blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/coroutinedispatcher/"> Home </a><a class="menu-item" href="/coroutinedispatcher/posts/"> Posts </a><a class="menu-item" href="/coroutinedispatcher/about/"> About </a><a class="menu-item" href="https://speakerdeck.com/stavro96" rel="noopener noreffer" target="_blank"> Presentation Slides </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/coroutinedispatcher/" title="Coroutinedispatchers&#39; blog">Coroutinedispatchers&#39; blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/coroutinedispatcher/" title="">Home</a><a class="menu-item" href="/coroutinedispatcher/posts/" title="">Posts</a><a class="menu-item" href="/coroutinedispatcher/about/" title="">About</a><a class="menu-item" href="https://speakerdeck.com/stavro96" title="" rel="noopener noreffer" target="_blank">Presentation Slides</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">What I learned from Kotlin Flow API</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/about/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Stavro Xhardha</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-01-24">2020-01-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;1043 words&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;5 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#conclusion-whats-the-next-step">Conclusion (what&rsquo;s the next step)</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><a href="https://1.bp.blogspot.com/-RkVRvfUOguU/XirklPNZgKI/AAAAAAAARRA/02ijqmfVQskx0mSBd_umY2AoR8Wh8rqBQCLcBGAsYHQ/s1600/tenor.gif" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        src="/coroutinedispatcher/svg/loading.min.svg"
+        data-src="https://1.bp.blogspot.com/-RkVRvfUOguU/XirklPNZgKI/AAAAAAAARRA/02ijqmfVQskx0mSBd_umY2AoR8Wh8rqBQCLcBGAsYHQ/s1600/tenor.gif"
+        data-srcset="https://1.bp.blogspot.com/-RkVRvfUOguU/XirklPNZgKI/AAAAAAAARRA/02ijqmfVQskx0mSBd_umY2AoR8Wh8rqBQCLcBGAsYHQ/s1600/tenor.gif, https://1.bp.blogspot.com/-RkVRvfUOguU/XirklPNZgKI/AAAAAAAARRA/02ijqmfVQskx0mSBd_umY2AoR8Wh8rqBQCLcBGAsYHQ/s1600/tenor.gif 1.5x, https://1.bp.blogspot.com/-RkVRvfUOguU/XirklPNZgKI/AAAAAAAARRA/02ijqmfVQskx0mSBd_umY2AoR8Wh8rqBQCLcBGAsYHQ/s1600/tenor.gif 2x"
+        data-sizes="auto"
+        alt="https://1.bp.blogspot.com/-RkVRvfUOguU/XirklPNZgKI/AAAAAAAARRA/02ijqmfVQskx0mSBd_umY2AoR8Wh8rqBQCLcBGAsYHQ/s1600/tenor.gif"
+        title="https://1.bp.blogspot.com/-RkVRvfUOguU/XirklPNZgKI/AAAAAAAARRA/02ijqmfVQskx0mSBd_umY2AoR8Wh8rqBQCLcBGAsYHQ/s1600/tenor.gif" /></a></p>
+<p>I used to check the docs and just read a lot about flows but didn&rsquo;t implement anything until yesterday. However, the API tasted really cool (even though some operations are still in Experimental state).</p>
+<p><em>Prerequisites: If you don&rsquo;t know RxJava it&rsquo;s fine. But a RxJava recognizer would read this faster.</em></p>
+<p><strong>Cold vs Hot streams</strong></p>
+<p>Well, I really struggled with this concept because it is a little bit tricky. The main difference between cold and hot happened to be pretty simple: Hot streams produce when you don&rsquo;t care while in cold streams, if you don&rsquo;t <code>collect()</code> (or RxJava-s equivalent <code>subscribe()</code>) the stream won&rsquo;t be activated at all. So, Flows are what we call cold streams. Removing the subscriber will not produce data at all, making the Flows one of the most sophisticated asynchronous stream API ever (in the JVM world).</p>
+<p>I tried to make a illustration of hot and cold streams:</p>
+<p><a href="https://1.bp.blogspot.com/-tVIgw0QHIuM/XirP-gDj3rI/AAAAAAAARQg/e1ehBZfopmgJJHomA42_GfaifCvJcvNdgCLcBGAsYHQ/s1600/Streams.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        src="/coroutinedispatcher/svg/loading.min.svg"
+        data-src="https://1.bp.blogspot.com/-tVIgw0QHIuM/XirP-gDj3rI/AAAAAAAARQg/e1ehBZfopmgJJHomA42_GfaifCvJcvNdgCLcBGAsYHQ/s1600/Streams.png"
+        data-srcset="https://1.bp.blogspot.com/-tVIgw0QHIuM/XirP-gDj3rI/AAAAAAAARQg/e1ehBZfopmgJJHomA42_GfaifCvJcvNdgCLcBGAsYHQ/s1600/Streams.png, https://1.bp.blogspot.com/-tVIgw0QHIuM/XirP-gDj3rI/AAAAAAAARQg/e1ehBZfopmgJJHomA42_GfaifCvJcvNdgCLcBGAsYHQ/s1600/Streams.png 1.5x, https://1.bp.blogspot.com/-tVIgw0QHIuM/XirP-gDj3rI/AAAAAAAARQg/e1ehBZfopmgJJHomA42_GfaifCvJcvNdgCLcBGAsYHQ/s1600/Streams.png 2x"
+        data-sizes="auto"
+        alt="https://1.bp.blogspot.com/-tVIgw0QHIuM/XirP-gDj3rI/AAAAAAAARQg/e1ehBZfopmgJJHomA42_GfaifCvJcvNdgCLcBGAsYHQ/s1600/Streams.png"
+        title="https://1.bp.blogspot.com/-tVIgw0QHIuM/XirP-gDj3rI/AAAAAAAARQg/e1ehBZfopmgJJHomA42_GfaifCvJcvNdgCLcBGAsYHQ/s1600/Streams.png" /></a></p>
+<p>Since I mentioned the word asynchronous this implies that they do support coroutines also.</p>
+<p><strong>Flows vs and LiveData</strong></p>
+<p>Having two kind of observables in your project, LiveData and Flows does not complicate the matter, it just creates a little bit of confusion. I was confused too in the beginning seeing a lot of discussion around LiveData vs Flows. Here is what I learned:</p>
+<p>The LiveData is still the one thing to be used to observe the UI changes. What I got wrong in all this discussion was that I thought we should replace LiveData and Flows for this case, which is wrong.</p>
+<p>The right thing in a debate like this would be LiveData vs Flows for data processing (like a Room persistence observation). Apparently we know who has the upper hand on this 🌊.</p>
+<p><strong>The use case</strong></p>
+<p>I used this <a href="https://codelabs.developers.google.com/codelabs/advanced-kotlin-coroutines/#0" target="_blank" rel="noopener noreffer">codelab</a> to learn Flows in practice. The use case was simple: Receive some data from the network, cache them to the room database and observe changes through LiveData (and load them into a <code>Recyclerview</code>, 60% of Android development 😜). Since I had nothing new in LiveData I didn&rsquo;t struggle at all. The task was to change all the LiveData transformations/processing etc into Flow implementation.</p>
+<p>Let&rsquo;s do it. Starting from the source of truth we would have this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="n">@Query</span><span class="p">(</span><span class="s">&#34;SELECT * FROM plants ORDER BY name&#34;</span><span class="p">)</span>  
+<span class="k">fun</span> <span class="nf">getPlants</span><span class="p">():</span> <span class="n">LiveData</span><span class="p">&lt;</span><span class="n">List</span><span class="p">&lt;</span><span class="n">Plant</span><span class="p">&gt;&gt;</span>
+</code></pre></div><p>Which transforms into:</p>
+<div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="n">@Query</span><span class="p">(</span><span class="s">&#34;SELECT * from plants ORDER BY name&#34;</span><span class="p">)</span>  
+<span class="k">fun</span> <span class="nf">getPlantsFlow</span><span class="p">():</span> <span class="n">Flow</span><span class="p">&lt;</span><span class="n">List</span><span class="p">&lt;</span><span class="n">Plant</span><span class="p">&gt;&gt;</span>
+</code></pre></div><p>Now, let&rsquo;s perform some operation with the result on our repository:</p>
+<div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="k">val</span> <span class="py">plants</span> <span class="p">=</span> <span class="n">liveData</span><span class="p">&lt;</span><span class="n">List</span><span class="p">&lt;</span><span class="n">Plant</span><span class="p">&gt;&gt;</span> <span class="p">{</span>  
+    <span class="k">val</span> <span class="py">plantsLiveData</span> <span class="p">=</span> <span class="n">plantDao</span><span class="p">.</span><span class="n">getPlants</span><span class="p">()</span>  
+    <span class="k">val</span> <span class="py">customSortOrder</span> <span class="p">=</span> <span class="n">plantsListSortOrderCache</span><span class="p">.</span><span class="n">getOrAwait</span><span class="p">()</span>  
+    <span class="n">emitSource</span><span class="p">(</span><span class="n">plantsLiveData</span><span class="p">.</span><span class="n">map</span> <span class="p">{</span> <span class="n">plantList</span> <span class="p">-&gt;</span>  
+      <span class="n">plantList</span><span class="p">.</span><span class="n">applySort</span><span class="p">(</span><span class="n">customSortOrder</span><span class="p">)</span>  
+    <span class="p">})</span>  
+  <span class="p">}</span>
+</code></pre></div><p>This is a LiveData builder, which would transform into:</p>
+<div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="k">private</span> <span class="k">val</span> <span class="py">customSortFlow</span> <span class="p">=</span> <span class="n">plantsListSortOrderCache</span><span class="o">::</span><span class="n">getOrAwait</span><span class="p">.</span><span class="n">asFlow</span><span class="p">()</span>  
+  <span class="k">val</span> <span class="py">plantsFlow</span><span class="p">:</span> <span class="n">Flow</span><span class="p">&lt;</span><span class="n">List</span><span class="p">&lt;</span><span class="n">Plant</span><span class="p">&gt;&gt;</span>  
+    <span class="k">get</span><span class="p">()</span> <span class="p">=</span> <span class="n">plantDao</span><span class="p">.</span><span class="n">getPlantsFlow</span><span class="p">().</span><span class="n">combine</span><span class="p">(</span><span class="n">customSortFlow</span><span class="p">)</span> <span class="p">{</span> <span class="n">plants</span><span class="p">,</span> <span class="n">sortOrder</span> <span class="p">-&gt;</span>  
+      <span class="n">plants</span><span class="p">.</span><span class="n">applySort</span><span class="p">(</span><span class="n">sortOrder</span><span class="p">)</span>  
+    <span class="p">}</span>  
+      <span class="p">.</span><span class="n">flowOn</span><span class="p">(</span><span class="n">Dispatchers</span><span class="p">.</span><span class="n">Default</span><span class="p">)</span> <span class="c1">//I changed this for the sake of the guideline  
+</span><span class="c1"></span>      <span class="p">.</span><span class="n">conflate</span><span class="p">()</span>
+</code></pre></div><p>Now, this is a little bit tricky. Notice the first block that has a LiveData builder. Two operations are being processed here: The first operation is getting safely some data from the network and sorting them by a certain field (id to be more precise), after that we just apply some sorting by a local method which sorts the list by another field. Since the goal of this guide is to show as many operations as they can, they introduce us to the <code>.combine()</code> operator and <code>.asFlow()</code> extension.</p>
+<p>If you come from RxJava the <code>combine()</code> is the equivalent of <code>zip()</code>. The <code>asFlow()</code> extension is a function which allows you to return everything you want into a Flow:</p>
+<div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="k">public</span> <span class="k">fun</span> &lt;T&gt; <span class="err">(</span><span class="nf">suspend</span> <span class="p">()</span> <span class="p">-&gt;</span> <span class="n">T</span><span class="p">).</span><span class="n">asFlow</span><span class="p">():</span> <span class="n">kotlinx</span><span class="p">.</span><span class="n">coroutines</span><span class="p">.</span><span class="n">flow</span><span class="p">.</span><span class="n">Flow</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="p">{</span> <span class="cm">/* compiled code */</span> <span class="p">}</span>
+</code></pre></div><p>But if we notice we have more operators: <code>flowOn()</code>, and <code>conflate()</code>. <code>flowOn()</code> is actually RxJava&rsquo;s equivalent of <code>subscribeOn()</code>. What this operator does is switching the thread to the desired Dispatcher. Since the <code>applySort()</code> is just a CPU process and no disk/network operation, we are using <code>Dispatchers.Default</code> thread for this. The <code>conflate()</code> operation is just used to get the latest value instead of all the values during the operation (should read a little bit about <code>buffer()</code> and slow operations <a href="https://kotlinlang.org/docs/reference/coroutines/flow.html#buffering" target="_blank" rel="noopener noreffer">here</a> though).</p>
+<p>What&rsquo;s left now? Ah, the ViewModel:</p>
+<div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="k">val</span> <span class="py">plants</span><span class="p">:</span> <span class="n">LiveData</span><span class="p">&lt;</span><span class="n">List</span><span class="p">&lt;</span><span class="n">Plant</span><span class="p">&gt;&gt;</span> <span class="p">=</span> <span class="n">plantRepository</span><span class="p">.</span><span class="n">plants</span> 
+<span class="c1">//the original has some other operations but for this case we don&#39;t care, just return a LiveData
+</span></code></pre></div><p>Transforms to:</p>
+<div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="k">val</span> <span class="py">plantsUsingFlow</span><span class="p">:</span> <span class="n">LiveData</span><span class="p">&lt;</span><span class="n">List</span><span class="p">&lt;</span><span class="n">Plant</span><span class="p">&gt;&gt;</span> <span class="p">=</span> <span class="n">plantRepository</span><span class="p">.</span><span class="n">plantsFlow</span><span class="p">.</span><span class="n">asLiveData</span><span class="p">()</span>
+</code></pre></div><p>The missing part for me was the <code>.asLiveData()</code> extension. Yes there is an extension function which you can use for every Flow in order to observe LiveData on the Fragment:</p>
+<div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="n">@JvmOverloads</span>  
+<span class="k">fun</span> &lt;T&gt; <span class="nf">Flow</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;.</span><span class="n">asLiveData</span><span class="p">(</span>  
+  <span class="n">context</span><span class="p">:</span> <span class="n">CoroutineContext</span> <span class="p">=</span> <span class="n">EmptyCoroutineContext</span><span class="p">,</span>  
+  <span class="n">timeoutInMs</span><span class="p">:</span> <span class="n">Long</span> <span class="p">=</span> <span class="n">DEFAULT_TIMEOUT</span>  
+<span class="p">):</span> <span class="n">LiveData</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="p">=</span> <span class="n">liveData</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">timeoutInMs</span><span class="p">)</span> <span class="p">{</span>  
+  <span class="n">collect</span> <span class="p">{</span>  
+    <span class="n">emit</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>  
+  <span class="p">}</span>  
+<span class="p">}</span>
+</code></pre></div><p>And all is done. Of course, I didn&rsquo;t cover the second part of the course which was about handling some click event from UI and re-sorting the list, but you can follow the course if you like. It&rsquo;s pretty fun.</p>
+<p>Extra material</p>
+<p>During the course you would face some other operations:</p>
+<div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="p">.</span><span class="n">flatMapLatest</span><span class="p">{</span><span class="n">result</span> <span class="p">-&gt;</span> <span class="n">process</span><span class="p">(</span><span class="n">result</span><span class="p">)}</span>
+</code></pre></div><p>Basically just returns a new Flow each time a method returns a value.</p>
+<div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="p">.</span><span class="n">onStart</span><span class="p">{</span><span class="n">doSomethingOnStart</span><span class="p">()}</span>
+</code></pre></div><p>Well the name speaks for itself. An operation which executes when the stream starts</p>
+<div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="p">.</span><span class="n">onCompletion</span><span class="p">{</span><span class="n">doSomething</span><span class="p">()}</span>
+</code></pre></div><p>This is even easier, operation that executes when the stream ends</p>
+<div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="p">.</span><span class="n">launchIn</span><span class="p">(</span><span class="n">viewModelScope</span><span class="p">)</span>
+</code></pre></div><p>The method that helps to define the coroutine scope for this flow (inside it you can find the <code>collect()</code> method) making this method the equivalent of <code>launch{collect()}</code></p>
+<h2 id="conclusion-whats-the-next-step">Conclusion (what&rsquo;s the next step)</h2>
+<p>I would recommend hard work and reading the Flow API <a href="https://kotlinlang.org/docs/reference/coroutines/flow.html" target="_blank" rel="noopener noreffer">over here</a>. Once you have the concept, it&rsquo;s just operations you need to learn how-to and why. Just think of the <code>Flow&lt;T&gt;</code> as a <code>AsyncStreamingList&lt;T&gt;</code> which has some nice operations about the data. Flows apply to functional programming style and also shorten a lot of boilerplate if you use them right.</p>
+<p>Make sure not to over engineer things with Flow because that would be a total shot in the foot.</p>
+<p>First of all, I would recommend some really nice resources to learn Flows just like I did. One thing to note is that I&rsquo;m still no expert in this, and I&rsquo;m opened for critics. Here are some of the resources I used (except the codelab mentioned above):</p>
+<p>1 - Roman Elizarov&rsquo;s <a href="https://medium.com/@elizarov" target="_blank" rel="noopener noreffer">blog</a>.</p>
+<p>2 - Asynchronous data streams with Kotlin Flow in <a href="https://www.youtube.com/watch?v=tYcqn48SMT8" target="_blank" rel="noopener noreffer">YouTube</a>.</p>
+<p>3 - Fragmented podcast <a href="https://fragmentedpodcast.com/episodes/187/" target="_blank" rel="noopener noreffer">last talk</a> (even though they talk more about coroutines in general).</p>
+<p>Stavro Xhardha</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2020-01-24</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/coroutinedispatcher/tags/observables/">Observables</a>,&nbsp;<a href="/coroutinedispatcher/tags/coroutines/">Coroutines</a>,&nbsp;<a href="/coroutinedispatcher/tags/android-architecture-components./">Android Architecture Components.</a>,&nbsp;<a href="/coroutinedispatcher/tags/kotlin-flows/">Kotlin Flows</a>,&nbsp;<a href="/coroutinedispatcher/tags/livedata/">LiveData</a>,&nbsp;<a href="/coroutinedispatcher/tags/asynchronous/">Asynchronous</a>,&nbsp;<a href="/coroutinedispatcher/tags/kotlin/">Kotlin</a>,&nbsp;<a href="/coroutinedispatcher/tags/android/">Android</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/coroutinedispatcher/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/coroutinedispatcher/posts/searchable-fragments-with-paging-library/" class="prev" rel="prev" title="Searchable Fragments with the Paging Library"><i class="fas fa-angle-left fa-fw"></i>Searchable Fragments with the Paging Library</a>
+            <a href="/coroutinedispatcher/posts/generate-kotlin-docs-using-dokka/" class="next" rel="next" title="Generate Kotlin Docs using Dokka">Generate Kotlin Docs using Dokka<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.73.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/about/" target="_blank">Stavro Xhardha</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><script type="text/javascript" src="/coroutinedispatcher/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/coroutinedispatcher/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/coroutinedispatcher/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/coroutinedispatcher/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/coroutinedispatcher/lib/clipboard/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":100},"comment":{},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.en","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"algolia"}};</script><script type="text/javascript" src="/coroutinedispatcher/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,17 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>ViewModel Factory - Tag - Coroutinedispatchers&#39; blog</title>
+        <link>https://coroutinedispatcher.github.io/coroutinedispatcher/tags/viewmodel-factory/</link>
+        <description>ViewModel Factory - Tag - Coroutinedispatchers&#39; blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>stavro96@gmail.com (Stavro Xhardha)</managingEditor>
+            <webMaster>stavro96@gmail.com (Stavro Xhardha)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 27 Aug 2019 10:31:00 &#43;0200</lastBuildDate><atom:link href="https://coroutinedispatcher.github.io/coroutinedispatcher/tags/viewmodel-factory/" rel="self" type="application/rss+xml" /><item>
+    <title>How to produce the SavedStateHandle in your ViewModel using AssistedInject</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/how-to-produce-savedstatehandle-in-your/</link>
+    <pubDate>Tue, 27 Aug 2019 10:31:00 &#43;0200</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/how-to-produce-savedstatehandle-in-your/</guid>
+    <description><![CDATA[One of my previous article Dagger Multibinding Saved My Time &ldquo;claimed&rdquo; to have found the right practice for providing ViewModels without producing a ViewModel Factory for each ViewModel. Apparently, I was wrong. There are 2 main problems with that approach:
+1 - I might forget to add a ViewModel in the Map graph.
+2 - With the new SavedStateHandle which stays uniqely in each ViewModel I can&rsquo;t use a generic ViewModel Factory.]]></description>
+</item></channel>
+</rss>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Retrofit met Coroutines - Coroutinedispatchers&#39; blog</title><meta name="Description" content="About LoveIt Theme"><meta property="og:title" content="Retrofit met Coroutines" />
+<meta property="og:description" content="Retrofit met Coroutines * { font-family: Georgia, Cambria, &ldquo;Times New Roman&rdquo;, Times, serif; } html, body { margin: 0; padding: 0; } h1 { font-size: 50px; margin-bottom: 17px; color: #333; } h2 { font-size: 24px; line-height: 1.6; margin: 30px 0 0 0; margin-bottom: 18px; margin-top: 33px; color: #333; } h3 { font-size: 30px; margin: 10px 0 20px 0; color: #333; } header { width: 640px; margin: auto; } section { width: 640px; margin: auto; } section p { margin-bottom: 27px; font-size: 20px; line-height: 1." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://coroutinedispatcher.github.io/coroutinedispatcher/posts/retrofit-met-coroutines/" />
+<meta property="article:published_time" content="2019-06-19T10:42:00+02:00" />
+<meta property="article:modified_time" content="2019-06-19T10:42:00+02:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Retrofit met Coroutines"/>
+<meta name="twitter:description" content="Retrofit met Coroutines * { font-family: Georgia, Cambria, &ldquo;Times New Roman&rdquo;, Times, serif; } html, body { margin: 0; padding: 0; } h1 { font-size: 50px; margin-bottom: 17px; color: #333; } h2 { font-size: 24px; line-height: 1.6; margin: 30px 0 0 0; margin-bottom: 18px; margin-top: 33px; color: #333; } h3 { font-size: 30px; margin: 10px 0 20px 0; color: #333; } header { width: 640px; margin: auto; } section { width: 640px; margin: auto; } section p { margin-bottom: 27px; font-size: 20px; line-height: 1."/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://coroutinedispatcher.github.io/coroutinedispatcher/posts/retrofit-met-coroutines/" /><link rel="prev" href="https://coroutinedispatcher.github.io/coroutinedispatcher/posts/usage-of-viewmodelscope/" /><link rel="next" href="https://coroutinedispatcher.github.io/coroutinedispatcher/posts/using-idling-resources-in-your-espresso/" /><link rel="stylesheet" href="/coroutinedispatcher/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/coroutinedispatcher/css/style.min.css"><link rel="stylesheet" href="/coroutinedispatcher/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/coroutinedispatcher/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Retrofit met Coroutines",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/coroutinedispatcher.github.io\/coroutinedispatcher\/posts\/retrofit-met-coroutines\/"
+        },"genre": "posts","wordcount":  431 ,
+        "url": "https:\/\/coroutinedispatcher.github.io\/coroutinedispatcher\/posts\/retrofit-met-coroutines\/","datePublished": "2019-06-19T10:42:00+02:00","dateModified": "2019-06-19T10:42:00+02:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Stavro Xhardha"},"author": {
+                "@type": "Person",
+                "name": "Stavro Xhardha"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="" header-mobile=""><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/coroutinedispatcher/" title="Coroutinedispatchers&#39; blog">Coroutinedispatchers&#39; blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/coroutinedispatcher/"> Home </a><a class="menu-item" href="/coroutinedispatcher/posts/"> Posts </a><a class="menu-item" href="/coroutinedispatcher/about/"> About </a><a class="menu-item" href="https://speakerdeck.com/stavro96" rel="noopener noreffer" target="_blank"> Presentation Slides </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/coroutinedispatcher/" title="Coroutinedispatchers&#39; blog">Coroutinedispatchers&#39; blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/coroutinedispatcher/" title="">Home</a><a class="menu-item" href="/coroutinedispatcher/posts/" title="">Posts</a><a class="menu-item" href="/coroutinedispatcher/about/" title="">About</a><a class="menu-item" href="https://speakerdeck.com/stavro96" title="" rel="noopener noreffer" target="_blank">Presentation Slides</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Retrofit met Coroutines</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/about/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Stavro Xhardha</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2019-06-19">2019-06-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;431 words&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"><p>Retrofit met Coroutines * { font-family: Georgia, Cambria, &ldquo;Times New Roman&rdquo;, Times, serif; } html, body { margin: 0; padding: 0; } h1 { font-size: 50px; margin-bottom: 17px; color: #333; } h2 { font-size: 24px; line-height: 1.6; margin: 30px 0 0 0; margin-bottom: 18px; margin-top: 33px; color: #333; } h3 { font-size: 30px; margin: 10px 0 20px 0; color: #333; } header { width: 640px; margin: auto; } section { width: 640px; margin: auto; } section p { margin-bottom: 27px; font-size: 20px; line-height: 1.6; color: #333; } section img { max-width: 640px; } footer { padding: 0 20px; margin: 50px 0; text-align: center; font-size: 12px; } .aspectRatioPlaceholder { max-width: auto !important; max-height: auto !important; } .aspectRatioPlaceholder-fill { padding-bottom: 0 !important; } header, section[data-field=subtitle], section[data-field=description] { display: none; }</p>
+<p>Finally the latest version of Retrofit (2.6.0) has got out. While it was already really easy to use and so much fun, Retrofit is now easy…</p>
+<hr>
+<p><img
+        class="lazyload"
+        src="/coroutinedispatcher/svg/loading.min.svg"
+        data-src="https://cdn-images-1.medium.com/max/800/1*6zsDPmdnSm_VA0sUPj4Aww.jpeg"
+        data-srcset="https://cdn-images-1.medium.com/max/800/1*6zsDPmdnSm_VA0sUPj4Aww.jpeg, https://cdn-images-1.medium.com/max/800/1*6zsDPmdnSm_VA0sUPj4Aww.jpeg 1.5x, https://cdn-images-1.medium.com/max/800/1*6zsDPmdnSm_VA0sUPj4Aww.jpeg 2x"
+        data-sizes="auto"
+        alt="https://cdn-images-1.medium.com/max/800/1*6zsDPmdnSm_VA0sUPj4Aww.jpeg"
+        title="https://cdn-images-1.medium.com/max/800/1*6zsDPmdnSm_VA0sUPj4Aww.jpeg" /></p>
+<p>Finally the latest version of <code>Retrofit</code> (2.6.0) has got out. While it was already really easy to use and so much fun, <code>Retrofit</code> is now easy, fun and shorter to write. Let’s deal with a refactor scenario from the previous version:</p>
+<p><strong>Version 2.5.0:</strong></p>
+<p>Obviously we have to return the same type until we <code>await()</code> for that response:</p>
+<p>Notice we are returning the <code>Deferred</code>type which holds our response. We won’t stop on what a <code>Deffered</code> is apart from sayin that it’s just a <a href="https://en.wikipedia.org/wiki/Futures_and_promises" target="_blank" rel="noopener noreffer">Future</a>.</p>
+<p>And when we want to get that response:</p>
+<p>Notice we are calling the <code>await()</code> method in order to wait until our asynchronous operation has finished.</p>
+<p>Well, no need for that anymore!</p>
+<p><strong>Version 2.6.0:</strong></p>
+<p>Drop the <code>Deferred</code> type and mark your methods as <code>suspend</code> . Again we wont stop on what <code>suspend</code> methods are apart from saying that it is a way to tell my program that this method is going to be a little late.</p>
+<p>And after that, do the same until you await the response:</p>
+<p>Now let’s implement the method:</p>
+<p>Notice there is no need to <code>await()</code> that method because retrofit does that for you. It will return your defined type.</p>
+<blockquote>
+<p>Note: You should also drop the <code>.addCallAdapterFactory(CoroutineCallAdapterFactory())</code> from your <code>Retrofit</code> instance build.</p>
+</blockquote>
+<blockquote>
+<p>I am using <code>GlobalScope</code> because I am not inside a Activity/Fragment/ViewModel which would have theis own lifecycle. Please avoid the <code>GlobalScope</code> . For just an example it’s fine.</p>
+</blockquote>
+<p><strong>Source:</strong></p>
+<p><a href="https://github.com/JakeWharton/SdkSearch/pull/170/files" title="https://github.com/JakeWharton/SdkSearch/pull/170/files" target="_blank" rel="noopener noreffer"><strong><em>Migrate to Retrofit 2.6.0 and built-in suspend support</em> by JakeWharton · Pull Request #170 ·…</strong><br>
+Migrate to Retrofit 2.6.0 and built-in suspend supportgithub.com</a><a href="https://github.com/JakeWharton/SdkSearch/pull/170/files" target="_blank" rel="noopener noreffer"></a></p>
+<p>Good luck.</p>
+<p>By <a href="https://medium.com/@stavro96" target="_blank" rel="noopener noreffer">Stavro Xhardha</a> on <a href="https://medium.com/p/7bbe7e86825a" target="_blank" rel="noopener noreffer">June 6, 2019</a>.</p>
+<p><a href="https://medium.com/@stavro96/retrofit-met-coroutines-7bbe7e86825a" target="_blank" rel="noopener noreffer">Canonical link</a></p>
+<p>Exported from <a href="https://medium.com" target="_blank" rel="noopener noreffer">Medium</a> on June 19, 2019.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2019-06-19</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/coroutinedispatcher/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/coroutinedispatcher/posts/usage-of-viewmodelscope/" class="prev" rel="prev" title="Usage of the ViewModelScope"><i class="fas fa-angle-left fa-fw"></i>Usage of the ViewModelScope</a>
+            <a href="/coroutinedispatcher/posts/using-idling-resources-in-your-espresso/" class="next" rel="next" title="Using Idling Resources in your Espresso Tests">Using Idling Resources in your Espresso Tests<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.73.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/about/" target="_blank">Stavro Xhardha</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><script type="text/javascript" src="/coroutinedispatcher/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/coroutinedispatcher/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/coroutinedispatcher/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/coroutinedispatcher/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/coroutinedispatcher/lib/clipboard/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":100},"comment":{},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.en","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"algolia"}};</script><script type="text/javascript" src="/coroutinedispatcher/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,17 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Single Event - Tag - Coroutinedispatchers&#39; blog</title>
+        <link>https://coroutinedispatcher.github.io/coroutinedispatcher/tags/single-event/</link>
+        <description>Single Event - Tag - Coroutinedispatchers&#39; blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>stavro96@gmail.com (Stavro Xhardha)</managingEditor>
+            <webMaster>stavro96@gmail.com (Stavro Xhardha)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 09 Dec 2019 09:51:00 &#43;0100</lastBuildDate><atom:link href="https://coroutinedispatcher.github.io/coroutinedispatcher/tags/single-event/" rel="self" type="application/rss+xml" /><item>
+    <title>Conditional navigation and single event LiveData</title>
+    <link>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/conditional-navigation-and-single-event/</link>
+    <pubDate>Mon, 09 Dec 2019 09:51:00 &#43;0100</pubDate>
+    <author>Author</author>
+    <guid>https://coroutinedispatcher.github.io/coroutinedispatcher/posts/conditional-navigation-and-single-event/</guid>
+    <description><![CDATA[Conditional navigation is a little tricky when it comes to Navigation Architecture. There are plenty of nice articles and solutions about it, but I&rsquo;m sharing the way I solve this important problem. So let&rsquo;s consider this use case:
+
+If you don&rsquo;t put HomeFragment as a start destination, you will have some serious trouble with the fragment back stack and you would need to write the onBackPressDispatcher in every fragment.]]></description>
+</item></channel>
+</rss>

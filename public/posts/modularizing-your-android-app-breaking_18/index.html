@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Modularizing your Android app, breaking the monolith (Part 3) - Coroutinedispatchers&#39; blog</title><meta name="Description" content="About LoveIt Theme"><meta property="og:title" content="Modularizing your Android app, breaking the monolith (Part 3)" />
+<meta property="og:description" content="On our latest article, what we did was creating a Dagger component about almost all of our features and provided a ViewModel(Factory) for every Fragment we had inside a module. As said, this is a little too much work for Dagger, the programmer and each feature. It&rsquo;s a total overkill of using Dagger actually, we could have stuck to a manual DI instead, but I required you to be patient." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://coroutinedispatcher.github.io/coroutinedispatcher/posts/modularizing-your-android-app-breaking_18/" />
+<meta property="article:published_time" content="2019-11-18T08:57:00+01:00" />
+<meta property="article:modified_time" content="2019-11-18T08:57:00+01:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Modularizing your Android app, breaking the monolith (Part 3)"/>
+<meta name="twitter:description" content="On our latest article, what we did was creating a Dagger component about almost all of our features and provided a ViewModel(Factory) for every Fragment we had inside a module. As said, this is a little too much work for Dagger, the programmer and each feature. It&rsquo;s a total overkill of using Dagger actually, we could have stuck to a manual DI instead, but I required you to be patient."/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://coroutinedispatcher.github.io/coroutinedispatcher/posts/modularizing-your-android-app-breaking_18/" /><link rel="prev" href="https://coroutinedispatcher.github.io/coroutinedispatcher/posts/modularizing-your-android-app-breaking_11/" /><link rel="next" href="https://coroutinedispatcher.github.io/coroutinedispatcher/posts/modularizing-your-android-app-some/" /><link rel="stylesheet" href="/coroutinedispatcher/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/coroutinedispatcher/css/style.min.css"><link rel="stylesheet" href="/coroutinedispatcher/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/coroutinedispatcher/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Modularizing your Android app, breaking the monolith (Part 3)",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/coroutinedispatcher.github.io\/coroutinedispatcher\/posts\/modularizing-your-android-app-breaking_18\/"
+        },"genre": "posts","keywords": "Android Module, Micro Frontend, Dagger 2, Android Architecture Components, Android Multi Module","wordcount":  663 ,
+        "url": "https:\/\/coroutinedispatcher.github.io\/coroutinedispatcher\/posts\/modularizing-your-android-app-breaking_18\/","datePublished": "2019-11-18T08:57:00+01:00","dateModified": "2019-11-18T08:57:00+01:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Stavro Xhardha"},"author": {
+                "@type": "Person",
+                "name": "Stavro Xhardha"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="" header-mobile=""><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/coroutinedispatcher/" title="Coroutinedispatchers&#39; blog">Coroutinedispatchers&#39; blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/coroutinedispatcher/"> Home </a><a class="menu-item" href="/coroutinedispatcher/posts/"> Posts </a><a class="menu-item" href="/coroutinedispatcher/about/"> About </a><a class="menu-item" href="https://speakerdeck.com/stavro96" rel="noopener noreffer" target="_blank"> Presentation Slides </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/coroutinedispatcher/" title="Coroutinedispatchers&#39; blog">Coroutinedispatchers&#39; blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/coroutinedispatcher/" title="">Home</a><a class="menu-item" href="/coroutinedispatcher/posts/" title="">Posts</a><a class="menu-item" href="/coroutinedispatcher/about/" title="">About</a><a class="menu-item" href="https://speakerdeck.com/stavro96" title="" rel="noopener noreffer" target="_blank">Presentation Slides</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Modularizing your Android app, breaking the monolith (Part 3)</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/about/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Stavro Xhardha</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2019-11-18">2019-11-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;663 words&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"><p><a href="https://1.bp.blogspot.com/-GBV568I-KFA/XcwRO6JVtHI/AAAAAAAAQVI/nYR476_JLPMxX7GSTrd_GguoZKi2snKxQCLcBGAsYHQ/s1600/florian-van-duyn-zE6ivbPzPGU-unsplash.jpg" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        src="/coroutinedispatcher/svg/loading.min.svg"
+        data-src="https://1.bp.blogspot.com/-GBV568I-KFA/XcwRO6JVtHI/AAAAAAAAQVI/nYR476_JLPMxX7GSTrd_GguoZKi2snKxQCLcBGAsYHQ/s1600/florian-van-duyn-zE6ivbPzPGU-unsplash.jpg"
+        data-srcset="https://1.bp.blogspot.com/-GBV568I-KFA/XcwRO6JVtHI/AAAAAAAAQVI/nYR476_JLPMxX7GSTrd_GguoZKi2snKxQCLcBGAsYHQ/s1600/florian-van-duyn-zE6ivbPzPGU-unsplash.jpg, https://1.bp.blogspot.com/-GBV568I-KFA/XcwRO6JVtHI/AAAAAAAAQVI/nYR476_JLPMxX7GSTrd_GguoZKi2snKxQCLcBGAsYHQ/s1600/florian-van-duyn-zE6ivbPzPGU-unsplash.jpg 1.5x, https://1.bp.blogspot.com/-GBV568I-KFA/XcwRO6JVtHI/AAAAAAAAQVI/nYR476_JLPMxX7GSTrd_GguoZKi2snKxQCLcBGAsYHQ/s1600/florian-van-duyn-zE6ivbPzPGU-unsplash.jpg 2x"
+        data-sizes="auto"
+        alt="https://1.bp.blogspot.com/-GBV568I-KFA/XcwRO6JVtHI/AAAAAAAAQVI/nYR476_JLPMxX7GSTrd_GguoZKi2snKxQCLcBGAsYHQ/s1600/florian-van-duyn-zE6ivbPzPGU-unsplash.jpg"
+        title="https://1.bp.blogspot.com/-GBV568I-KFA/XcwRO6JVtHI/AAAAAAAAQVI/nYR476_JLPMxX7GSTrd_GguoZKi2snKxQCLcBGAsYHQ/s1600/florian-van-duyn-zE6ivbPzPGU-unsplash.jpg" /></a></p>
+<p>On our <a href="https://www.coroutinedispatcher.com/2019/11/modularizing-your-android-app-breaking_11.html" target="_blank" rel="noopener noreffer">latest article</a>, what we did was creating a Dagger component about almost all of our features and provided a ViewModel(Factory) for every Fragment we had inside a module. As said, this is a little too much work for Dagger, the programmer and each feature. It&rsquo;s a total overkill of using Dagger actually, we could have stuck to a manual DI instead, but I required you to be patient.</p>
+<p>Let me remind you of the current state of the app:</p>
+<p><a href="https://1.bp.blogspot.com/-a-sO59Lwxuo/XcwZC1uh7RI/AAAAAAAAQVg/mp8LCb606mwT452LTpcEsgB7jmhTUP-3wCLcBGAsYHQ/s1600/Part3Uncrashed%2B%25281%2529.jpg" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        src="/coroutinedispatcher/svg/loading.min.svg"
+        data-src="https://1.bp.blogspot.com/-a-sO59Lwxuo/XcwZC1uh7RI/AAAAAAAAQVg/mp8LCb606mwT452LTpcEsgB7jmhTUP-3wCLcBGAsYHQ/s1600/Part3Uncrashed%2B%25281%2529.jpg"
+        data-srcset="https://1.bp.blogspot.com/-a-sO59Lwxuo/XcwZC1uh7RI/AAAAAAAAQVg/mp8LCb606mwT452LTpcEsgB7jmhTUP-3wCLcBGAsYHQ/s1600/Part3Uncrashed%2B%25281%2529.jpg, https://1.bp.blogspot.com/-a-sO59Lwxuo/XcwZC1uh7RI/AAAAAAAAQVg/mp8LCb606mwT452LTpcEsgB7jmhTUP-3wCLcBGAsYHQ/s1600/Part3Uncrashed%2B%25281%2529.jpg 1.5x, https://1.bp.blogspot.com/-a-sO59Lwxuo/XcwZC1uh7RI/AAAAAAAAQVg/mp8LCb606mwT452LTpcEsgB7jmhTUP-3wCLcBGAsYHQ/s1600/Part3Uncrashed%2B%25281%2529.jpg 2x"
+        data-sizes="auto"
+        alt="https://1.bp.blogspot.com/-a-sO59Lwxuo/XcwZC1uh7RI/AAAAAAAAQVg/mp8LCb606mwT452LTpcEsgB7jmhTUP-3wCLcBGAsYHQ/s1600/Part3Uncrashed%2B%25281%2529.jpg"
+        title="https://1.bp.blogspot.com/-a-sO59Lwxuo/XcwZC1uh7RI/AAAAAAAAQVg/mp8LCb606mwT452LTpcEsgB7jmhTUP-3wCLcBGAsYHQ/s1600/Part3Uncrashed%2B%25281%2529.jpg" /></a></p>
+<p><em>For simplicity I&rsquo;m not saying in the picture that each component brings a ViewModel(Factory) to the component, please check the previous article if you are confused.</em></p>
+<p><strong>The problem:</strong></p>
+<p>I am using a database only in 2 modules, :feature_2 and :feature_4. The rest of the app doesn&rsquo;t care about the database at all. Furthermore, :feature_2 has 0 relations to my :feature_4 entities, while this last one has 2 tables related to each other ( a one to many relationship). But this is not the problem yet. The problem is related to the database being exposed for all my modules. That&rsquo;s really unnecessary.</p>
+<p><strong>An optional solution:</strong></p>
+<p>We could create a :db_module and install it as a module inside the features that actually need it:</p>
+<p><a href="https://1.bp.blogspot.com/-0Nc6MuocZOk/XcwZt_g2EnI/AAAAAAAAQVo/aDQOaa9QRdYjJtImzVW-Uk3z2xo5cgGgwCLcBGAsYHQ/s1600/Part3Uncrashed%2B%25282%2529.jpg" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        src="/coroutinedispatcher/svg/loading.min.svg"
+        data-src="https://1.bp.blogspot.com/-0Nc6MuocZOk/XcwZt_g2EnI/AAAAAAAAQVo/aDQOaa9QRdYjJtImzVW-Uk3z2xo5cgGgwCLcBGAsYHQ/s1600/Part3Uncrashed%2B%25282%2529.jpg"
+        data-srcset="https://1.bp.blogspot.com/-0Nc6MuocZOk/XcwZt_g2EnI/AAAAAAAAQVo/aDQOaa9QRdYjJtImzVW-Uk3z2xo5cgGgwCLcBGAsYHQ/s1600/Part3Uncrashed%2B%25282%2529.jpg, https://1.bp.blogspot.com/-0Nc6MuocZOk/XcwZt_g2EnI/AAAAAAAAQVo/aDQOaa9QRdYjJtImzVW-Uk3z2xo5cgGgwCLcBGAsYHQ/s1600/Part3Uncrashed%2B%25282%2529.jpg 1.5x, https://1.bp.blogspot.com/-0Nc6MuocZOk/XcwZt_g2EnI/AAAAAAAAQVo/aDQOaa9QRdYjJtImzVW-Uk3z2xo5cgGgwCLcBGAsYHQ/s1600/Part3Uncrashed%2B%25282%2529.jpg 2x"
+        data-sizes="auto"
+        alt="https://1.bp.blogspot.com/-0Nc6MuocZOk/XcwZt_g2EnI/AAAAAAAAQVo/aDQOaa9QRdYjJtImzVW-Uk3z2xo5cgGgwCLcBGAsYHQ/s1600/Part3Uncrashed%2B%25282%2529.jpg"
+        title="https://1.bp.blogspot.com/-0Nc6MuocZOk/XcwZt_g2EnI/AAAAAAAAQVo/aDQOaa9QRdYjJtImzVW-Uk3z2xo5cgGgwCLcBGAsYHQ/s1600/Part3Uncrashed%2B%25282%2529.jpg" /></a></p>
+<p>This solution would be great for modules whose entities have relations to each other. In my case it&rsquo;s too much. IMO, it&rsquo;s better to separate databases completely. I&rsquo;ll keep one database for my :feature_4 which has 2 related entities and another database for my :feature_2 which has only one entity. Plus, it requires less work in terms of time (even if we are creating 2 databases, isn&rsquo;t that cool😋 )</p>
+<p><strong>The solution:</strong></p>
+<p>Completely separate databases:</p>
+<p><a href="https://1.bp.blogspot.com/-O4FfVxF50Sc/XcwbedWRPVI/AAAAAAAAQV0/fZg-mKVAXlsi_haxQSKLBg_RAe_zEk_ogCLcBGAsYHQ/s1600/Part3Uncrashed%2B%25283%2529.jpg" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        src="/coroutinedispatcher/svg/loading.min.svg"
+        data-src="https://1.bp.blogspot.com/-O4FfVxF50Sc/XcwbedWRPVI/AAAAAAAAQV0/fZg-mKVAXlsi_haxQSKLBg_RAe_zEk_ogCLcBGAsYHQ/s1600/Part3Uncrashed%2B%25283%2529.jpg"
+        data-srcset="https://1.bp.blogspot.com/-O4FfVxF50Sc/XcwbedWRPVI/AAAAAAAAQV0/fZg-mKVAXlsi_haxQSKLBg_RAe_zEk_ogCLcBGAsYHQ/s1600/Part3Uncrashed%2B%25283%2529.jpg, https://1.bp.blogspot.com/-O4FfVxF50Sc/XcwbedWRPVI/AAAAAAAAQV0/fZg-mKVAXlsi_haxQSKLBg_RAe_zEk_ogCLcBGAsYHQ/s1600/Part3Uncrashed%2B%25283%2529.jpg 1.5x, https://1.bp.blogspot.com/-O4FfVxF50Sc/XcwbedWRPVI/AAAAAAAAQV0/fZg-mKVAXlsi_haxQSKLBg_RAe_zEk_ogCLcBGAsYHQ/s1600/Part3Uncrashed%2B%25283%2529.jpg 2x"
+        data-sizes="auto"
+        alt="https://1.bp.blogspot.com/-O4FfVxF50Sc/XcwbedWRPVI/AAAAAAAAQV0/fZg-mKVAXlsi_haxQSKLBg_RAe_zEk_ogCLcBGAsYHQ/s1600/Part3Uncrashed%2B%25283%2529.jpg"
+        title="https://1.bp.blogspot.com/-O4FfVxF50Sc/XcwbedWRPVI/AAAAAAAAQV0/fZg-mKVAXlsi_haxQSKLBg_RAe_zEk_ogCLcBGAsYHQ/s1600/Part3Uncrashed%2B%25283%2529.jpg" /></a></p>
+<p>In this way, the :feature_4 and :feature_2 not only are separated from all the other modules but they are also separated from each other.</p>
+<p><strong>Some code:</strong><br>
+We still have to do only dependency configuration only. This is good news:</p>
+<div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="n">@FragmentScoped</span> <span class="c1">//remember we are in one lower level than the @Singleton (it&#39;s multi-module mandatory)
+</span><span class="c1"></span><span class="n">@Component</span><span class="p">(</span>
+    <span class="n">modules</span> <span class="p">=</span> <span class="p">[</span><span class="n">F2ViewModelModule</span><span class="o">::</span><span class="k">class</span><span class="p">,</span> <span class="n">F2DatabaseModule</span><span class="o">::</span><span class="k">class</span><span class="p">],</span>
+    <span class="n">dependencies</span> <span class="p">=</span> <span class="p">[</span><span class="n">CoreComponent</span><span class="o">::</span><span class="k">class</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="k">interface</span> <span class="nc">F2Component</span> <span class="p">{</span>
+    <span class="k">fun</span> <span class="nf">inject</span><span class="p">(</span><span class="n">f2Fragment</span><span class="p">:</span> <span class="n">F2Fragment</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="n">@Module</span>
+<span class="k">class</span> <span class="nc">F2DatabaseModule</span><span class="p">(</span><span class="k">private</span> <span class="k">val</span> <span class="py">application</span><span class="p">:</span> <span class="n">Application</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="n">@FragmentScoped</span>
+    <span class="n">@Provides</span>
+    <span class="k">fun</span> <span class="nf">provideF2Database</span><span class="p">():</span> <span class="n">F2Database</span> <span class="p">=</span>
+        <span class="n">Room</span><span class="p">.</span><span class="n">databaseBuilder</span><span class="p">(</span>
+            <span class="n">application</span><span class="p">,</span>
+            <span class="n">F2Database</span><span class="o">::</span><span class="k">class</span><span class="p">.</span><span class="n">java</span><span class="p">,</span>
+            <span class="s">&#34;f2_db&#34;</span>
+        <span class="p">).</span><span class="n">fallbackToDestructiveMigration</span><span class="p">()</span> <span class="c1">//don&#39;t laugh, solves my case
+</span><span class="c1"></span>        <span class="p">.</span><span class="n">build</span><span class="p">()</span>
+
+    <span class="n">@FragmentScoped</span>
+    <span class="n">@Provides</span>
+    <span class="k">fun</span> <span class="nf">provideF2EntityDao</span><span class="p">(</span><span class="n">f2db</span><span class="p">:</span> <span class="n">F2Database</span><span class="p">):</span> <span class="n">F2DbDao</span> <span class="p">=</span> <span class="n">f2db</span><span class="p">.</span><span class="n">f2EntityDao</span><span class="p">()</span>
+
+<span class="p">}</span>
+</code></pre></div><p>This way I&rsquo;m able to get the Application instance from my :core_module and provide it for my local database. And then I can do:</p>
+<div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="k">class</span> <span class="nc">F2Fragment</span><span class="p">:</span> <span class="n">BaseFragment</span><span class="p">(){</span>
+
+    <span class="n">@Inject</span>
+    <span class="k">lateinit</span> <span class="k">var</span> <span class="py">f2ViewModelFactory</span><span class="p">:</span> <span class="n">F2ViewModel</span><span class="p">.</span><span class="n">Factory</span>
+
+    <span class="p">....</span>
+
+   <span class="k">override</span> <span class="k">fun</span> <span class="nf">initializeComponents</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">provideDI</span><span class="p">()</span>
+        <span class="n">btnRetry</span><span class="p">.</span><span class="n">setOnClickListener</span> <span class="p">{</span>
+            <span class="n">f2ViewModel</span><span class="p">.</span><span class="n">retryConnection</span><span class="p">()</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">fun</span> <span class="nf">provideDI</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">DaggerF2Component</span><span class="p">.</span><span class="n">builder</span><span class="p">().</span><span class="n">coreComponent</span><span class="p">(</span><span class="n">applicationComponent</span><span class="p">)</span> <span class="c1">//retreived from base fragment
+</span><span class="c1"></span>            <span class="p">.</span><span class="n">f2DbModule</span><span class="p">(</span><span class="n">F2DbModule</span><span class="p">(</span><span class="n">applicationComponent</span><span class="p">.</span><span class="n">application</span><span class="p">))</span>
+            <span class="p">.</span><span class="n">build</span><span class="p">().</span><span class="n">inject</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>Now, the same rule should apply for the other module which needs the database configuration.</p>
+<p><strong><em>Can we do more?</em></strong></p>
+<p>Sure! The API calls are still centralized. What I mean is that methods of every API call are still exposed to all the modules. Furthermore, I am not using the same base URL. So I guess we should apply what we did to our Retrofit Interface too. Instead of having one interface with a lot of methods, we can have a lot of interfaces with the respective methods for the API call. I won&rsquo;t stop in the implementation for this case, but I guess the below image would give the message:</p>
+<p><a href="https://1.bp.blogspot.com/-ev0m_pg21sA/XcwjqsTF5II/AAAAAAAAQWA/pUBvMtKpb2QfsR2XZpJ6SZMn890ZfvgwwCLcBGAsYHQ/s1600/Part3Uncrashed%2B%25284%2529.jpg" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        src="/coroutinedispatcher/svg/loading.min.svg"
+        data-src="https://1.bp.blogspot.com/-ev0m_pg21sA/XcwjqsTF5II/AAAAAAAAQWA/pUBvMtKpb2QfsR2XZpJ6SZMn890ZfvgwwCLcBGAsYHQ/s1600/Part3Uncrashed%2B%25284%2529.jpg"
+        data-srcset="https://1.bp.blogspot.com/-ev0m_pg21sA/XcwjqsTF5II/AAAAAAAAQWA/pUBvMtKpb2QfsR2XZpJ6SZMn890ZfvgwwCLcBGAsYHQ/s1600/Part3Uncrashed%2B%25284%2529.jpg, https://1.bp.blogspot.com/-ev0m_pg21sA/XcwjqsTF5II/AAAAAAAAQWA/pUBvMtKpb2QfsR2XZpJ6SZMn890ZfvgwwCLcBGAsYHQ/s1600/Part3Uncrashed%2B%25284%2529.jpg 1.5x, https://1.bp.blogspot.com/-ev0m_pg21sA/XcwjqsTF5II/AAAAAAAAQWA/pUBvMtKpb2QfsR2XZpJ6SZMn890ZfvgwwCLcBGAsYHQ/s1600/Part3Uncrashed%2B%25284%2529.jpg 2x"
+        data-sizes="auto"
+        alt="https://1.bp.blogspot.com/-ev0m_pg21sA/XcwjqsTF5II/AAAAAAAAQWA/pUBvMtKpb2QfsR2XZpJ6SZMn890ZfvgwwCLcBGAsYHQ/s1600/Part3Uncrashed%2B%25284%2529.jpg"
+        title="https://1.bp.blogspot.com/-ev0m_pg21sA/XcwjqsTF5II/AAAAAAAAQWA/pUBvMtKpb2QfsR2XZpJ6SZMn890ZfvgwwCLcBGAsYHQ/s1600/Part3Uncrashed%2B%25284%2529.jpg" /></a></p>
+<p>The same logic as the database configuration appeals to the retrofit modularization in code also:</p>
+<div class="highlight"><pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="n">@FragmentScoped</span>
+<span class="n">@Component</span><span class="p">(</span>
+    <span class="n">modules</span> <span class="p">=</span> <span class="p">[...</span> <span class="p">,</span> <span class="n">FxNetworkModule</span><span class="o">::</span><span class="k">class</span><span class="p">],</span>
+    <span class="n">dependencies</span> <span class="p">=</span> <span class="p">[</span><span class="n">CoreComponent</span><span class="o">::</span><span class="k">class</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="k">interface</span> <span class="nc">FXComponent</span> <span class="p">{</span>
+    <span class="k">fun</span> <span class="nf">inject</span><span class="p">(</span><span class="n">fxFragment</span><span class="p">:</span> <span class="n">FXFragment</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="n">@Module</span>
+<span class="k">class</span> <span class="nc">FxNetworkModule</span><span class="p">(</span><span class="k">private</span> <span class="k">val</span> <span class="py">retrofit</span><span class="p">:</span> <span class="n">Retrofit</span><span class="p">)</span> <span class="p">{</span> <span class="c1">//retrofit comes from the CoreComponent
+</span><span class="c1"></span>
+    <span class="n">@Provides</span>
+    <span class="n">@FragmentScoped</span>
+    <span class="k">fun</span> <span class="nf">provideFeatureXApi</span><span class="p">():</span> <span class="n">FeatureXApi</span> <span class="p">=</span> <span class="n">retrofit</span><span class="p">.</span><span class="n">create</span><span class="p">(</span><span class="n">FeatureXApi</span><span class="o">::</span><span class="k">class</span><span class="p">.</span><span class="n">java</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">//And then we can add it as the previous way:
+</span><span class="c1"></span>
+<span class="c1">//inside FeatureXFragment:
+</span><span class="c1"></span>
+<span class="n">DaggerFeatureXComponent</span><span class="p">.</span><span class="n">builder</span><span class="p">().</span><span class="n">coreComponent</span><span class="p">(</span><span class="n">applicationComponent</span><span class="p">)</span>
+            <span class="p">.</span><span class="n">featureXNetworkModule</span><span class="p">(</span><span class="n">FeatureXNetworkModule</span><span class="p">(</span><span class="n">applicationComponent</span><span class="p">.</span><span class="n">retrofit</span><span class="p">))</span> <span class="c1">//provide retrofit
+</span><span class="c1"></span>            <span class="p">.</span><span class="n">featureXDatabaseModule</span><span class="p">(</span><span class="n">FeatureXDatabaseModule</span><span class="p">(</span><span class="n">applicationComponent</span><span class="p">.</span><span class="n">application</span><span class="p">))</span> <span class="c1">//provide application for db
+</span><span class="c1"></span>            <span class="p">.</span><span class="n">build</span><span class="p">().</span><span class="n">inject</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
+</code></pre></div><p><strong>Conclusion</strong><br>
+There you go, now your modules are totally independent from each-other and our multi module app is 90% ready. The last part will be covering some short topics about my background-things (AlarmManager, WorkManager) and mostly resources, layouts and values.</p>
+<p>Stavro Xhardha</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2019-11-18</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/coroutinedispatcher/tags/android-module/">Android Module</a>,&nbsp;<a href="/coroutinedispatcher/tags/micro-frontend/">Micro Frontend</a>,&nbsp;<a href="/coroutinedispatcher/tags/dagger-2/">Dagger 2</a>,&nbsp;<a href="/coroutinedispatcher/tags/android-architecture-components./">Android Architecture Components.</a>,&nbsp;<a href="/coroutinedispatcher/tags/android-multi-module/">Android Multi Module</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/coroutinedispatcher/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/coroutinedispatcher/posts/modularizing-your-android-app-breaking_11/" class="prev" rel="prev" title="Modularizing your Android app, breaking the monolith (Part 2)"><i class="fas fa-angle-left fa-fw"></i>Modularizing your Android app, breaking the monolith (Part 2)</a>
+            <a href="/coroutinedispatcher/posts/modularizing-your-android-app-some/" class="next" rel="next" title="Modularizing your Android app, some quick notes (Part 4)">Modularizing your Android app, some quick notes (Part 4)<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.73.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/about/" target="_blank">Stavro Xhardha</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><script type="text/javascript" src="/coroutinedispatcher/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/coroutinedispatcher/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/coroutinedispatcher/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/coroutinedispatcher/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/coroutinedispatcher/lib/clipboard/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":100},"comment":{},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.en","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"algolia"}};</script><script type="text/javascript" src="/coroutinedispatcher/js/theme.min.js"></script></body>
+</html>

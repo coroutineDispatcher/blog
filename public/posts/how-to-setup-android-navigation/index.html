@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>How to setup Android Navigation Component with Drawer - Coroutinedispatchers&#39; blog</title><meta name="Description" content="About LoveIt Theme"><meta property="og:title" content="How to setup Android Navigation Component with Drawer" />
+<meta property="og:description" content="How to setup Android Navigation Component with Drawer . * { font-family: Georgia, Cambria, &ldquo;Times New Roman&rdquo;, Times, serif; } html, body { margin: 0; padding: 0; } h1 { font-size: 50px; margin-bottom: 17px; color: #333; } h2 { font-size: 24px; line-height: 1.6; margin: 30px 0 0 0; margin-bottom: 18px; margin-top: 33px; color: #333; } h3 { font-size: 30px; margin: 10px 0 20px 0; color: #333; } header { width: 640px; margin: auto; } section { width: 640px; margin: auto; } section p { margin-bottom: 27px; font-size: 20px; line-height: 1." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://coroutinedispatcher.github.io/coroutinedispatcher/posts/how-to-setup-android-navigation/" />
+<meta property="article:published_time" content="2019-06-19T10:47:00+02:00" />
+<meta property="article:modified_time" content="2019-06-19T10:47:00+02:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="How to setup Android Navigation Component with Drawer"/>
+<meta name="twitter:description" content="How to setup Android Navigation Component with Drawer . * { font-family: Georgia, Cambria, &ldquo;Times New Roman&rdquo;, Times, serif; } html, body { margin: 0; padding: 0; } h1 { font-size: 50px; margin-bottom: 17px; color: #333; } h2 { font-size: 24px; line-height: 1.6; margin: 30px 0 0 0; margin-bottom: 18px; margin-top: 33px; color: #333; } h3 { font-size: 30px; margin: 10px 0 20px 0; color: #333; } header { width: 640px; margin: auto; } section { width: 640px; margin: auto; } section p { margin-bottom: 27px; font-size: 20px; line-height: 1."/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://coroutinedispatcher.github.io/coroutinedispatcher/posts/how-to-setup-android-navigation/" /><link rel="prev" href="https://coroutinedispatcher.github.io/coroutinedispatcher/posts/room-basics/" /><link rel="next" href="https://coroutinedispatcher.github.io/coroutinedispatcher/posts/what-i-learned-from-unit-testing/" /><link rel="stylesheet" href="/coroutinedispatcher/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/coroutinedispatcher/css/style.min.css"><link rel="stylesheet" href="/coroutinedispatcher/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/coroutinedispatcher/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "How to setup Android Navigation Component with Drawer",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/coroutinedispatcher.github.io\/coroutinedispatcher\/posts\/how-to-setup-android-navigation\/"
+        },"genre": "posts","wordcount":  776 ,
+        "url": "https:\/\/coroutinedispatcher.github.io\/coroutinedispatcher\/posts\/how-to-setup-android-navigation\/","datePublished": "2019-06-19T10:47:00+02:00","dateModified": "2019-06-19T10:47:00+02:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Stavro Xhardha"},"author": {
+                "@type": "Person",
+                "name": "Stavro Xhardha"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="" header-mobile=""><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/coroutinedispatcher/" title="Coroutinedispatchers&#39; blog">Coroutinedispatchers&#39; blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/coroutinedispatcher/"> Home </a><a class="menu-item" href="/coroutinedispatcher/posts/"> Posts </a><a class="menu-item" href="/coroutinedispatcher/about/"> About </a><a class="menu-item" href="https://speakerdeck.com/stavro96" rel="noopener noreffer" target="_blank"> Presentation Slides </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/coroutinedispatcher/" title="Coroutinedispatchers&#39; blog">Coroutinedispatchers&#39; blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/coroutinedispatcher/" title="">Home</a><a class="menu-item" href="/coroutinedispatcher/posts/" title="">Posts</a><a class="menu-item" href="/coroutinedispatcher/about/" title="">About</a><a class="menu-item" href="https://speakerdeck.com/stavro96" title="" rel="noopener noreffer" target="_blank">Presentation Slides</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">How to setup Android Navigation Component with Drawer</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/about/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Stavro Xhardha</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2019-06-19">2019-06-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;776 words&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"><p>How to setup Android Navigation Component with Drawer . * { font-family: Georgia, Cambria, &ldquo;Times New Roman&rdquo;, Times, serif; } html, body { margin: 0; padding: 0; } h1 { font-size: 50px; margin-bottom: 17px; color: #333; } h2 { font-size: 24px; line-height: 1.6; margin: 30px 0 0 0; margin-bottom: 18px; margin-top: 33px; color: #333; } h3 { font-size: 30px; margin: 10px 0 20px 0; color: #333; } header { width: 640px; margin: auto; } section { width: 640px; margin: auto; } section p { margin-bottom: 27px; font-size: 20px; line-height: 1.6; color: #333; } section img { max-width: 640px; } footer { padding: 0 20px; margin: 50px 0; text-align: center; font-size: 12px; } .aspectRatioPlaceholder { max-width: auto !important; max-height: auto !important; } .aspectRatioPlaceholder-fill { padding-bottom: 0 !important; } header, section[data-field=subtitle], section[data-field=description] { display: none; }</p>
+<p>It’s been a wile since Android team launched the new Navigation style in Android . For me , it looks amazingly cool and I thought I should…</p>
+<hr>
+<p><img
+        class="lazyload"
+        src="/coroutinedispatcher/svg/loading.min.svg"
+        data-src="https://cdn-images-1.medium.com/max/800/1*j_omB_-m37BMK1KXmcK7Tw.jpeg"
+        data-srcset="https://cdn-images-1.medium.com/max/800/1*j_omB_-m37BMK1KXmcK7Tw.jpeg, https://cdn-images-1.medium.com/max/800/1*j_omB_-m37BMK1KXmcK7Tw.jpeg 1.5x, https://cdn-images-1.medium.com/max/800/1*j_omB_-m37BMK1KXmcK7Tw.jpeg 2x"
+        data-sizes="auto"
+        alt="https://cdn-images-1.medium.com/max/800/1*j_omB_-m37BMK1KXmcK7Tw.jpeg"
+        title="https://cdn-images-1.medium.com/max/800/1*j_omB_-m37BMK1KXmcK7Tw.jpeg" /></p>
+<p>It’s been a wile since Android team launched the new Navigation style in Android. For me , it looks amazingly cool and I thought I should share it with you.</p>
+<p>Let’s start :</p>
+<p><strong>First of all , let’s start with setting up the navigation dependencies :</strong></p>
+<pre><code>implementation &quot;androidx.navigation:navigation-fragment-ktx:$rootProject.navigationVersion&quot;  
+implementation &quot;androidx.navigation:navigation-ui-ktx:$rootProject.navigationVersion&quot;
+</code></pre><p>where <code>navigationVersion</code> is stored in the build.gradle project module:</p>
+<pre><code>ext {  
+        navigationVersion = &quot;2.0.0&quot;  
+        ...  
+    }
+</code></pre><p>**On with the show : <br>
+**In your res menu , define a new directory named <em>navigation.</em></p>
+<p><strong>After that, create a nav_graph:</strong></p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;  
+&lt;navigation xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;  
+            xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;  
+            xmlns:tools=&quot;http://schemas.android.com/tools&quot; android:id=&quot;@+id/treasure_nav&quot;  
+            app:startDestination=&quot;@id/fragment1&quot;&gt;
+</code></pre><p><!-- raw HTML omitted --><br>
+<!-- raw HTML omitted --><br>
+<!-- raw HTML omitted --><br>
+<!-- raw HTML omitted --><br>
+<!-- raw HTML omitted --></p>
+<pre><code>
+which basically is the equivalent of this:
+
+![](https://cdn-images-1.medium.com/max/800/0*7EFeTvVTe_Rh_zzd)
+
+Just two fragments connected to each other. What a _destination_ is, is basically the view where I (or the user) needs to be. Since I will be needing to launch something when the app starts, I will define my `fragment1` as start destination (never use names like that).
+
+**Setting up the _main\_activity_ view:**
+
+</code></pre><!-- raw HTML omitted -->
+<p>&lt;androidx.drawerlayout.widget.DrawerLayout<br>
+xmlns:android=&quot;http://schemas.android.com/apk/res/android&rdquo;<br>
+xmlns:app=&quot;http://schemas.android.com/apk/res-auto&rdquo;<br>
+xmlns:tools=&quot;http://schemas.android.com/tools&rdquo;<br>
+android:id=&rdquo;@+id/drawer_layout&rdquo;<br>
+android:layout_width=&quot;match_parent&rdquo;<br>
+android:layout_height=&quot;match_parent&rdquo;<br>
+android:fitsSystemWindows=&quot;true&rdquo;<br>
+tools:context=&rdquo;.MainActivity&rdquo;<br>
+tools:openDrawer=&quot;start&quot;&gt;</p>
+<pre><code> &lt;LinearLayout  
+            android:layout_width=&quot;match_parent&quot;  
+            android:layout_height=&quot;match_parent&quot;  
+            android:orientation=&quot;vertical&quot;&gt;
+</code></pre><p>&lt;androidx.appcompat.widget.Toolbar<br>
+android:id=&rdquo;@+id/toolbar&rdquo;<br>
+android:layout_width=&quot;match_parent&rdquo;<br>
+android:layout_height=&quot;wrap_content&rdquo;<br>
+android:background=&rdquo;@color/colorPrimary&rdquo;<br>
+android:theme=&rdquo;@style/ThemeOverlay.MaterialComponents.Dark.ActionBar&rdquo;/&gt;</p>
+<pre><code> &lt;fragment  
+                android:name=&quot;androidx.navigation.fragment.NavHostFragment&quot;  
+                android:id=&quot;@+id/nav_host_fragment&quot;  
+                android:layout_width=&quot;match_parent&quot;  
+                android:layout_height=&quot;match_parent&quot;  
+                app:defaultNavHost=&quot;true&quot;  
+                app:navGraph=&quot;@navigation/treasure_nav&quot;/&gt;  
+    &lt;/LinearLayout&gt;
+</code></pre><p>&lt;com.google.android.material.navigation.NavigationView<br>
+android:id=&rdquo;@+id/nav_view&rdquo;<br>
+app:menu=&rdquo;@menu/activity_main_drawer&rdquo;<br>
+android:layout_width=&quot;wrap_content&rdquo;<br>
+android:layout_height=&quot;match_parent&rdquo;<br>
+android:layout_gravity=&quot;start&rdquo;<br>
+android:fitsSystemWindows=&quot;true&rdquo;/&gt;</p>
+<pre><code>&lt;/androidx.drawerlayout.widget.DrawerLayout&gt;
+```
+
+Of course , we need these things to setup :
+
+*   The `drawer_layout`, responsible for holding my menu.
+*   The `toolbar`, responsible for holding my top left icon of the drawer.
+*   The `nav_host_fragment` which will hold any view that I will load from the Navigation logic.
+*   The `nav_view` responsible for my navigation.
+
+**Am I done ? Time to setup the logics:**
+
+```
+class MainActivity : AppCompatActivity(),  
+    AppBarConfiguration.OnNavigateUpListener {
+</code></pre><p>private lateinit var appBarConfiguration: AppBarConfiguration;</p>
+<pre><code> override fun onCreate(savedInstanceState: Bundle?) {  
+        super.onCreate(savedInstanceState)  
+        setContentView(R.layout.activity_main)
+</code></pre><p>val toolbar = findViewById<!-- raw HTML omitted -->(R.id.toolbar)<br>
+setSupportActionBar(toolbar) //set the toolbar</p>
+<pre><code> val host: NavHostFragment = supportFragmentManager  
+            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment? ?: return  
+        val navController = host.navController 
+</code></pre><p>appBarConfiguration = AppBarConfiguration(navController.graph) //configure nav controller</p>
+<pre><code> setupNavigation(navController) //setup navigation 
+</code></pre><p>setupActionBar(navController, appBarConfiguration) // setup action bar</p>
+<pre><code> //hear for event changes  
+        navController.addOnDestinationChangedListener { _, destination, _ -&gt;  
+            val dest: String = try {  
+                resources.getResourceName(destination.id)  
+            } catch (e: Resources.NotFoundException) {  
+                Integer.toString(destination.id)  
+            }
+</code></pre><p>Toast.makeText(<br>
+this@MainActivity, &ldquo;Navigated to $dest&rdquo;,<br>
+Toast.LENGTH_SHORT<br>
+).show()<br>
+Log.d(&ldquo;NavigationActivity&rdquo;, &ldquo;Navigated to $dest&rdquo;)<br>
+}<br>
+}</p>
+<pre><code> private fun setupActionBar(  
+        navController: NavController,  
+        appBarConfig: AppBarConfiguration  
+    ) {  
+        setupActionBarWithNavController(navController, appBarConfig)  
+    }
+</code></pre><p>private fun setupNavigation(navController: NavController) {<br>
+val sideNavView = findViewById<!-- raw HTML omitted -->(R.id.nav_view)<br>
+sideNavView?.setupWithNavController(navController)</p>
+<pre><code> val drawerLayout: DrawerLayout? = findViewById(R.id.drawer_layout)  
+          
+        //fragments load from here but how ?   
+        appBarConfiguration = AppBarConfiguration(  
+            setOf(R.id.fragment1, R.id.fragment2),  
+            drawerLayout  
+        )  
+    }
+</code></pre><p>override fun onCreateOptionsMenu(menu: Menu): Boolean {<br>
+val retValue = super.onCreateOptionsMenu(menu)<br>
+val navigationView = findViewById<!-- raw HTML omitted -->(R.id.nav_view)<br>
+if (navigationView == null) {<br>
+//android needs to know what menu I need<br>
+menuInflater.inflate(R.menu.activity_main_drawer, menu)<br>
+return true<br>
+}<br>
+return retValue<br>
+}</p>
+<pre><code> override fun onOptionsItemSelected(item: MenuItem?): Boolean {  
+        //I need to open the drawer onClick  
+        when (item!!.itemId) {  
+            android.R.id.home -&gt;  
+                drawer_layout.openDrawer(GravityCompat.START)  
+        }  
+        return item.onNavDestinationSelected(findNavController(R.id.nav_host_fragment))  
+                || super.onOptionsItemSelected(item)  
+    }
+</code></pre><p>override fun onBackPressed() {<br>
+//the code is beautiful enough without comments<br>
+if (drawer_layout.isDrawerOpen(GravityCompat.START)) {<br>
+drawer_layout.closeDrawer(GravityCompat.START)<br>
+} else {<br>
+super.onBackPressed()<br>
+}<br>
+}</p>
+<pre><code>}
+```
+
+Hope you noticed my comment here
+
+&gt; //fragments load from here but how?
+
+Well this is what I call great.  
+I don’t even need to define which menu goes where with the new navigation.  
+**But how?**   
+Go back to the MainActivity and you will notice this line of code: `resources.getResourceName(destination.id)`.  
+Satisfied enough?
+
+Just place the same id that you added in the _nav\_graph ,_ and it will work fine.
+
+```
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;  
+&lt;menu xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;  
+      xmlns:tools=&quot;http://schemas.android.com/tools&quot;  
+      tools:showIn=&quot;navigation_view&quot;&gt;
+</code></pre><!-- raw HTML omitted -->
+<p>Another thing to note here is the <code>appBarConfiguration = AppBarConfiguration( setOf(R.id.fragment1, R.id.fragment2),    drawerLayout )</code> line. Setting both of my <code>fragment1</code> and <code>fragment2</code> like that, it means that they will remain on the backstack after navigating to one another. That’s called placing as <em>top level destinations</em>.</p>
+<p>Happy Navigating.</p>
+<p>By <a href="https://medium.com/@coroutinedispatcher" target="_blank" rel="noopener noreffer">Stavro Xhardha</a> on <a href="https://medium.com/p/88b833312661" target="_blank" rel="noopener noreffer">April 23, 2019</a>.</p>
+<p><a href="https://medium.com/@coroutinedispatcher/how-to-setup-android-navigation-component-with-drawer-88b833312661" target="_blank" rel="noopener noreffer">Canonical link</a></p>
+<p>Exported from <a href="https://medium.com" target="_blank" rel="noopener noreffer">Medium</a> on June 19, 2019.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2019-06-19</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/coroutinedispatcher/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/coroutinedispatcher/posts/room-basics/" class="prev" rel="prev" title="Room, the basics"><i class="fas fa-angle-left fa-fw"></i>Room, the basics</a>
+            <a href="/coroutinedispatcher/posts/what-i-learned-from-unit-testing/" class="next" rel="next" title="What I learned from unit testing">What I learned from unit testing<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.73.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/about/" target="_blank">Stavro Xhardha</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><script type="text/javascript" src="/coroutinedispatcher/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/coroutinedispatcher/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/coroutinedispatcher/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/coroutinedispatcher/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/coroutinedispatcher/lib/clipboard/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":100},"comment":{},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.en","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"algolia"}};</script><script type="text/javascript" src="/coroutinedispatcher/js/theme.min.js"></script></body>
+</html>
