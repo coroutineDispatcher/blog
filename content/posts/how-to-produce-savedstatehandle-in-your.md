@@ -18,7 +18,7 @@ author: "Stavro Xhardha"
 
 [![](https://1.bp.blogspot.com/-MtcO8qu_Ato/XWTqNfbpINI/AAAAAAAAPAk/-cKfHokXF-A_Sg2jwDZwHWrsg9gqZGTzgCLcBGAs/s1600/karsten-wurth-karsten-wuerth-0w-uTa0Xz7w-unsplash.jpg)](https://1.bp.blogspot.com/-MtcO8qu_Ato/XWTqNfbpINI/AAAAAAAAPAk/-cKfHokXF-A_Sg2jwDZwHWrsg9gqZGTzgCLcBGAs/s1600/karsten-wurth-karsten-wuerth-0w-uTa0Xz7w-unsplash.jpg)
 
-One of my previous article [Dagger Multibinding Saved My Time](https://coroutinedispatcher.blogspot.com/2019/08/dagger-multibindings-saved-my-time.html) "claimed" to have found the right practice for providing ViewModels without producing a ViewModel Factory for each ViewModel. Apparently, [I was wrong](https://www.reddit.com/r/androiddev/comments/cnktpg/dagger_multibindings_saved_my_time/).  There are 2 main problems with that approach:
+One of my previous article [Dagger Multibinding Saved My Time](https://coroutinedispatcher.com/posts/dagger-multibindings-saved-my-time/) "claimed" to have found the right practice for providing ViewModels without producing a ViewModel Factory for each ViewModel. Apparently, [I was wrong](https://www.reddit.com/r/androiddev/comments/cnktpg/dagger_multibindings_saved_my_time/).  There are 2 main problems with that approach:
 
 1 - I might forget to add a ViewModel in the Map graph.  
 2 - With the new SavedStateHandle which stays uniqely in each ViewModel I can't use a generic ViewModel Factory.  (you can check the implementation in the article provided above).
