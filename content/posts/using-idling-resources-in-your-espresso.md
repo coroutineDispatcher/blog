@@ -1,8 +1,8 @@
 ---
-title: 'Using Idling Resources in your Espresso Tests'
+title: "Using Idling Resources in your Espresso Tests"
 date: 2019-06-19T10:44:00.002+02:00
 draft: false
-aliases: [ "/2019/06/using-idling-resources-in-your-espresso.html" ]
+aliases: ["/2019/06/using-idling-resources-in-your-espresso.html"]
 author: "Stavro Xhardha"
 ---
 
@@ -10,7 +10,7 @@ Using Idling Resources in your Espresso Tests \* { font-family: Georgia, Cambria
 
 Testing is wow. And UI testing in Android is awesome. Espresso is a UI testing framework for Android. I can say that it was pretty easy and…
 
-* * *
+---
 
 ![](https://cdn-images-1.medium.com/max/800/1*HZbg8Z0sAVWA4yDvKbwODw.jpeg)
 
@@ -18,12 +18,12 @@ Testing is wow. And UI testing in Android is awesome. [Espresso](https://develop
 
 A simple example from the _documentation_ when using the Espresso framework is this:
 
-```
-@Test  
-fun greeterSaysHello() {  
-    onView(withId(R.id.name\_field)).perform(typeText("Steve"))  
-    onView(withId(R.id.greet\_button)).perform(click())  
-    onView(withText("Hello Steve!")).check(matches(isDisplayed()))  
+```kotlin
+@Test
+fun greeterSaysHello() {
+    onView(withId(R.id.name\_field)).perform(typeText("Steve"))
+    onView(withId(R.id.greet\_button)).perform(click())
+    onView(withText("Hello Steve!")).check(matches(isDisplayed()))
 }
 ```
 
@@ -51,13 +51,13 @@ For making things easy create this helper class:
 
 Let’s use it now:
 
-```
-fun onHeavyWorkButtonClicked() {  
-    **EspressoIdlingResource.increment()**  
-    _viewModelScope_._launch_(**Dispatchers.IO**) {  //heavy work happens here  
-        _withContext_(**Dispatchers.Main**) { **EspressoIdlingResource.decrement()**  
-            //heavy work has ended  
-        }  
+```kotlin
+fun onHeavyWorkButtonClicked() {
+    **EspressoIdlingResource.increment()**
+    _viewModelScope_._launch_(**Dispatchers.IO**) {  //heavy work happens here
+        _withContext_(**Dispatchers.Main**) { **EspressoIdlingResource.decrement()**
+            //heavy work has ended
+        }
     }}
 ```
 
@@ -68,23 +68,23 @@ And we are good to go. Just test the views as usual! Good luck! 👍👌✔
 > Note: I’ve also refactored this case in a simple Android package:
 
 [**stavro96/smoothie**  
-_Simple way to handle the Idling Resource in your Espresso tests - stavro96/smoothie_github.com](https://github.com/stavro96/smoothie "https://github.com/stavro96/smoothie")[](https://github.com/stavro96/smoothie)
+\_Simple way to handle the Idling Resource in your Espresso tests - stavro96/smoothie_github.com](https://github.com/stavro96/smoothie "https://github.com/stavro96/smoothie")[](https://github.com/stavro96/smoothie)
 
 **Super helpful resource:**
 
 [**Android testing with Espresso’s Idling Resources and testing fidelity**  
-_Synchronizing your app with Espresso_medium.com](https://medium.com/androiddevelopers/android-testing-with-espressos-idling-resources-and-testing-fidelity-8b8647ed57f4 "https://medium.com/androiddevelopers/android-testing-with-espressos-idling-resources-and-testing-fidelity-8b8647ed57f4")[](https://medium.com/androiddevelopers/android-testing-with-espressos-idling-resources-and-testing-fidelity-8b8647ed57f4)
+\_Synchronizing your app with Espresso_medium.com](https://medium.com/androiddevelopers/android-testing-with-espressos-idling-resources-and-testing-fidelity-8b8647ed57f4 "https://medium.com/androiddevelopers/android-testing-with-espressos-idling-resources-and-testing-fidelity-8b8647ed57f4")[](https://medium.com/androiddevelopers/android-testing-with-espressos-idling-resources-and-testing-fidelity-8b8647ed57f4)
 
 **Other posts from my blog:**
 
 [**Annotation processor: Say less, mean more.**  
-_I’ve always been curious on what is behind an annotation. As much as they made my angry, believe me they are so fun…_proandroiddev.com](https://proandroiddev.com/annotation-processor-say-less-mean-more-b0e23dd9a3e2 "https://proandroiddev.com/annotation-processor-say-less-mean-more-b0e23dd9a3e2")[](https://proandroiddev.com/annotation-processor-say-less-mean-more-b0e23dd9a3e2)
+\_I’ve always been curious on what is behind an annotation. As much as they made my angry, believe me they are so fun…\_proandroiddev.com](https://proandroiddev.com/annotation-processor-say-less-mean-more-b0e23dd9a3e2 "https://proandroiddev.com/annotation-processor-say-less-mean-more-b0e23dd9a3e2")[](https://proandroiddev.com/annotation-processor-say-less-mean-more-b0e23dd9a3e2)
 
 [**Retrofit met Coroutines**  
-_Finally the latest version of Retrofit (2.6.0) has got out. While it was already really easy to use and so much fun…_proandroiddev.com](https://proandroiddev.com/retrofit-met-coroutines-7bbe7e86825a "https://proandroiddev.com/retrofit-met-coroutines-7bbe7e86825a")[](https://proandroiddev.com/retrofit-met-coroutines-7bbe7e86825a)
+\_Finally the latest version of Retrofit (2.6.0) has got out. While it was already really easy to use and so much fun…\_proandroiddev.com](https://proandroiddev.com/retrofit-met-coroutines-7bbe7e86825a "https://proandroiddev.com/retrofit-met-coroutines-7bbe7e86825a")[](https://proandroiddev.com/retrofit-met-coroutines-7bbe7e86825a)
 
 [**Usage of the ViewModelScope**  
-_Based on my last blog post about easy implementation on Kotlin Coroutines,we were also introduced with the…_proandroiddev.com](https://proandroiddev.com/usage-of-the-viewmodelscope-f28703467b31 "https://proandroiddev.com/usage-of-the-viewmodelscope-f28703467b31")[](https://proandroiddev.com/usage-of-the-viewmodelscope-f28703467b31)
+\_Based on my last blog post about easy implementation on Kotlin Coroutines,we were also introduced with the…\_proandroiddev.com](https://proandroiddev.com/usage-of-the-viewmodelscope-f28703467b31 "https://proandroiddev.com/usage-of-the-viewmodelscope-f28703467b31")[](https://proandroiddev.com/usage-of-the-viewmodelscope-f28703467b31)
 
 By [Stavro Xhardha](https://medium.com/@stavro96) on [June 18, 2019](https://medium.com/p/66043182ca63).
 
