@@ -83,7 +83,7 @@ theme = "LoveIt"
     # Menu config
     [languages.en.params]
       # site description
-      description = "About LoveIt Theme"
+      description = "A blog with kotlins' suspend modifier"
       # site keywords
       keywords = ["Theme", "Hugo"]
       # App icon config
