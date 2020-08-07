@@ -89,5 +89,3 @@ And we are good to go. Just test the views as usual! Good luck! 👍👌✔
 By [Stavro Xhardha](https://medium.com/@stavro96) on [June 18, 2019](https://medium.com/p/66043182ca63).
 
 [Canonical link](https://medium.com/@stavro96/using-idling-resources-in-your-espresso-tests-66043182ca63)
-
-Exported from [Medium](https://medium.com) on June 19, 2019.
