@@ -130,7 +130,7 @@ fun CatsAppScaffold(
                             networkClient = networkClient
                         )
                     }
-                    is NavigationViewModel.NavigationState.ImageDetails -> {
+                    is NavigationViewModel.NavigationState.BreedDetails -> {
                         WebPageScreen(screenStateValue.urlToRender)
                     }
                 }
@@ -158,7 +158,7 @@ class NavigationViewModel : ViewModel() {
 
     sealed class NavigationState {
         object Home : NavigationState()
-        data class ImageDetails(val urlToRender: String) : NavigationState()
+        data class BreedDetails(val urlToRender: String) : NavigationState()
     }
 
     fun navigateTo(state: NavigationState) {
