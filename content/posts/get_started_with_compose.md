@@ -6,6 +6,8 @@ author: "Stavro Xhardha"
 tags : [Jetpack Compose, Compose Navigation, Android, AndroidX, ViewModels, Kotlin, Composable, Android UI, Kotlin, Lambdas]
 ---
 
+![Photo by Nils Nedel @ Unsplash](/images/jetpack_post.jpg)
+
 # onCreate
 It's been a couple of weeks since Jetpack Compose reached in alpha state. So, I thought I should start giving it a try.
 Getting started with it is not that hard. There are a lot of options, but I will render what worked for me:
