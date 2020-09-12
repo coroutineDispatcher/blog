@@ -276,5 +276,5 @@ fun WebPageScreen(urlToRender: String) {
 {{</ admonition >}}
 
 # OnDestroy
-As a conclusion, I would say that Jetpack Compose looks very promising for native Android, and Kotlin gives awesome flexibility to use it. Android suffers a lot, as well as the developer who works on it, therefore Compose it's an awesome solution. However, if they want to promote Compose to terms like Kotlin Multi-Platform, or Server Driven Development, they are so much behind. As far as I have heard, SwiftUI is far ahead.
+As a conclusion, I would say that Jetpack Compose looks very promising for native Android, and Kotlin gives awesome flexibility to use it. Android suffers a lot, as well as the developer who works on it, therefore Compose it's an awesome solution. However, if they want to promote Compose to terms like Kotlin Multi-Platform, or Server Driven UI, they are so much behind. As far as I have heard, SwiftUI is far ahead.
 
