@@ -16,7 +16,7 @@ If you are more interested in an even more detailed explanation, follow [this is
 ### The problem
 Let's suppose we have this scenario:
 
-After a simple calculation on the VieModel, we want to decide in which screen the user is going to be navigated to. Let's do that by using `StateFlow` (`MutableStateFlow`):
+After a simple calculation on the ViewModel, we want to decide in which screen the user is going to be navigated to. Let's do that by using `StateFlow` (`MutableStateFlow`):
 
 ```kotlin
 private val _state = MutableStateFlow<State>(State.Idle)
