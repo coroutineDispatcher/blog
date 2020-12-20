@@ -1,5 +1,5 @@
 ---
-title: "Stateful MVVM across configuration changes"
+title: "Stateful MVVM across process death using SharedFlow"
 date: 2020-12-13T18:15:51+01:00
 draft: true
 ---
@@ -34,9 +34,9 @@ class SomeViewModel @ViewModelInject constructor(
 }
 ```
 
-This is how I normally manage it. But what if I want to save my data to survive process death/configuration change? Adding a new extra variable to observe the `savedStateHandle` is error prone and actually makes things way worse, introducing a lot of bugs. But I really wanted to use `SharedFlow`, because of its' flexibility regarding single events which eventually make live easier. Also, with the help of Hilt, there is not much to be done when it comes to creating a `ViewModel` anymore, so the `savedStateHandle` comes for free.
+This is how I normally manage it. But what if I want to save my data to survive process death? Adding a new extra variable to observe the `savedStateHandle` is error prone and actually makes things way worse, introducing a lot of bugs. But I really wanted to use `SharedFlow`, because of its' flexibility regarding single events which eventually make live easier. Also, with the help of Hilt, there is not much to be done when it comes to creating a `ViewModel` anymore, so the `savedStateHandle` comes for free.
 
-Therefore, I was thinking: How about, store the whole state in `saveStateHandle`? It would restore immediately what we had before configuration change/process death. What I needed to do though, was kick out 2 state `SharedFlow` variables:
+Therefore, I was thinking: How about, store the whole state in `saveStateHandle`? It would restore immediately what we had before process death. What I needed to do though, was kick out 2 state `SharedFlow` variables:
 
 ```kotlin
 class SomeViewModel @ViewModelInject constructor(
@@ -66,7 +66,7 @@ With a small modification, since I need a hot `SharedFlow` instead:
 val state = savedStateHandle.getLiveData<State>(Key).asFlow().shareIn(viewModelScope, SharingStarted.Lazily)
 ```
 
-Sometimes, depending on `LiveData` for such implementation, might sound a little hacky, but it seems that's the only option to rely to (atm) in order to receive a hot `sharedFlow` which also survives configuration change.
+Sometimes, depending on `LiveData` for such implementation, might sound a little hacky, but it seems that's the only option to rely to (atm) in order to receive a hot `sharedFlow` which also survives process death.
 
 One small detail that must not be missed is the fact that the `State` in this case **must** implement `Parcelable`. Whith the help of `kotlin-android` it can be easily tackled:
 
@@ -113,4 +113,4 @@ class SomeViewModel @ViewModelInject constructor(
 
 ## onDestroy
 
-Handling process death / configuration change is still debatable in terms of: "Do we always need it?". In my opinion, it has its' importance, but sometimes it is too much. However, when choosing not to ignore this topic, it really brings a little more time to think and complexity regarding the design, so I was hoping I brought something which would make it simpler in case your project is already fully relied on `Flow`, `coroutines` API, and perhaps one of you might already made a decision to kick `LiveData` out.
+Handling process death is still debatable in terms of: "Do we always need it?". In my opinion, it has its' importance, but sometimes it is too much. However, when choosing not to ignore this topic, it really brings a little more time to think and complexity regarding the design, so I was hoping I brought something which would make it simpler in case your project is already fully relied on `Flow`, `coroutines` API, and perhaps one of you might already made a decision to kick `LiveData` out.
