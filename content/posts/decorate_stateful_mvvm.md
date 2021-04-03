@@ -1,7 +1,8 @@
 ---
 title: "Stateful MVVM across process death using SharedFlow"
 date: 2020-12-13T18:15:51+01:00
-draft: true
+draft: false
+author: "Stavro Xhardha"
 ---
 
 ![Photo by Nikhil Singh @ Unsplash](/images/stateful_mvvm_image.jpg)
