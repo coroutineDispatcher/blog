@@ -114,8 +114,10 @@ homeViewModel.showLoginEvent.observe(this, Observer{ event ->
 
 It doesn't really look complicated at all and it's pretty safe this way.
 
+{{< admonition >}}
 Note: Also notice to place LoginFragment as top level destination, otherwise when you would press the back button in your device, you would infinitely get inside the loop of popping up this fragment.
 The actual conditions do not depend just from a boolean value. It's easier with states.
+{{</ admonition >}}
 
 Now, what if the user doesn't have an account and needs to register. In this case, you would need to track the back stack. Login -> Register -> Confirmation. And backwards Confirmation -> Register -> Login. But there seems to be a problem with this case. If the registration is successful, you might want to log him directly from there without making him/her put login credentials again (this way would just need to press the back button until arrival to Login screen again). If you think about it, you might wanna pop the back stack twice, once for Confirmation Screen and once for Registration. But this would require a bunch of flags, navigation arguments between 2 fragments and a lot of hacks. However, navigation components do solve something really nicely. There is an option in which you can pop the back stack from one fragment until the desired fragment. This can be achieved just by just typing the desired destination in the ConfirmationFragment (in our case). So, we would want to pop the back stack until we arrive to HomeFragment (which will check authentication and do nothing because we are done with that part): findNavController().popBackStack(R.id.home_fragment, false)
 
