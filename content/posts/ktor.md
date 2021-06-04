@@ -341,4 +341,8 @@ fun Application.module() {
 Oh yea, the context. Being an android developer that was not hard to understand. The context is... Well, the context. I would like to call it a not expirable session, but you can also think of the context as a scope in general, which in this case is the app itself except the authentication process.
 With the help of Kotlin DSL from KGraphql the library fits so much to the tech stack.
 
+You may now run the application and visit the address Ktor gives you on the logs (which usually is http://0.0.0.0:8080/) and see the magic yourselves in `http://0.0.0.0:8080/graphql`. Then you can start playing:
+
+![](/images/graphql_view.png)
+
 Isn't Ktor awesome? It's just a function, where you install features, and as far as I know, it's all written in Kotlin on the background. I hope I made a quick and easy introduction to Ktor and an authentication process. This article was written thanks to a Udemy course that I took which can be found [here](https://www.udemy.com/course/kotlin-multiplatform-mobile/).
