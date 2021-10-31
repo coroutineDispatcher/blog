@@ -2,9 +2,10 @@
 title: "Using git from Android Studio. A quick guide."
 date: 2021-10-31T10:30:00+01:00
 draft: false
+author: "Stavro Xhardha"
 ---
 
-![](/images/duck.jpg)
+![](/images/duck.jpeg)
 
 We all know how important version control is. One can save a lot of time in case conflicts occur or things go really bad. But we can still argue which tool is the best for using Git. That's because Git in general is abstract, and visualizing it is somehow hard, as this also needs to go along with everyone's head. I would not blame anyone if they fantasize git differently in their heads, and then argue about the tool. In my opinion, everyone has the right to argue on toolings just because of that.
 
@@ -71,11 +72,11 @@ In case what is copied on the clipboard is not a git patch, you won't be able to
 
 Sometimes you get lost with just one method. And you just want to revert it and start from the beginning. This is very user-friendly from Android Studio. Just click the highlighted bar on the left, close to the numbers that count the lines of code and that would be it:
 
-![](/images/git_revert_as.png)
+![](/images/git_as_revert.png)
 
 But sometimes you just do not want to revert, but at the moment you want to see how it is in the base branch and compare it with your work. 
 
-![](/images/git_as_compare.png)
+![](/images/git_as_compare.jpg)
 
 It is pretty helpful.
 
