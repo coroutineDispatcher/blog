@@ -1,9 +1,11 @@
 ---
-title: "Getting started with Jetbrains Exposed, a kotlin ORM framework"
+title: "Getting started with Jetbrains Exposed, a Kotlin ORM framework"
 date: 2022-02-27T15:07:18+01:00
 draft: false
 author: "Stavro Xhardha"
 ---
+
+![](/images/exposed.png)
 
 Even though my main focus is still Android, from time to time I try to play around with other stuff from the Kotlin world. Lately, I have been exploring KorGE (it's a game engine for Kotlin) and KTOR. But today's article is about KTOR, and more specifically, about the database layer. Kotlin and what is being built on top of it, is moving so fast, and I want to catch 'em all.
 
