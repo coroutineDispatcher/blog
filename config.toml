@@ -109,7 +109,7 @@ theme = "LoveIt"
           enable = true
           # Gravatar Email for preferred avatar in home page
           # URL of avatar shown in home page
-          avatarURL = "https://coroutinedispatcher.github.io/coroutinedispatcher/images/stavro.png"
+          avatarURL = "https://coroutinedispatcher.github.io/coroutinedispatcher/images/stavro.jpeg"
           # title shown in home page (HTML format is supported)
           title = "The Android guy"
           # subtitle shown in home page
