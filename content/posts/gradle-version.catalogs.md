@@ -4,7 +4,7 @@ date: 2022-11-20T15:00:00+02:00
 draft: false
 ---
 
-![](/images/catalogs.jpg)
+![](/images/catalogs.png)
 
 As many of you already might know, Gradle has introduced a new (yet unstable) way to centralize dependency declarations. In huge codebases and in multi-module projects, managing gradle dependencies has always been hard. Another problem that previous solutions had, was that no two projects were using gradle declaration or configurations the same. In Android, you would always need some time to (probably) memorize gradle files where dependencies are stored, or remember the arrays of declaration for versions mixed with the library path.
 
