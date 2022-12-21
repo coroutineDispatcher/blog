@@ -25,13 +25,13 @@ theme = "LoveIt"
     title = ""
     weight = 1
   [[menu.main]]
-    identifier = "posts"
+    identifier = "videos"
     # you can add extra information before the name (HTML format is supported), such as icons
     pre = ""
     # you can add extra information after the name (HTML format is supported), such as icons
     post = ""
-    name = "Posts"
-    url = "/posts"
+    name = "Videos"
+    url = "/videos"
     # title will be shown when you hover on this menu link
     title = ""
     weight = 2
@@ -85,7 +85,7 @@ theme = "LoveIt"
       # site description
       description = "A blog with kotlins' suspend modifier"
       # site keywords
-      keywords = ["Theme", "Hugo"]
+      keywords = ["CoroutineDispatcher", "Stavro Xhardha"]
       # App icon config
       [languages.en.params.app]
         # optional site title override for the app when added to an iOS home screen or Android launcher
@@ -120,11 +120,6 @@ theme = "LoveIt"
           social = true
           # disclaimer (HTML format is supported)
           disclaimer = ""
-        # Home page posts
-        [languages.en.params.home.posts]
-          enable = true
-          # special amount of posts in each home posts page
-          paginate = 6
       # Social config in home page
       [languages.en.params.social]
         GitHub = "coroutinedispatcher"
@@ -133,6 +128,7 @@ theme = "LoveIt"
         Reddit = "stavro24496"
         Stackoverflow = "8914336/coroutinedispatcher"
         Xing = "Stavro_Xhardha"
+
 
 [params.page]
   [params.page.code]
